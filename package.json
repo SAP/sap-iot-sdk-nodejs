@@ -1,0 +1,42 @@
+{
+  "name": "@sap/leonardo-iot-sdk",
+  "private": true,
+  "version": "0.1.0-beta",
+  "description": "SDK which simplifies the interaction between an client / server application and SAP Leonardo IoT.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --ignore-path .gitignore .",
+    "test-unit": "mocha test/unit --recursive",
+    "test-integration": "mocha test/integration --sort --bail --config ./test/integration/.integration-mocharc.json",
+    "prepareRelease": "npm prune --production"
+  },
+  "dependencies": {
+    "@sap/xssec": "^2.2.2",
+    "debug": "^4.1.1",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.0",
+    "nock": "^10.0.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SAP/leonardo-iot-sdk-nodejs"
+  },
+  "keywords": [
+    "SAP",
+    "Leonardo",
+    "IoT",
+    "SDK"
+  ],
+  "author": "SAP SE",
+  "license": "Apache-2.0",
+  "files": [
+    "NOTICE.md",
+    "LICENSE",
+    "README.md",
+    "index.js",
+    "lib/"
+  ]
+}
