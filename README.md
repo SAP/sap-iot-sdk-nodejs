@@ -1,0 +1,2 @@
+# leonardo-iot-sdk-nodejs
+The SAP Leonardo IoT JavaScript SDK implements the client side usage of the most frequent used APIs of the SAP Leonardo IoT services. Also rarely used APIs which are not covered by designated service class functions can be called from this library by using a generic request facade. All API calls made in usage this library will be automatically enriched with authorization information in case they are configured via service binding or the local environment.
