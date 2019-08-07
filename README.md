@@ -65,18 +65,30 @@ Afterwards the SAP Leonardo IoT SDK can be installed and added to your new appli
 $ npm install SAP/leonardo-iot-sdk-nodejs --save
 ```
 
-### 2) Setup authorization
-Each request to SAP Leonardo IoT services requires an authorization token provided by an UAA instance to ensure authorization and authentication. As the recommended authorization configuration relates to the runtime platform, we have to distinguish in this step between cloud foundry and local applications:
+### 2) Setup authorization for local usage
+Each request to SAP Leonardo IoT services requires an authorization token provided by an UAA instance to ensure authorization and authentication. In a productive setup all credentials have to be provided from the runtime environment. For local usage, we will mock this environment in a file called `default-env.json`. 
 
-##### Local application
-For local setup copy the file `default-env-template.json` from this github repository into your project root directory. Afterwards copy the full content of your Leonardo IoT service key information from your subaccount's space ([service key creation documentation](https://help.sap.com/viewer/195126f4601945cba0886cbbcbf3d364/latest/en-US/a41c28db0cf449059d48c23fa5f7b24b.html)) and paste it into the placeholder part of the template file. Now rename this template file to `default-env.json` so it fulfills the naming convention.
-
-##### Cloud Foundry application
-Add the Leonardo IoT service binding into the `manifest.yml` file which is used for application deployment:
+First please create a blank file called `default-env.json`. Next you have to copy & paste the following template into this file:
 ```
-   services:
-    - <LeonardoIoTServiceName>
-``` 
+{
+  "VCAP_SERVICES": {
+    "iotae": [
+      {
+        "name": "leonardo-iot-service",
+        "tags": [
+          "leonardoiot"
+        ],
+        "credentials": <PASTE LEONARDO IOT SERVICE KEY HERE>
+      }
+    ],
+    "user-provided": []
+  }
+}
+```
+
+In this initial setup the service name is just a meaningful sample and can be freely changed. But keep in mind that the *name* attribute is mandatory for every service. Please keep the tag definition untouched as the *leonardoiot* tag identifies the Leonardo IoT service binding.
+
+Last you have to copy the full content of your Leonardo IoT service key information from your subaccount's space ([service key creation documentation](https://help.sap.com/viewer/195126f4601945cba0886cbbcbf3d364/latest/en-US/a41c28db0cf449059d48c23fa5f7b24b.html)) and paste it into the placeholder part of the template file.
 
 ### 3) Create SAP Leonardo IoT Client
 Next please define a .js file which acts as application entry point (referenced by package.json). This file is named `index.js` in case you are using the default NPM project settings. Now let's create a SAP Leonardo IoT client which will support you in accessing Leonardo IoT services within your code:
@@ -86,7 +98,7 @@ const client = new LeonardoIoT();
 ```
 
 ### 4) Usage for service interaction
-The client is now able to communicate with SAP Leonardo IoT services as it is fetching access credentials from the authorization setup file `default-env.json` or from the Leonardo IoT service binding (step 2) dependent to your choosen runtime. There is no more configuration required. Now you are able to perform your first service interaction using the Leonardo IoT client. Here is a runable sample which can be copy & pasted into your index.js file:
+The client is now able to communicate with SAP Leonardo IoT services as it is fetching access credentials from the authorization setup file `default-env.json`. There is no more configuration required. Now you are able to perform your first service interaction using the Leonardo IoT client. Here is a runable sample which can be copy & pasted into your index.js file:
 ```js
 const LeonardoIoT = require('@sap/leonardo-iot-sdk');
 const client = new LeonardoIoT();
@@ -113,9 +125,44 @@ After taking care about the project setup, client installation and implementatio
 $ node index.js
 ```
 
-Congratulation! You just performed your first API call to a SAP Leonardo IoT service via the SDK for Node.js. 
+Congratulation! You just performed your first API call to a SAP Leonardo IoT service via the SDK for Node.js.
 
-Here are some more examples of different API calls via Leonardo IoT client:
+### 6) Optional: Run your application in Cloud Foundry
+After starting your application locally you might want to deploy it to your subaccounts Cloud Foundry space. There is no code change required to do so, but now the `default-env.json` file will not have any effect as Cloud Foundry is providing the runtime environment itself. So let's tell Cloud Foundry what kind of services your application would like to bind.
+
+First create a new file called `manifest.yml`, in which all deployment parameters of your application can be provided, in your project's root directory. Next you have to copy & paste the following template into this file:
+```
+---
+applications:
+- name: sap-leonardo-iot-sdk-demo
+  command: node index.js
+  instances: 1
+  memory: 128MB
+  services:
+   - <LeonardoIoTServiceName>
+```
+
+Now you have to fill the placeholder for the service name of your Leonardo IoT service instance. If you are not aware of this name, the following Cloud Foundry command line command could help:
+```
+$ cf services
+```
+
+After maintaining all deployment related information you can push your application into your Cloud Foundry space and the script should run automatically after app start:
+```
+$ cf push
+```
+
+Check recent logs of your script:
+```
+$ cf logs sap-leonardo-iot-sdk-demo --recent
+```
+
+Congratulation! You just successfully managed to deploy an first Cloud Foundry application calling SAP Leonardo IoT services via the SDK.
+
+### 7) How to continue
+You just learned how to use the SAP Leonardo IoT SDK locally and also deployed to Cloud Foundry. Now it is up to you to fetch business requirements and build your first business application with Leonardo IoT SDK.
+
+Here are some more examples of different API calls via the Leonardo IoT client which show how easily the services can be consumed:
 ```js
 // Read existing things
 let things = await client.getThings();
@@ -149,15 +196,6 @@ const things = await client.getThings(
 );
 ```
 
-In case you want to forward access tokens from incoming request of your users (i.e. express app) you are also able to use these tokens for accessing SAP Leonardo IoT services:
-```js
-const things = await client.getThings(null, 
-    { 
-      'jwt': <token>
-    }
-);
-```
-
 ## Samples
 We created a a few quick start samples demonstrating the SAP Leonardo IoT JavaScript SDK functionality in a easy and simple adoptable way. Please have a look into the [***sample***](./sample) subdirectory for further information and coding samples.
 
@@ -169,7 +207,9 @@ As this SDK is taking care of authorization handling, it is required to provide 
 
 **HINT**: Please handle this information very carefully and conscientious. Never publish it into any repository or file server and do not share it without any permission.
 
-### Cloud Foundry environment
+### Providing credentials and configuration
+
+#### Cloud Foundry environment
 
 **Option 1: Leonardo IoT service binding**
 A very flexible and secure way of providing credentials is by fetching the tenant configuration from a service broker service binding of your application. This is the default option when no explicit service name is provided in SAP Leonardo IoT client instantiation.
@@ -184,8 +224,6 @@ Next you can directly create a SAP Leonardo IoT client within your coding withou
 const LeonardoIoT = require('@sap/leonardo-iot-sdk');
 const client = new LeonardoIoT();
 ```
-
-
 
 **Option 2: User provided service binding**
 Especially in the case that you want to run an application which is handling data of multiple SAP Leonardo IoT tenants (i.e. migrate data from your production subaccount to your development subaccount) you will make use of user provided service configurations. Here you have the possibility to create a SAP Leonardo IoT client which is fetching its configuration from a manual provided service.
@@ -206,7 +244,7 @@ const developmentClient = new LeonardoIoT('leonardo-iot-dev-account');
 
 Be aware that the instantiation will fail in case the named service is not provided in your environment. The user provided service itself has to contain all tenant and landscape related information, best practice is to copy & paste the service key of your subaccount, and can be freely named to whatever fits your needs.
 
-### Local environment
+#### Local environment
 
 **Provide environment in default-env.json file**
 The same mechanisms as descriped in the Cloud Foundry environment also are taking place for local running applications. The SAP Leonardo IoT SDK requires some credential and endpoint configuration, as it can be used for different tenants in different environments on different data centers. All these information is part of a Leonardo IoT service key which can be generated by a subaccount admin. The content of this service key has to be copied into a `default-env.json` file, which has to be placed on the projects root folder, so the SDK can also run on a local setup. If this file already exists as you may also include the SAP approuter into your project, feel free to just expand the existing file.
@@ -244,6 +282,44 @@ This example shows how the `default-env.json` could look like for using the Leon
 ```
 
 The SAP Leonardo IoT service binding is identified by the *leonardoiot* tag, so make sure that this service contains this tag in local setup. As user provided services are identified by their name, there is no need for any tag information.
+
+### Token forwarding
+In case you request any service via the SAP Leonardo IoT SDK, an access token for a technical user (client credential flow) is requested and used for authentication. This is fine for automated scripts or background jobs, but most productive applications will be managed by users including user authentication. So in case you want to call any service in a user context, you have to provide a user token which is used instead of a technical user token. This service call will look similar to this example:
+
+```js
+// Forward token from incoming request
+const things = await client.getThings(null, {'jwt': request.headers.authorization});
+```
+
+But now we got to the situation that a token, granted by your own uaa service, is forwarded to Leonardo IoT, which is not aware of your custom scopes and authorities. So a token exchange from your custom token to a Leonardo IoT token is required. But no worry, this exchange is handled by the SDK itself! But it requires also some more information to do so:
+- Leonardo IoT service binding (by default service or user provided service)
+- UAA service binding (instance which granted the token)
+
+In a local setup you have to add the following information to your existing `default-env.json` file:
+```
+{
+  "VCAP_SERVICES": {
+    "iotae": [{ ... }],
+    "user-provided": [],
+    "xsuaa": [
+       {
+        "name": "custom-uaa-service",
+        "tags": [
+          "xsuaa"
+        ],
+        "credentials": <PASTE XSUAA SERVICE KEY HERE>
+      }
+    ]
+  }
+}
+```
+
+In a Cloud Foundry setup, just add the XSUAA service name to your application's service dependencies in the `manifest.yml` file:
+```
+   services:
+    - leonardo-iot-service
+    - custom-uaa-service
+```
 
 ## FAQ
 
@@ -291,6 +367,8 @@ const things = await client.getThings(null, {'jwt': request.headers.authorizatio
 const myToken = getToken();
 const things = await client.getThings(null, {'jwt': myToken});
 ```
+
+Please be aware that forwarded tokens have to be exchanged with a Leonardo IoT valid token. This operation is managed by the SDK itself, but mandatory requires an binding to the XSUAA instance, which granted your user token. For more information please check the [authorization concept documentation](#authorization-concept).
 
 ### How can I use this SDK for different tenants within a single application?
 You can create a SAP Leonardo IoT client for a specific tenant by providing the name of the user provided service, which contains all tenant related configurations (tenant service key). In case you are testing locally, don't forget to add the user provided service in the `default-env.json` file:
