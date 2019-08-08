@@ -67,7 +67,7 @@ async function runPropertySetTypeOperations() {
 
     for (const propertySetType of propertySetTypes) {
         // Get etag for each package
-        const propertySetTypeResponse = await client.getPropertySetType(propertySetType.Name, {resolveWithFullResponse: true});
+        const propertySetTypeResponse = await client.getPropertySetType(propertySetType.Name, null, {resolveWithFullResponse: true});
         // Delete created packages
         await client.deletePropertySetType(propertySetType.Name, propertySetTypeResponse.headers.etag);
         console.log(`Property Set Type successfully deleted: ${propertySetType.Name}`);

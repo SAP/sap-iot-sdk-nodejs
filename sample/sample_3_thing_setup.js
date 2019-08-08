@@ -88,7 +88,7 @@ async function createThing() {
  */
 async function cleanup() {
     const packageResponse = await client.getPackage(packagePayload.Name, {resolveWithFullResponse: true});
-    const propertySetTypeResponse = await client.getPropertySetType(propertySetTypePayload.Name, {resolveWithFullResponse: true});
+    const propertySetTypeResponse = await client.getPropertySetType(propertySetTypePayload.Name, null, {resolveWithFullResponse: true});
     const thingTypeResponse = await client.getThingType(thingTypePayload.Name, null, {resolveWithFullResponse: true});
 
     const things = await client.getThingsByThingType(thingTypePayload.Name);
