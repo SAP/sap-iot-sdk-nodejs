@@ -16,7 +16,7 @@ describe('Thing Type Service', () => {
             const thingTypePayload = {Name: 'MyThingType'};
             client.request = function (requestConfig) {
                 AssertionUtil.assertRequestConfig(requestConfig, {
-                    url: `${configThingUrl}/ThingConfiguration/v1/Packages('${packageName}')/ThingTypes`,
+                    url: `${configThingUrl}/ThingConfiguration/v2/Packages('${packageName}')/ThingTypes`,
                     method: 'POST',
                     body: thingTypePayload
                 });

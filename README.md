@@ -66,7 +66,7 @@ $ npm install SAP/leonardo-iot-sdk-nodejs --save
 ```
 
 ### 2) Setup authorization for local usage
-Each request to SAP Leonardo IoT services requires an authorization token provided by an UAA instance to ensure authorization and authentication. In a productive setup all credentials have to be provided from the runtime environment. For local usage, we will mock this environment in a file called `default-env.json`. 
+Each request to SAP Leonardo IoT services requires an access token provided by an UAA instance to ensure authorization and authentication. The SDK takes care to enrich all service calls with a valid token itself, but therefore requires tenant specific credentials. In a productive setup all credentials are commonly provided from the runtime environment. For local usage, we will mock this environment in a file called `default-env.json`. 
 
 First please create a blank file called `default-env.json`. Next you have to copy & paste the following template into this file:
 ```
@@ -98,32 +98,29 @@ const client = new LeonardoIoT();
 ```
 
 ### 4) Usage for service interaction
-The client is now able to communicate with SAP Leonardo IoT services as it is fetching access credentials from the authorization setup file `default-env.json`. There is no more configuration required. Now you are able to perform your first service interaction using the Leonardo IoT client. Here is a runable sample which can be copy & pasted into your index.js file:
+The client is now able to communicate with SAP Leonardo IoT services as it is fetching access credentials from the authorization setup file `default-env.json`. There is no more configuration required. Now you are able to perform your first service interaction using the Leonardo IoT client. Here is a simple runable web server sample which can be copy & pasted into your index.js file:
 ```js
+const { createServer } = require("http");
 const LeonardoIoT = require('@sap/leonardo-iot-sdk');
 const client = new LeonardoIoT();
 
-async function main(){
-	let things = await client.getThings();
-	
-	if (things.value.length < 1) {
-		console.log("No thing existing");
-	}
-	
-	// Log all thing IDs and names
-	for (const [index, thing] of things.value.entries()) {
-		console.log("#" + (index + 1) + "\nID: " + thing._id + "\nName: " + thing._name + "\n");
-	}
-}
-
-main();
+createServer(async (request, response) => {
+    if (request.url === '/things') {
+        const things = await client.getThings();
+        response.end(`THING LIST (${things.value.length})${things.value.map((thing, index) => `\n\n#${index + 1} ${thing._id} (${thing._name})`).join('')}`);
+    }
+}).listen(8080);
 ```
 
 ### 5) Run your code
-After taking care about the project setup, client installation and implementation of the application entry point, you are ready to run your code:
+After taking care about the project setup, client installation and implementation of the application entry point, you are ready to run your code.
+
+First start your server locally:
 ```console
 $ node index.js
 ```
+
+Next open a browser and navigate to `http://localhost:8080/things`
 
 Congratulation! You just performed your first API call to a SAP Leonardo IoT service via the SDK for Node.js.
 
@@ -134,7 +131,7 @@ First create a new file called `manifest.yml`, in which all deployment parameter
 ```
 ---
 applications:
-- name: sap-leonardo-iot-sdk-demo
+- name: sap-leonardo-iot-demo #choose unique app name to avoid conflicts with existing apps
   command: node index.js
   instances: 1
   memory: 128MB
@@ -144,18 +141,19 @@ applications:
 
 Now you have to fill the placeholder for the service name of your Leonardo IoT service instance. If you are not aware of this name, the following Cloud Foundry command line command could help:
 ```
-$ cf services
+# Windows User
+$ cf services | findstr iotae
+
+# Linux / Mac User
+$ cf services | grep iotae
 ```
 
-After maintaining all deployment related information you can push your application into your Cloud Foundry space and the script should run automatically after app start:
+After maintaining all deployment related information you can push your application into your subaccount's Cloud Foundry space:
 ```
 $ cf push
 ```
 
-Check recent logs of your script:
-```
-$ cf logs sap-leonardo-iot-sdk-demo --recent
-```
+Now you should be able to see the thing list in your browser by opening the following url: `https://:<RouteOfApplication>/things`
 
 Congratulation! You just successfully managed to deploy an first Cloud Foundry application calling SAP Leonardo IoT services via the SDK.
 
