@@ -1,5 +1,5 @@
 {
-  "name": "@sap/leonardo-iot-sdk-sample",
+  "name": "sap-leonardo-iot-sdk-sample",
   "version": "1.0.0",
   "description": "Samples for usage of SAP Leonardo IoT SDK",
   "scripts": {
@@ -10,7 +10,7 @@
     "node": "^8.6.0"
   },
   "dependencies": {
-    "@sap/leonardo-iot-sdk": "SAP/leonardo-iot-sdk-nodejs",
+    "sap-leonardo-iot-sdk": "SAP/leonardo-iot-sdk-nodejs",
     "async-mqtt": "2.3.0",
     "express": "^4.17.1"
   },

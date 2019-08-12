@@ -6,7 +6,7 @@
  */
 
 const assert = require('assert');
-const LeonardoIoT = require('@sap/leonardo-iot-sdk');
+const LeonardoIoT = require('sap-leonardo-iot-sdk');
 const client = new LeonardoIoT();
 
 const thingId = ''; // TODO enter thingId used for ingestion
@@ -37,7 +37,6 @@ async function runTimeSeriesDataOperations() {
     const timeSeriesDataPayload = generateTimeSeriesDataPayload(propertySet);
     console.log(`\n (2) Sending new time series data:\n${JSON.stringify(timeSeriesDataPayload)}`);
     await client.createTimeSeriesData(thingId, thing._thingType, propertySet.Name, timeSeriesDataPayload);
-
     thingSnapshotData = await client.getThingSnapshot(thingId);
     console.log(`\n(3) New thing snapshot data:\n${JSON.stringify(thingSnapshotData)}`);
 }

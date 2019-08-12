@@ -54,6 +54,14 @@ describe('ConfigurationProvider', () => {
     });
 
     describe('getService filter', () => {
+        beforeEach(() => {
+            tmpVcapServices = JSON.parse(JSON.stringify(process.env.VCAP_SERVICES));
+        });
+
+        afterEach(() => {
+            process.env.VCAP_SERVICES = JSON.parse(JSON.stringify(tmpVcapServices));
+        });
+
         it('get existing leonardo iot service by tag', async () => {
             const service = ConfigurationProvider._getService({tag: 'leonardoiot'});
             assert.equal(service.tags[0], 'leonardoiot', 'Unexpected service');
@@ -63,7 +71,6 @@ describe('ConfigurationProvider', () => {
             const service = ConfigurationProvider._getService({tag: 'xsuaa'});
             assert.equal(service.tags[0], 'xsuaa', 'Unexpected service');
         });
-
 
         it('get not existing service by tag', async () => {
             const service = ConfigurationProvider._getService({tag: 'notExisting'});
@@ -83,6 +90,11 @@ describe('ConfigurationProvider', () => {
         it('get not existing service by name', async () => {
             const service = ConfigurationProvider._getService({name: 'notExisting'});
             assert.equal(service, undefined, 'Unexpected service');
+        });
+
+        it('expect error for missing environment configuration', async () => {
+            delete process.env.VCAP_SERVICES;
+            assert.throws(() => ConfigurationProvider._getService(), Error, 'Expected Error was not thrown');
         });
     });
 });
