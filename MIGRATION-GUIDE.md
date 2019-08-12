@@ -32,7 +32,7 @@ const AE = require('iot-application-services-sdk-nodejs');
 const client = new AE();
  
 //  NEW CODING
-const LeonardoIoT = require('@sap/leonardo-iot-sdk');
+const LeonardoIoT = require('sap-leonardo-iot-sdk');
 const client = new LeonardoIoT();
 ```
 
@@ -40,7 +40,7 @@ const client = new LeonardoIoT();
 All functionality from the [feature overview table](https://github.com/SAP/leonardo-iot-sdk-nodejs/blob/master/README.md#feature-overview) can be called by a designated function of the instantiated Leonardo IoT client:  
 
 ```js
-const LeonardoIoT = require('@sap/leonardo-iot-sdk');
+const LeonardoIoT = require('sap-leonardo-iot-sdk');
 const client = new LeonardoIoT();
 
 // Read things
@@ -49,7 +49,7 @@ const things = await client.getThings();
 
 In case your used functionality is not covered by a designated function, you can send the request by using a general request facade of the client:
 ```js
-const LeonardoIoT = require('@sap/leonardo-iot-sdk');
+const LeonardoIoT = require('sap-leonardo-iot-sdk');
 const client = new LeonardoIoT();
 
 // Read assignments

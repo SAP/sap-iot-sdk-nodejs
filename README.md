@@ -93,7 +93,7 @@ Last you have to copy the full content of your Leonardo IoT service key informat
 ### 3) Create SAP Leonardo IoT Client
 Next please define a .js file which acts as application entry point (referenced by package.json). This file is named `index.js` in case you are using the default NPM project settings. Now let's create a SAP Leonardo IoT client which will support you in accessing Leonardo IoT services within your code:
 ```js
-const LeonardoIoT = require('@sap/leonardo-iot-sdk');
+const LeonardoIoT = require('sap-leonardo-iot-sdk');
 const client = new LeonardoIoT();
 ```
 
@@ -101,7 +101,7 @@ const client = new LeonardoIoT();
 The client is now able to communicate with SAP Leonardo IoT services as it is fetching access credentials from the authorization setup file `default-env.json`. There is no more configuration required. Now you are able to perform your first service interaction using the Leonardo IoT client. Here is a simple runable web server sample which can be copy & pasted into your index.js file:
 ```js
 const { createServer } = require("http");
-const LeonardoIoT = require('@sap/leonardo-iot-sdk');
+const LeonardoIoT = require('sap-leonardo-iot-sdk');
 const client = new LeonardoIoT();
 
 createServer(async (request, response) => {
@@ -219,7 +219,7 @@ To make use of this option add the service broker service binding into the `mani
 
 Next you can directly create a SAP Leonardo IoT client within your coding without providing any other information:
 ```js
-const LeonardoIoT = require('@sap/leonardo-iot-sdk');
+const LeonardoIoT = require('sap-leonardo-iot-sdk');
 const client = new LeonardoIoT();
 ```
 
@@ -235,7 +235,7 @@ So first you have to bind the user provided services to your application within 
 
 Next you can create instances of the SAP Leonardo IoT client within your coding by providing the service name in the instantiation:
 ```js
-const LeonardoIoT = require('@sap/leonardo-iot-sdk');
+const LeonardoIoT = require('sap-leonardo-iot-sdk');
 const productionClient = new LeonardoIoT('leonardo-iot-prod-account');
 const developmentClient = new LeonardoIoT('leonardo-iot-dev-account');
 ```
@@ -325,7 +325,7 @@ In a Cloud Foundry setup, just add the XSUAA service name to your application's 
 The SAP Leonardo IoT client offers a general `request` function which is also used by the SDK internally. This function gives you full options to access SAP Leonardo IoT services without caring about authorization (same authorization concept as for all other calls used):
 
 ```js
-const LeonardoIoT = require('@sap/leonardo-iot-sdk');
+const LeonardoIoT = require('sap-leonardo-iot-sdk');
 const client = new LeonardoIoT();
 
 const url = 'https://tm-data-mapping.cfapps.eu10.hana.ondemand.com/v1/assignments';
@@ -371,7 +371,7 @@ Please be aware that forwarded tokens have to be exchanged with a Leonardo IoT v
 ### How can I use this SDK for different tenants within a single application?
 You can create a SAP Leonardo IoT client for a specific tenant by providing the name of the user provided service, which contains all tenant related configurations (tenant service key). In case you are testing locally, don't forget to add the user provided service in the `default-env.json` file:
 ```js
-const LeonardoIoT = require('@sap/leonardo-iot-sdk');
+const LeonardoIoT = require('sap-leonardo-iot-sdk');
 
 // Client using user provided service configuration with name 'dev-tenant'
 const clientDevTenant = new LeonardoIoT('dev-tenant');

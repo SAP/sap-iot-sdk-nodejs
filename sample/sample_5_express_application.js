@@ -3,7 +3,7 @@
  */
 
 const express = require('express');
-const LeonardoIoT = require('@sap/leonardo-iot-sdk');
+const LeonardoIoT = require('sap-leonardo-iot-sdk');
 const client = new LeonardoIoT();
 
 const app = express();

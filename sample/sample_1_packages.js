@@ -2,7 +2,7 @@
  * This example shows different package service calls
  */
 
-const LeonardoIoT = require('@sap/leonardo-iot-sdk');
+const LeonardoIoT = require('sap-leonardo-iot-sdk');
 const client = new LeonardoIoT();
 
 let tenantPackagePrefix;

@@ -8,7 +8,7 @@
  * In this sample they are called 'leonardo-iot-account-dev' and 'leonardo-iot-account-qa', but feel free to adapt these names to your scenario.
  */
 
-const LeonardoIoT = require('@sap/leonardo-iot-sdk');
+const LeonardoIoT = require('sap-leonardo-iot-sdk');
 // Client for DEV tenant fetching configuration from user provided service with name 'leonardo-iot-account-dev'
 const clientDev = new LeonardoIoT('leonardo-iot-account-dev');
 // Client for QA tenant fetching configuration from user provided service with name 'leonardo-iot-account-qa'
