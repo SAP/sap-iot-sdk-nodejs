@@ -1,11 +1,11 @@
 const assert = require('assert');
-const Token = require('../../../lib/auth/token');
+const Token = require('../../../lib/auth/Token');
 
 describe('Token', () => {
   describe('getAccessToken', () => {
     it('should return the stored token', () => {
       const jwtToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
-      const token = new Token(jwtToken, null);
+      const token = new Token(jwtToken, 60);
       assert.equal(jwtToken, token.getAccessToken());
     });
   });

@@ -319,6 +319,8 @@ In a Cloud Foundry setup, just add the XSUAA service name to your application's 
     - custom-uaa-service
 ```
 
+Hint: The implementation of @sap/xssec expects, that an [uaa configuration](https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/latest/en-US/3bfb120045694e21bfadb1344a693d1f.html) defines at least one role-template to process an successful token exchange.
+
 ## FAQ
 
 ### How can I call a service which is not covered by this SDK?

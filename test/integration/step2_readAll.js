@@ -24,14 +24,13 @@ describe('2) READ ALL', () => {
 
     it('object groups', async () => {
         await client.getObjectGroups();
-        const objectGroups = await client.getObjectGroups({
-            $filter: `name eq ${DataHelper.objectGroup().name}`
-        });
+        const objectGroups = await client.getObjectGroups({$filter: `name eq ${DataHelper.objectGroup().name}`});
         DataHelper.data.objectGroup = objectGroups.value[0];
     });
 
     it('things', async () => {
         await client.getThings();
+        await client.getThingsByThingType(DataHelper.thingType().Name, {$filter: `_name ne 'xyz'`});
         const things = await client.getThingsByThingType(DataHelper.thingType().Name);
         DataHelper.data.thing = things.value[0];
     });

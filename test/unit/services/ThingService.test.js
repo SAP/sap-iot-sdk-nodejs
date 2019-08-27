@@ -69,25 +69,25 @@ describe('Thing Service', () => {
         });
 
         it('read multiple by thing type', async () => {
-            const thingTypeId = 'MyThingType';
+            const thingTypeName = 'MyThingType';
             client.request = function (requestConfig) {
                 AssertionUtil.assertRequestConfig(requestConfig, {
-                    url: `${appiotMdsUrl}/Things?$filter=_thingType eq '${thingTypeId}'`
+                    url: `${appiotMdsUrl}/Things?$filter=_thingType eq '${thingTypeName}'`
                 });
             };
 
-            await client.getThingsByThingType(thingTypeId);
+            await client.getThingsByThingType(thingTypeName);
         });
 
         it('read multiple by thing type with complex filter', async () => {
-            const thingTypeId = 'MyThingType';
+            const thingTypeName = 'MyThingType';
             client.request = function (requestConfig) {
                 AssertionUtil.assertRequestConfig(requestConfig, {
-                    url: `${appiotMdsUrl}/Things?$filter=_name eq 'test' and _thingType eq '${thingTypeId}'`
+                    url: `${appiotMdsUrl}/Things?$filter=_name eq 'test' and _thingType eq '${thingTypeName}'`
                 });
             };
 
-            await client.getThingsByThingType(thingTypeId, {$filter: "_name eq 'test'"});
+            await client.getThingsByThingType(thingTypeName, {$filter: "_name eq 'test'"});
         });
 
         it('delete', async () => {
