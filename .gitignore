@@ -1,6 +1,6 @@
 # Environment for local development
-default-env.json
 .env
+default-env*.json
 
 # Packages
 .tgz
@@ -20,3 +20,9 @@ npm-debug.log*
 # Optional npm cache directory
 .npm
 package-lock.json
+
+# Coverage directory used by tools like istanbul
+coverage
+
+# nyc test coverage
+.nyc_output

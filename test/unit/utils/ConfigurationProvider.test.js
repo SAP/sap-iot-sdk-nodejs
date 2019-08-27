@@ -1,4 +1,5 @@
 const assert = require('assert');
+const proxyquire = require('proxyquire');
 const ConfigurationProvider = require('../../../lib/utils/ConfigurationProvider');
 
 describe('ConfigurationProvider', () => {
@@ -93,8 +94,11 @@ describe('ConfigurationProvider', () => {
         });
 
         it('expect error for missing environment configuration', async () => {
+            let xsenvStub = { loadEnv : () => { }};
+            const ProxyquireConfigurationProvider = proxyquire('../../../lib/utils/ConfigurationProvider', {'@sap/xsenv': xsenvStub});
+
             delete process.env.VCAP_SERVICES;
-            assert.throws(() => ConfigurationProvider._getService(), Error, 'Expected Error was not thrown');
+            assert.throws(() => ProxyquireConfigurationProvider._getService(), Error, 'Expected Error was not thrown');
         });
     });
 });
