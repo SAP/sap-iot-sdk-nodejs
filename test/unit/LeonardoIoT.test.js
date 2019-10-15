@@ -19,12 +19,42 @@ describe('LeonardoIoT', () => {
     });
 
     describe('constructor', () => {
-        it('supports call without parameter', async () => {
+        it('call without arguments', async () => {
             const clientDefault = new LeonardoIoT();
             assert.notEqual(clientDefault, undefined, 'Invalid constructor for LeonardoIoT client');
         });
 
-        it('supports instances for multi tenant mode', async () => {
+        it('call with configuration arguments', async () => {
+            const client = new LeonardoIoT({
+                uaa: {
+                    clientid: "testId",
+                    clientsecret: "testSecret",
+                    url: "https://test.authentication.eu10.hana.ondemand.com"
+                },
+                endpoints: {
+                    "appiot-mds": "https://appiot-mds.cfapps.eu10.hana.ondemand.com",
+                    "config-thing-sap": "https://config-thing-sap.cfapps.eu10.hana.ondemand.com"
+                }
+            });
+            assert.notEqual(client, undefined, 'Invalid constructor for LeonardoIoT client');
+        });
+
+        it('call with configuration arguments including xsuaa config', async () => {
+            const client = new LeonardoIoT({
+                uaa: {
+                    clientid: "testId",
+                    clientsecret: "testSecret",
+                    url: "https://test.authentication.eu10.hana.ondemand.com"
+                },
+                endpoints: {
+                    "appiot-mds": "https://appiot-mds.cfapps.eu10.hana.ondemand.com",
+                    "config-thing-sap": "https://config-thing-sap.cfapps.eu10.hana.ondemand.com"
+                }
+            });
+            assert.notEqual(client, undefined, 'Invalid constructor for LeonardoIoT client');
+        });
+
+        it('instances for multi tenant mode', async () => {
             const clientTest = new LeonardoIoT('leonardo-iot-account-test');
             const clientDev = new LeonardoIoT('leonardo-iot-account-dev');
 
