@@ -1,6 +1,7 @@
 const assert = require('assert');
 const AssertionUtil = require('./AssertionUtil');
 const LeonardoIoT = require('../../lib/LeonardoIoT');
+const packageJson = require('../../package.json');
 
 const forwardedAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
 const generatedAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gSmFjayIsImlhdCI6MTUxNjIzOTAyMn0.bomrLBN9zEDjVwnPDB49FtIbWxdyHZsnV8OibfTuArs';
@@ -81,6 +82,11 @@ describe('LeonardoIoT', () => {
                 url: 'https://appiot-mds.cfapps.eu10.hana.ondemand.com/Things',
                 jwt: forwardedAccessToken
             });
+        });
+
+        it('has correct version in user agent header field', async () => {
+            let headers = LeonardoIoT._addUserAgent({});
+            assert.equal(headers['User-Agent'], `${packageJson.name}-nodejs / ${packageJson.version}`, 'Unexpected User-Agent header field value');
         });
 
         it('throws error for missing URL parameter', async () => {
