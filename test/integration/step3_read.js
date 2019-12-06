@@ -29,4 +29,8 @@ describe('3) READ', () => {
         await client.getThing(DataHelper.data.thing._id);
         await client.getThingByAlternateId(DataHelper.data.thing._alternateId);
     });
+
+    it('event', async function () {
+        await client.getEvent(DataHelper.data.event._id);
+    });
 });

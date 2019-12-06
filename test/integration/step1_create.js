@@ -27,4 +27,10 @@ describe('1) CREATE', () => {
     it('thing', async () => {
         await client.createThing(DataHelper.thing());
     });
+
+    it('event', async () => {
+        const things = await client.getThingsByThingType(DataHelper.thingType().Name);
+        DataHelper.data.thing = things.value[0];
+        await client.createEvent(DataHelper.event());
+    });
 });

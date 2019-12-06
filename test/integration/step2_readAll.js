@@ -34,4 +34,11 @@ describe('2) READ ALL', () => {
         const things = await client.getThingsByThingType(DataHelper.thingType().Name);
         DataHelper.data.thing = things.value[0];
     });
+
+    it('events', async () => {
+        await client.getEvents();
+        await client.getEventsByThingId(DataHelper.data.thing._id, {$filter: `_status ne 'InProcess'`});
+        const events = await client.getEventsByThingId(DataHelper.data.thing._id);
+        DataHelper.data.event = events.value[0];
+    });
 });
