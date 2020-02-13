@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@sap/xssec": "^2.2.3",
+    "@sap/xsenv": "^2.2.0",
     "debug": "^4.1.1",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.8"
