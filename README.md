@@ -30,6 +30,7 @@ It is required to have access to an SAP Leonardo IoT account to make use of this
 | Property Set Type | X      | X    |        | X      |
 | Thing Type        | X      | X    |        | X      |
 | Thing             | X      | X    |        | X      |
+| Event             | X      | X    |        | X      |
 | Object Group      | X      | X    |        | X      |
 
 ### Time Series Data
