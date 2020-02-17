@@ -1,7 +1,7 @@
 {
   "name": "sap-leonardo-iot-sdk",
   "private": true,
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "SDK which simplifies the interaction between an client / server application and SAP Leonardo IoT.",
   "main": "index.js",
   "scripts": {
