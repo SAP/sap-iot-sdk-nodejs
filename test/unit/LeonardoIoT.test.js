@@ -1,8 +1,9 @@
 const assert = require('assert');
-const AssertionUtil = require('./AssertionUtil');
 const proxyquire = require('proxyquire');
+
 let rpStub = () => { return Promise.reject() };
 const LeonardoIoT = proxyquire('../../lib/LeonardoIoT', { 'request-promise-native': (requestConfig) => { rpStub(requestConfig) } });
+const AssertionUtil = require('./AssertionUtil');
 const packageJson = require('../../package.json');
 
 const forwardedAccessToken = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiY2lkIjoieHN1YWFDbGllbnRJZCIsInppZCI6ImFkZTU4NmM2LWY1YjEtNGRkYy1hZWNiLWVhZDNjMmU2ZTcyNSIsInNjb3BlIjpbInVhYS51c2VyIl0sIm5hbWUiOiJTQVAgTGVvbmFyZG8gVGVzdDIiLCJpYXQiOjE1MTYyMzkwMjJ9.h-ETrxkX_K2puXZustO8vTD000OvA_HUfcYWOtokMI_trznDhYgFh9uACd2tPPbKbsrKKH-bcQljSH5Nh-l1KsrsMdVKygJ5-Dmv_8Jdqjb7IHsTZSyQ2b0-EcPawcnECd17N9OJJAIVhBDKnW_32eGLv1yd71Z1e4BjIvuUJCClUWO6mFHD7qL4fcL9zb20N25AcEddDbkTgIe0iSWBaO6k1XUne3jcPcgAOGqpH7J04ACxk7366-4wmtDVk00AXOn8MbNeAkI_cOI3nV3V5dxsB6E6eRFJENKX186DNhwHaBzq6h2VKvXKOG_D2THzPRjDMhiEtrAmSQdB15Re_Q';
