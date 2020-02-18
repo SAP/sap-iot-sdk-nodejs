@@ -1,36 +1,36 @@
 const LeonardoIoT = require('../../lib/LeonardoIoT');
 const DataHelper = require('./helper/DataHelper');
 
-describe('1) CREATE', () => {
+describe('1) CREATE', function () {
     let client;
 
-    before(async () => {
+    before(function () {
         client = new LeonardoIoT();
     });
 
-    it('package', async () => {
-        await client.createPackage(DataHelper.package());
+    it('package', function () {
+        return client.createPackage(DataHelper.package());
     });
 
-    it('property set type', async () => {
-        await client.createPropertySetType(DataHelper.package().Name, DataHelper.propertySetType());
+    it('property set type', function () {
+        return client.createPropertySetType(DataHelper.package().Name, DataHelper.propertySetType());
     });
 
-    it('thing type', async () => {
-        await client.createThingType(DataHelper.package().Name, DataHelper.thingType());
+    it('thing type', function () {
+        return client.createThingType(DataHelper.package().Name, DataHelper.thingType());
     });
 
-    it('object group', async () => {
-        await client.createObjectGroup(DataHelper.objectGroup());
+    it('object group', function () {
+        return client.createObjectGroup(DataHelper.objectGroup());
     });
 
-    it('thing', async () => {
-        await client.createThing(DataHelper.thing());
+    it('thing', function () {
+        return client.createThing(DataHelper.thing());
     });
 
-    it('event', async () => {
+    it('event', async function () {
         const things = await client.getThingsByThingType(DataHelper.thingType().Name);
         DataHelper.data.thing = things.value[0];
-        await client.createEvent(DataHelper.event());
+        return client.createEvent(DataHelper.event());
     });
 });
