@@ -1,13 +1,11 @@
 const LeonardoIoT = require('../../lib/LeonardoIoT');
 
-describe('4) UPDATE', () => {
+describe('4) UPDATE', function () {
     let client;
 
-    before(async () => {
+    before(function () {
         client = new LeonardoIoT();
     });
 
-    it('none', async () => {
-
-    });
+    it('none', function () {});
 });
