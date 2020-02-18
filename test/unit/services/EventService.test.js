@@ -3,18 +3,18 @@ const LeonardoIoT = require('../../../lib/LeonardoIoT');
 
 const appiotMdsUrl = 'https://appiot-mds.cfapps.eu10.hana.ondemand.com';
 
-describe('Event Service', () => {
+describe('Event Service', function () {
     let client;
 
-    beforeEach(() => {
+    beforeEach(function () {
         client = new LeonardoIoT();
     });
 
-    describe('Event', () => {
-        it('create', async () => {
+    describe('Event', function () {
+        it('create', function () {
             const thingId = 'MyThing';
             const eventPayload = {_status: 'Open', _code: 'T1', _thingId: thingId};
-            client.request = function (requestConfig) {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${appiotMdsUrl}/Events`,
                     method: 'POST',
@@ -25,9 +25,9 @@ describe('Event Service', () => {
             await client.createEvent(eventPayload);
         });
 
-        it('read single', async () => {
+        it('read single', function () {
             const eventId = 'MyEvent';
-            client.request = function (requestConfig) {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${appiotMdsUrl}/Events('${eventId}')`,
                 });
@@ -36,8 +36,8 @@ describe('Event Service', () => {
             await client.getEvent(eventId);
         });
 
-        it('read multiple', async () => {
-            client.request = function (requestConfig) {
+        it('read multiple', function () {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${appiotMdsUrl}/Events`,
                 });
@@ -46,8 +46,8 @@ describe('Event Service', () => {
             await client.getEvents();
         });
 
-        it('read multiple with different query parameters', async () => {
-            client.request = function (requestConfig) {
+        it('read multiple with different query parameters', function () {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${appiotMdsUrl}/Events?$select=_thingId,_status&$orderby=_thingId&$top=10&$skip=5`,
                 });
@@ -58,9 +58,9 @@ describe('Event Service', () => {
             });
         });
 
-        it('read multiple by thing identifier', async () => {
+        it('read multiple by thing identifier', function () {
             const thingId = 'MyThing';
-            client.request = function (requestConfig) {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${appiotMdsUrl}/Events?$filter=_thingId eq '${thingId}'`
                 });
@@ -69,9 +69,9 @@ describe('Event Service', () => {
             await client.getEventsByThingId(thingId);
         });
 
-        it('read multiple by thing type with complex filter', async () => {
+        it('read multiple by thing type with complex filter', function () {
             const thingId = 'MyThing';
-            client.request = function (requestConfig) {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${appiotMdsUrl}/Events?$filter=_status eq 'Completed' and _thingId eq '${thingId}'`
                 });
@@ -80,9 +80,9 @@ describe('Event Service', () => {
             await client.getEventsByThingId(thingId, {$filter: "_status eq 'Completed'"});
         });
 
-        it('delete', async () => {
+        it('delete', function () {
             const eventId = 'MyEvent';
-            client.request = function (requestConfig) {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${appiotMdsUrl}/Events('${eventId}')`,
                     method: 'DELETE'
