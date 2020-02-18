@@ -3,18 +3,18 @@ const LeonardoIoT = require('../../../lib/LeonardoIoT');
 
 const configThingUrl = 'https://config-thing-sap.cfapps.eu10.hana.ondemand.com';
 
-describe('Property Set Type Service', () => {
+describe('Property Set Type Service', function () {
     let client;
 
-    beforeEach(() => {
+    beforeEach(function () {
         client = new LeonardoIoT();
     });
 
-    describe('PropertySetType', () => {
-        it('create', async () => {
+    describe('PropertySetType',function () {
+        it('create', function () {
             const packageName = 'MyPackage';
             const propertySetTypePayload = {Name: 'MyPropertySetType'};
-            client.request = function (requestConfig) {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${configThingUrl}/ThingConfiguration/v1/Packages('${packageName}')/PropertySetTypes`,
                     method: 'POST',
@@ -22,45 +22,45 @@ describe('Property Set Type Service', () => {
                 });
             };
 
-            await client.createPropertySetType(packageName, propertySetTypePayload);
+            return client.createPropertySetType(packageName, propertySetTypePayload);
         });
 
-        it('read single', async () => {
+        it('read single', function () {
             const propertySetTypeName = 'MyPropertySetType';
-            client.request = function (requestConfig) {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${configThingUrl}/ThingConfiguration/v1/PropertySetTypes('${propertySetTypeName}')`,
                 });
             };
 
-            await client.getPropertySetType(propertySetTypeName);
+            return client.getPropertySetType(propertySetTypeName);
         });
 
-        it('read multiple', async () => {
-            client.request = function (requestConfig) {
+        it('read multiple', function () {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${configThingUrl}/ThingConfiguration/v1/PropertySetTypes`,
                 });
             };
 
-            await client.getPropertySetTypes();
+            return client.getPropertySetTypes();
         });
 
-        it('read multiple by package', async () => {
+        it('read multiple by package', function () {
             const packageName = 'MyPackage';
-            client.request = function (requestConfig) {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${configThingUrl}/ThingConfiguration/v1/Packages('${packageName}')/PropertySetTypes`,
                 });
             };
 
-            await client.getPropertySetTypesByPackage(packageName);
+            return client.getPropertySetTypesByPackage(packageName);
         });
 
-        it('delete', async () => {
+        it('delete', function () {
             const propertySetTypeName = 'MyPropertySetType';
             const etag = '8f9da184-5af1-4237-8ede-a7fee8ddc57e';
-            client.request = function (requestConfig) {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${configThingUrl}/ThingConfiguration/v1/PropertySetTypes('${propertySetTypeName}')`,
                     method: 'DELETE',
@@ -68,7 +68,7 @@ describe('Property Set Type Service', () => {
                 });
             };
 
-            await client.deletePropertySetType(propertySetTypeName, etag);
+            return client.deletePropertySetType(propertySetTypeName, etag);
         });
     });
 });
