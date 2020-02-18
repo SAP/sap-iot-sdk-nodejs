@@ -9,8 +9,8 @@ let xssecStub;
 const sampleToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gU0FQIiwiaWF0IjoxNTE2MjM5MDIyfQ.vrRldgjFOYWVhsOQEoM-lHDpPc_g6rZ6ecsTRM6H8MA';
 const exchangedToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlNBUCBUZXN0IiwiaWF0IjoxNTE2MjM5MDIyfQ.eS_ilFJWy8PB_2Y4xq8AKqm1eLBUQqAoO4tgfQwD2k4';
 
-describe('Authenticator', () => {
-    beforeEach(() => {
+describe('Authenticator', function () {
+    beforeEach(function () {
         xssecStub = {};
         const ProxyquireAuthenticator = proxyquire('../../../lib/auth/Authenticator', {'@sap/xssec': xssecStub});
         authenticator = new ProxyquireAuthenticator({
@@ -23,14 +23,14 @@ describe('Authenticator', () => {
         authenticator._credentials = {};
     });
 
-    describe('constructor', () => {
-        it('throws error if no credentials are provided', async () => {
+    describe('constructor', function () {
+        it('throws error if no credentials are provided', function () {
             assert.throws(() => new Authenticator(), Error, 'Expected Error was not thrown');
         });
     });
 
-    describe('getAccessToken', () => {
-        it('should return a token', async () => {
+    describe('getAccessToken', function () {
+        it('should return a token', async function () {
             nock('https://test.authentication.eu10.hana.ondemand.com')
                 .post('/oauth/token')
                 .reply(200, {
@@ -42,7 +42,7 @@ describe('Authenticator', () => {
             assert.equal(token, sampleToken);
         });
 
-        it('should only return a new token if the stored token is expired', async () => {
+        it('should only return a new token if the stored token is expired', async function () {
             nock('https://test.authentication.eu10.hana.ondemand.com')
                 .post('/oauth/token')
                 .reply(200, {
@@ -55,8 +55,8 @@ describe('Authenticator', () => {
         });
     });
 
-    describe('getNewToken', () => {
-        it('should return a new token', async () => {
+    describe('getNewToken', function () {
+        it('should return a new token', async function () {
             nock('https://test.authentication.eu10.hana.ondemand.com')
                 .post('/oauth/token')
                 .reply(function (uri, requestBody) {
@@ -73,7 +73,7 @@ describe('Authenticator', () => {
             assert.equal(token.getAccessToken(), sampleToken);
         });
 
-        it('should return an error', async () => {
+        it('should return an error', async function () {
             nock('https://test.authentication.eu10.hana.ondemand.com')
                 .post('/oauth/token')
                 .replyWithError('UAA Error');
@@ -87,8 +87,8 @@ describe('Authenticator', () => {
         });
     });
 
-    describe('exchangeToken', () => {
-        it('expect error for missing xsuaa configuration', async () => {
+    describe('exchangeToken', function () {
+        it('expect error for missing xsuaa configuration', async function () {
             authenticator._credentials = {};
             delete authenticator._xsuaaService;
 
@@ -100,7 +100,7 @@ describe('Authenticator', () => {
             }
         });
 
-        it('expect error for missing leonardo iot credentials configuration', async () => {
+        it('expect error for missing leonardo iot credentials configuration', async function () {
             delete authenticator._credentials;
             authenticator._xsuaaService = {credentials: {}};
 
@@ -112,7 +112,7 @@ describe('Authenticator', () => {
             }
         });
 
-        it('security context creation fails', async () => {
+        it('security context creation fails', async function () {
             xssecStub.createSecurityContext = (accessToken, credentials, callback) => {
                 callback(new Error('SecurityContext error'), null);
             };
@@ -125,7 +125,7 @@ describe('Authenticator', () => {
             }
         });
 
-        it('exchange token request fails', async () => {
+        it('exchange token request fails', async function () {
             xssecStub.createSecurityContext = (accessToken, credentials, callback) => {
                 callback(null, {
                     getGrantType: () => { return 'client_credentials' },
@@ -143,7 +143,7 @@ describe('Authenticator', () => {
             }
         });
 
-        it('successful exchange', async () => {
+        it('successful exchange', async function () {
             xssecStub.createSecurityContext = (accessToken, credentials, callback) => {
                 callback(null, {
                     getGrantType: () => { return 'client_credentials' },
