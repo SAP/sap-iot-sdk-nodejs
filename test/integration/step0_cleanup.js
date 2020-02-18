@@ -2,15 +2,15 @@ const LeonardoIoT = require('../../lib/LeonardoIoT');
 const DataHelper = require('./helper/DataHelper');
 const requestHelper = require('./helper/requestHelper');
 
-describe('0) Cleanup and prepare', () => {
+describe('0) Cleanup and prepare', function () {
     let client;
 
-    before(async () => {
+    before(async function () {
         client = new LeonardoIoT();
         await DataHelper.init(client);
     });
 
-    it('cleanup', async () => {
+    it('cleanup', async function () {
         let packageExists;
         try {
             packageExists = await client.getPackage(DataHelper.package().Name);
