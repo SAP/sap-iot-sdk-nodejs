@@ -1,41 +1,41 @@
 const LeonardoIoT = require('../../lib/LeonardoIoT');
 const DataHelper = require('./helper/DataHelper');
 
-describe('2) READ ALL', () => {
+describe('2) READ ALL', function () {
     let client;
 
-    before(async () => {
+    before(function () {
         client = new LeonardoIoT();
     });
 
-    it('packages', async () => {
-        await client.getPackages();
+    it('packages', function () {
+        return client.getPackages();
     });
 
-    it('property set types', async () => {
+    it('property set types', async function () {
         await client.getPropertySetTypes();
-        await client.getPropertySetTypesByPackage(DataHelper.package().Name);
+        return client.getPropertySetTypesByPackage(DataHelper.package().Name);
     });
 
-    it('thing types', async () => {
+    it('thing types', async function () {
         await client.getThingTypes();
-        await client.getThingTypesByPackage(DataHelper.package().Name);
+        return client.getThingTypesByPackage(DataHelper.package().Name);
     });
 
-    it('object groups', async () => {
+    it('object groups', async function () {
         await client.getObjectGroups();
         const objectGroups = await client.getObjectGroups({$filter: `name eq ${DataHelper.objectGroup().name}`});
         DataHelper.data.objectGroup = objectGroups.value[0];
     });
 
-    it('things', async () => {
+    it('things', async function () {
         await client.getThings();
         await client.getThingsByThingType(DataHelper.thingType().Name, {$filter: `_name ne 'xyz'`});
         const things = await client.getThingsByThingType(DataHelper.thingType().Name);
         DataHelper.data.thing = things.value[0];
     });
 
-    it('events', async () => {
+    it('events', async function () {
         await client.getEvents();
         await client.getEventsByThingId(DataHelper.data.thing._id, {$filter: `_status ne 'InProcess'`});
         const events = await client.getEventsByThingId(DataHelper.data.thing._id);
