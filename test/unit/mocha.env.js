@@ -26,6 +26,7 @@ process.env.VCAP_SERVICES = JSON.stringify({
                 xsappname: 'saptest!b16977|iotae_service!b5',
                 identityzone: 'saptest',
                 identityzoneid: '92da712a-4ce5-40d9-9d8f-b6a6d47a58aa',
+                verificationkey: '-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyp0tzyIJXpPYJxbkOzaXXahj90c6wJqeLkTFiPZu8yF0jQTPtIIEFwSRetJqImI+iJ9EaF0ZsemzZiptMlrVTBZec2JM4pJv/OAvJeT8I7EKu57IXDeGos+Pxjj04SBqCnCvIvtlwdsCTzotRUv2fEL7NJXzxtpxQ8AQRkEQ4+FAIe/yGX8cP/dIoXwbdM6NvkDU3QHcjHMPdZ6/s+sI+E2orFv4qYTj8NYqymXeJeWe31xSL/fJaX3Wo0NaoZuyh0MJOvA0D7bWqKw/ZBF7A05PiqozeAzhYeSvQSsNQ2dc9tmDadLTF8Q9BwURgejGOpvAxdJ3wEVWTohC3Sv6nQIDAQAB-----END PUBLIC KEY-----',
                 clientsecret: 'MyClientSecret',
                 tenantid: '92da712a-4ce5-40d9-9d8f-b6a6d47a58aa',
                 url: 'https://saptest.authentication.eu10.hana.ondemand.com'
@@ -42,7 +43,8 @@ process.env.VCAP_SERVICES = JSON.stringify({
                 "uaa": {
                     "url": "https://testAccountUrl",
                     "clientid": "testAccountId",
-                    "clientsecret": "testAccountSecret"
+                    "clientsecret": "testAccountSecret",
+                    "verificationkey": "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyp0tzyIJXpPYJxbkOzaXXahj90c6wJqeLkTFiPZu8yF0jQTPtIIEFwSRetJqImI+iJ9EaF0ZsemzZiptMlrVTBZec2JM4pJv/OAvJeT8I7EKu57IXDeGos+Pxjj04SBqCnCvIvtlwdsCTzotRUv2fEL7NJXzxtpxQ8AQRkEQ4+FAIe/yGX8cP/dIoXwbdM6NvkDU3QHcjHMPdZ6/s+sI+E2orFv4qYTj8NYqymXeJeWe31xSL/fJaX3Wo0NaoZuyh0MJOvA0D7bWqKw/ZBF7A05PiqozeAzhYeSvQSsNQ2dc9tmDadLTF8Q9BwURgejGOpvAxdJ3wEVWTohC3Sv6nQIDAQAB-----END PUBLIC KEY-----"
                 }
             }
         },
@@ -55,7 +57,8 @@ process.env.VCAP_SERVICES = JSON.stringify({
                 "uaa": {
                     "url": "https://devAccountUrl",
                     "clientid": "devAccountId",
-                    "clientsecret": "devAccountSecret"
+                    "clientsecret": "devAccountSecret",
+                    "verificationkey": "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyp0tzyIJXpPYJxbkOzaXXahj90c6wJqeLkTFiPZu8yF0jQTPtIIEFwSRetJqImI+iJ9EaF0ZsemzZiptMlrVTBZec2JM4pJv/OAvJeT8I7EKu57IXDeGos+Pxjj04SBqCnCvIvtlwdsCTzotRUv2fEL7NJXzxtpxQ8AQRkEQ4+FAIe/yGX8cP/dIoXwbdM6NvkDU3QHcjHMPdZ6/s+sI+E2orFv4qYTj8NYqymXeJeWe31xSL/fJaX3Wo0NaoZuyh0MJOvA0D7bWqKw/ZBF7A05PiqozeAzhYeSvQSsNQ2dc9tmDadLTF8Q9BwURgejGOpvAxdJ3wEVWTohC3Sv6nQIDAQAB-----END PUBLIC KEY-----"
                 }
             }
         }
@@ -68,6 +71,7 @@ process.env.VCAP_SERVICES = JSON.stringify({
                 "clientsecret": "xsuaaClientSecret",
                 "identityzone": "sap-test",
                 "identityzoneid": "ade586c6-f5b1-4ddc-aecb-ead3c2e6e725",
+                "verificationkey": "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyp0tzyIJXpPYJxbkOzaXXahj90c6wJqeLkTFiPZu8yF0jQTPtIIEFwSRetJqImI+iJ9EaF0ZsemzZiptMlrVTBZec2JM4pJv/OAvJeT8I7EKu57IXDeGos+Pxjj04SBqCnCvIvtlwdsCTzotRUv2fEL7NJXzxtpxQ8AQRkEQ4+FAIe/yGX8cP/dIoXwbdM6NvkDU3QHcjHMPdZ6/s+sI+E2orFv4qYTj8NYqymXeJeWe31xSL/fJaX3Wo0NaoZuyh0MJOvA0D7bWqKw/ZBF7A05PiqozeAzhYeSvQSsNQ2dc9tmDadLTF8Q9BwURgejGOpvAxdJ3wEVWTohC3Sv6nQIDAQAB-----END PUBLIC KEY-----",
                 "sburl": "https://internal-xsuaa.authentication.eu10.hana.ondemand.com",
                 "tenantid": "ade586c6-f5b1-4ddc-aecb-ead3c2e6e725",
                 "tenantmode": "dedicated",
