@@ -1,36 +1,36 @@
 const LeonardoIoT = require('../../lib/LeonardoIoT');
 const DataHelper = require('./helper/DataHelper');
 
-describe('3) READ', () => {
+describe('3) READ', function () {
     let client;
 
-    before(async () => {
+    before(function () {
         client = new LeonardoIoT();
     });
 
-    it('package', async () => {
-        await client.getPackage(DataHelper.package().Name);
+    it('package', function () {
+        return client.getPackage(DataHelper.package().Name);
     });
 
-    it('property set type', async () => {
-        await client.getPropertySetType(DataHelper.propertySetType().Name);
+    it('property set type', function () {
+        return client.getPropertySetType(DataHelper.propertySetType().Name);
     });
 
-    it('thing type', async () => {
-        await client.getThingType(DataHelper.thingType().Name);
+    it('thing type', function () {
+        return client.getThingType(DataHelper.thingType().Name);
     });
 
     it('object group', async function () {
         await client.getObjectGroup(DataHelper.data.objectGroup.objectGroupID);
-        await client.getRootObjectGroup();
+        return client.getRootObjectGroup();
     });
 
     it('thing', async function () {
         await client.getThing(DataHelper.data.thing._id);
-        await client.getThingByAlternateId(DataHelper.data.thing._alternateId);
+        return client.getThingByAlternateId(DataHelper.data.thing._alternateId);
     });
 
     it('event', async function () {
-        await client.getEvent(DataHelper.data.event._id);
+        return client.getEvent(DataHelper.data.event._id);
     });
 });
