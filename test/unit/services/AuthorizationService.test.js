@@ -3,17 +3,17 @@ const LeonardoIoT = require('../../../lib/LeonardoIoT');
 
 const authorizationUrl = 'https://authorization.cfapps.eu10.hana.ondemand.com';
 
-describe('Authorization Service', () => {
+describe('Authorization Service', function () {
     let client;
 
-    beforeEach(() => {
+    beforeEach(function () {
         client = new LeonardoIoT();
     });
 
-    describe('ObjectGroup', () => {
-        it('create', async () => {
+    describe('ObjectGroup', function () {
+        it('create', function () {
             const objectGroupPayload = {Name: 'MyObjectGroup'};
-            client.request = function (requestConfig) {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${authorizationUrl}/ObjectGroups`,
                     method: 'POST',
@@ -24,9 +24,9 @@ describe('Authorization Service', () => {
             await client.createObjectGroup(objectGroupPayload);
         });
 
-        it('read single', async () => {
+        it('read single', function () {
             const objectGroupId = 'MyObjectGroup';
-            client.request = function (requestConfig) {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${authorizationUrl}/ObjectGroups('${objectGroupId}')`,
                 });
@@ -35,8 +35,8 @@ describe('Authorization Service', () => {
             await client.getObjectGroup(objectGroupId);
         });
 
-        it('read multiple', async () => {
-            client.request = function (requestConfig) {
+        it('read multiple', function () {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${authorizationUrl}/ObjectGroups`,
                 });
@@ -45,8 +45,8 @@ describe('Authorization Service', () => {
             await client.getObjectGroups();
         });
 
-        it('read root', async () => {
-            client.request = function (requestConfig) {
+        it('read root', function () {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${authorizationUrl}/ObjectGroups/TenantRoot`
                 });
@@ -55,10 +55,10 @@ describe('Authorization Service', () => {
             await client.getRootObjectGroup();
         });
 
-        it('delete', async () => {
+        it('delete', function () {
             const objectGroupId = 'MyObjectGroup';
             const etag = '8f9da184-5af1-4237-8ede-a7fee8ddc57e';
-            client.request = function (requestConfig) {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${authorizationUrl}/ObjectGroups('${objectGroupId}')`,
                     method: 'DELETE',
