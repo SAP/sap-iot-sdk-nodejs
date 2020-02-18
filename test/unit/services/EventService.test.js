@@ -22,7 +22,7 @@ describe('Event Service', function () {
                 });
             };
 
-            await client.createEvent(eventPayload);
+            return client.createEvent(eventPayload);
         });
 
         it('read single', function () {
@@ -33,7 +33,7 @@ describe('Event Service', function () {
                 });
             };
 
-            await client.getEvent(eventId);
+            return  client.getEvent(eventId);
         });
 
         it('read multiple', function () {
@@ -43,7 +43,7 @@ describe('Event Service', function () {
                 });
             };
 
-            await client.getEvents();
+            return client.getEvents();
         });
 
         it('read multiple with different query parameters', function () {
@@ -53,7 +53,7 @@ describe('Event Service', function () {
                 });
             };
 
-            await client.getEvents({
+            return client.getEvents({
                 $select: '_thingId,_status', $orderby: '_thingId', $top: 10, $skip: 5
             });
         });
@@ -66,7 +66,7 @@ describe('Event Service', function () {
                 });
             };
 
-            await client.getEventsByThingId(thingId);
+            return client.getEventsByThingId(thingId);
         });
 
         it('read multiple by thing type with complex filter', function () {
@@ -77,7 +77,7 @@ describe('Event Service', function () {
                 });
             };
 
-            await client.getEventsByThingId(thingId, {$filter: "_status eq 'Completed'"});
+            return client.getEventsByThingId(thingId, {$filter: "_status eq 'Completed'"});
         });
 
         it('delete', function () {
@@ -89,7 +89,7 @@ describe('Event Service', function () {
                 });
             };
 
-            await client.deleteEvent(eventId);
+            return client.deleteEvent(eventId);
         });
     });
 });
