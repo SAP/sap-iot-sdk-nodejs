@@ -8,7 +8,11 @@ describe('0) Cleanup and prepare', function () {
 
     before(async function () {
         client = new LeonardoIoT();
-        await DataHelper.init(client);
+        try{
+            await DataHelper.init(client);
+        }catch(error){
+            assert.fail(error);
+        }
     });
 
     it('cleanup', async function () {
