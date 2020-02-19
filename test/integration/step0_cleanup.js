@@ -1,6 +1,7 @@
 const LeonardoIoT = require('../../lib/LeonardoIoT');
 const DataHelper = require('./helper/DataHelper');
 const requestHelper = require('./helper/requestHelper');
+const assert = require('assert');
 
 describe('0) Cleanup and prepare', function () {
     let client;
@@ -11,27 +12,23 @@ describe('0) Cleanup and prepare', function () {
     });
 
     it('cleanup', async function () {
-        let packageExists;
+        const packageExists = await client.getPackage(DataHelper.package().Name).catch(()=>{
+            assert.ok('Package not found');
+        });
         try {
-            packageExists = await client.getPackage(DataHelper.package().Name);
-        } catch (err) {
-        }
-
-        if (packageExists) {
-            await requestHelper.deletePackageCascading(client, DataHelper.package().Name);
-        }
-
-        let objectGroups = [];
-        try {
+            if (packageExists) {
+                await requestHelper.deletePackageCascading(client, DataHelper.package().Name);
+            }
             const objectGroupResponse = await client.getObjectGroups({
                 $filter: `name eq ${DataHelper.objectGroup().name}`
             });
-            objectGroups = objectGroupResponse.value;
+            const deleteObjectGroupPromises = [];
+            for (const objectGroup of objectGroupResponse.value) {
+                deleteObjectGroupPromises.push(client.deleteObjectGroup(objectGroup.objectGroupID, objectGroup.etag));
+            }
+            return Promise.all(deleteObjectGroupPromises);
         } catch (err) {
-        }
-
-        for (const objectGroup of objectGroups) {
-            await client.deleteObjectGroup(objectGroup.objectGroupID, objectGroup.etag);
+            assert.fail(err);
         }
     });
 });
