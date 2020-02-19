@@ -1,5 +1,6 @@
 const LeonardoIoT = require('../../lib/LeonardoIoT');
 const DataHelper = require('./helper/DataHelper');
+const assert = require('assert');
 
 describe('2) READ ALL', function () {
     let client;
@@ -13,6 +14,11 @@ describe('2) READ ALL', function () {
     });
 
     it('property set types', async function () {
+        try{
+
+        }catch(error){
+            assert.fail(error);
+        }
         await client.getPropertySetTypes();
         return client.getPropertySetTypesByPackage(DataHelper.package().Name);
     });
