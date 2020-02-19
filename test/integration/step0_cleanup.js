@@ -17,7 +17,7 @@ describe('0) Cleanup and prepare', function () {
 
     it('cleanup', async function () {
         const packageExists = await client.getPackage(DataHelper.package().Name).catch(()=>{
-            assert.ok('Package not found');
+            assert.ok(true, 'Package not found');
         });
         try {
             if (packageExists) {
