@@ -26,7 +26,11 @@ describe('3) READ', function () {
     });
 
     it('thing', async function () {
-        await client.getThing(DataHelper.data.thing._id);
+        try {
+            await client.getThing(DataHelper.data.thing._id);
+        } catch (error) {
+            assert.fail(error);
+        }
         return client.getThingByAlternateId(DataHelper.data.thing._alternateId);
     });
 
