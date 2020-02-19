@@ -37,8 +37,12 @@ describe('Authenticator', function () {
                     access_token: sampleToken,
                     expires_in: 1000,
                 });
-
-            const token = await authenticator.getAccessToken();
+            let token;
+            try {
+                token = await authenticator.getAccessToken();
+            } catch (error) {
+                assert.fail(error);
+            }
             assert.equal(token, sampleToken);
         });
 
@@ -49,8 +53,12 @@ describe('Authenticator', function () {
                     access_token: sampleToken,
                     expires_in: -1000,
                 });
-
-            const token = await authenticator.getAccessToken();
+            let token;
+            try {
+                token = await authenticator.getAccessToken();
+            } catch (error) {
+                assert.fail(error);
+            }
             assert.equal(token, sampleToken);
         });
     });
@@ -68,8 +76,12 @@ describe('Authenticator', function () {
                         expires_in: -1000,
                     }];
                 });
-
-            const token = await authenticator.getNewToken();
+            let token;
+            try {
+                token = await authenticator.getNewToken();
+            } catch (error) {
+                assert.fail(error);
+            }
             assert.equal(token.getAccessToken(), sampleToken);
         });
 
@@ -80,7 +92,7 @@ describe('Authenticator', function () {
 
             try {
                 await authenticator.getNewToken();
-                assert.fail();
+                assert.fail('Should not have been resolved');
             } catch (error) {
                 assert.equal(error.message, 'Error: UAA Error');
             }
