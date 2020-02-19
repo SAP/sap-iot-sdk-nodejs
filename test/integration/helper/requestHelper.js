@@ -49,6 +49,6 @@ async function deletePackageCascading(client, packageName) {
 }
 
 module.exports = {
-    determineTenantPrefix,
-    deletePackageCascading
+    determineTenantPrefix: determineTenantPrefix,
+    deletePackageCascading: deletePackageCascading
 };
