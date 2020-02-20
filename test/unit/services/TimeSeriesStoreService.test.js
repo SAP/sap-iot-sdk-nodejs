@@ -15,7 +15,7 @@ describe('Time Series Store', function () {
             const thingId = 'MyThing';
             const thingTypeName = 'MyThingType';
             const propertySetId = 'MyPropertySet';
-            const timeSeriesPayload = {value: [{Temperature: '25', _time: new Date().toISOString()}]};
+            const timeSeriesPayload = { value: [{ Temperature: '25', _time: new Date().toISOString()}]};
 
             client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
