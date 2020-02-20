@@ -13,7 +13,7 @@ describe('Property Set Type Service', function () {
     describe('PropertySetType',function () {
         it('create', function () {
             const packageName = 'MyPackage';
-            const propertySetTypePayload = {Name: 'MyPropertySetType'};
+            const propertySetTypePayload = { Name: 'MyPropertySetType' };
             client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${configThingUrl}/ThingConfiguration/v1/Packages('${packageName}')/PropertySetTypes`,
@@ -64,7 +64,7 @@ describe('Property Set Type Service', function () {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${configThingUrl}/ThingConfiguration/v1/PropertySetTypes('${propertySetTypeName}')`,
                     method: 'DELETE',
-                    headers: {'If-Match': etag}
+                    headers: { 'If-Match': etag }
                 });
             };
 
