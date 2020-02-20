@@ -1,6 +1,6 @@
+const assert = require('assert');
 const LeonardoIoT = require('../../lib/LeonardoIoT');
 const DataHelper = require('./helper/DataHelper');
-const assert = require('assert');
 
 describe('2) READ ALL', function () {
     let client;
@@ -34,7 +34,7 @@ describe('2) READ ALL', function () {
     it('object groups', async function () {
         try {
             await client.getObjectGroups();
-            const objectGroups = await client.getObjectGroups({$filter: `name eq ${DataHelper.objectGroup().name}`});
+            const objectGroups = await client.getObjectGroups({ $filter: `name eq ${DataHelper.objectGroup().name}` });
             DataHelper.data.objectGroup = objectGroups.value[0];
         } catch (error) {
             assert.fail(error);
@@ -44,7 +44,7 @@ describe('2) READ ALL', function () {
     it('things', async function () {
         try {
             await client.getThings();
-            await client.getThingsByThingType(DataHelper.thingType().Name, {$filter: `_name ne 'xyz'`});
+            await client.getThingsByThingType(DataHelper.thingType().Name, { $filter: '_name ne \'xyz\'' });
             const things = await client.getThingsByThingType(DataHelper.thingType().Name);
             DataHelper.data.thing = things.value[0];
         } catch (error) {
@@ -55,9 +55,9 @@ describe('2) READ ALL', function () {
     it('events', async function () {
         try {
             await client.getEvents();
-            await client.getEventsByThingId(DataHelper.data.thing._id, {$filter: `_status ne 'InProcess'`});
+            await client.getEventsByThingId(DataHelper.data.thing._id, { $filter: '_status ne \'InProcess\'' });
             const events = await client.getEventsByThingId(DataHelper.data.thing._id);
-            DataHelper.data.event = events.value[0]; 
+            DataHelper.data.event = events.value[0];
         } catch (error) {
             assert.fail(error);
         }
