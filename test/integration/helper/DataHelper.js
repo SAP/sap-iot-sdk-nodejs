@@ -7,7 +7,7 @@ class DataHelper {
             DataHelper.tenantPrefix = await requestHelper.determineTenantPrefix(client);
             DataHelper.rootObjectGroup = await client.getRootObjectGroup();
         } catch (error) {
-            throw(error);
+            throw (error);
         }
         DataHelper.data = {};
     }
@@ -23,7 +23,7 @@ class DataHelper {
         return {
             Name: `${DataHelper.package().Name}:TestPropertySetTypeSDK`,
             DataCategory: 'TimeSeriesData',
-            Properties: [{Name: 'Temperature', Type: 'Numeric'}]
+            Properties: [{ Name: 'Temperature', Type: 'Numeric' }]
         };
     }
 
@@ -31,7 +31,7 @@ class DataHelper {
         return {
             Name: `${DataHelper.package().Name}:TestThingTypeSDK`,
             PropertySets: [
-                {Name: 'TestPropertySet', PropertySetType: `${DataHelper.package().Name}:TestPropertySetTypeSDK`}
+                { Name: 'TestPropertySet', PropertySetType: `${DataHelper.package().Name}:TestPropertySetTypeSDK` }
             ]
         };
     }
@@ -47,7 +47,7 @@ class DataHelper {
         return {
             _name: 'TestThingSDK',
             _alternateId: 'TestThingSDK',
-            _description: {en: 'TestThingSDK'},
+            _description: { en: 'TestThingSDK' },
             _thingType: [DataHelper.thingType().Name],
             _objectGroup: DataHelper.rootObjectGroup.objectGroupID
         };
