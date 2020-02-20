@@ -13,7 +13,7 @@ describe('Thing Type Service', function () {
     describe('ThingType', function () {
         it('create', function () {
             const packageName = 'MyPackage';
-            const thingTypePayload = {Name: 'MyThingType'};
+            const thingTypePayload = { Name: 'MyThingType' };
             client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${configThingUrl}/ThingConfiguration/v2/Packages('${packageName}')/ThingTypes`,
@@ -64,7 +64,7 @@ describe('Thing Type Service', function () {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${configThingUrl}/ThingConfiguration/v1/ThingTypes('${thingTypeName}')`,
                     method: 'DELETE',
-                    headers: {'If-Match': etag}
+                    headers: { 'If-Match': etag }
                 });
             };
 
