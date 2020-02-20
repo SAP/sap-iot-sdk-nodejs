@@ -21,7 +21,7 @@ describe('Authorization Service', function () {
                 });
             };
 
-            await client.createObjectGroup(objectGroupPayload);
+            return client.createObjectGroup(objectGroupPayload);
         });
 
         it('read single', function () {
@@ -32,7 +32,7 @@ describe('Authorization Service', function () {
                 });
             };
 
-            await client.getObjectGroup(objectGroupId);
+            return client.getObjectGroup(objectGroupId);
         });
 
         it('read multiple', function () {
@@ -42,7 +42,7 @@ describe('Authorization Service', function () {
                 });
             };
 
-            await client.getObjectGroups();
+            return client.getObjectGroups();
         });
 
         it('read root', function () {
@@ -52,7 +52,7 @@ describe('Authorization Service', function () {
                 });
             };
 
-            await client.getRootObjectGroup();
+            return client.getRootObjectGroup();
         });
 
         it('delete', function () {
@@ -66,7 +66,7 @@ describe('Authorization Service', function () {
                 });
             };
 
-            await client.deleteObjectGroup(objectGroupId, etag);
+            return client.deleteObjectGroup(objectGroupId, etag);
         });
     });
 });
