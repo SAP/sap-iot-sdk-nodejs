@@ -1,16 +1,16 @@
+const assert = require('assert');
 const LeonardoIoT = require('../../lib/LeonardoIoT');
 const DataHelper = require('./helper/DataHelper');
 const requestHelper = require('./helper/requestHelper');
-const assert = require('assert');
 
 describe('0) Cleanup and prepare', function () {
     let client;
 
     before(async function () {
         client = new LeonardoIoT();
-        try{
+        try {
             await DataHelper.init(client);
-        }catch(error){
+        } catch (error) {
             assert.fail(error);
         }
     });
@@ -26,10 +26,9 @@ describe('0) Cleanup and prepare', function () {
             const objectGroupResponse = await client.getObjectGroups({
                 $filter: `name eq ${DataHelper.objectGroup().name}`
             });
-            const deleteObjectGroupPromises = [];
-            for (const objectGroup of objectGroupResponse.value) {
-                deleteObjectGroupPromises.push(client.deleteObjectGroup(objectGroup.objectGroupID, objectGroup.etag));
-            }
+            const deleteObjectGroupPromises = objectGroupResponse.value.map((objectGroup) => {
+                return client.deleteObjectGroup(objectGroup.objectGroupID, objectGroup.etag);
+            });
             return Promise.all(deleteObjectGroupPromises);
         } catch (err) {
             assert.fail(err);
