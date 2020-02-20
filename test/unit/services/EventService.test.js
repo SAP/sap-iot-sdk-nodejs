@@ -13,7 +13,7 @@ describe('Event Service', function () {
     describe('Event', function () {
         it('create', function () {
             const thingId = 'MyThing';
-            const eventPayload = {_status: 'Open', _code: 'T1', _thingId: thingId};
+            const eventPayload = { _status: 'Open', _code: 'T1', _thingId: thingId };
             client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${appiotMdsUrl}/Events`,
@@ -33,7 +33,7 @@ describe('Event Service', function () {
                 });
             };
 
-            return  client.getEvent(eventId);
+            return client.getEvent(eventId);
         });
 
         it('read multiple', function () {
