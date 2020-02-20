@@ -12,7 +12,7 @@ describe('Thing Service', function () {
 
     describe('Thing', function () {
         it('create', function () {
-            const thingPayload = {Name: 'MyThing'};
+            const thingPayload = { Name: 'MyThing' };
             client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${appiotMdsUrl}/Things`,
