@@ -12,7 +12,7 @@ describe('Package Service', function () {
 
     describe('Package', function () {
         it('create', function () {
-            const packagePayload = {Name: 'MyPackage'};
+            const packagePayload = { Name: 'MyPackage' };
             client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${configPackageUrl}/Package/v1/Packages`,
@@ -52,7 +52,7 @@ describe('Package Service', function () {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${configPackageUrl}/Package/v1/Packages('${packageName}')`,
                     method: 'DELETE',
-                    headers: {'If-Match': etag}
+                    headers: { 'If-Match': etag }
                 });
             };
 
