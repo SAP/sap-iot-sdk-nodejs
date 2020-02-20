@@ -19,7 +19,7 @@ describe('Authenticator', function () {
             clientsecret: 'clientSecret'
         }, {});
 
-        authenticator._xsuaaService = {credentials: {}};
+        authenticator._xsuaaService = { credentials: {} };
         authenticator._credentials = {};
     });
 
@@ -67,6 +67,7 @@ describe('Authenticator', function () {
         it('should return a new token', async function () {
             nock('https://test.authentication.eu10.hana.ondemand.com')
                 .post('/oauth/token')
+              // eslint-disable-next-line func-names
                 .reply(function (uri, requestBody) {
                     assert.equal(this.req.headers['content-type'], 'application/x-www-form-urlencoded');
                     assert.equal(this.req.headers.authorization, 'Basic Y2xpZW50SWQ6Y2xpZW50U2VjcmV0');
@@ -114,7 +115,7 @@ describe('Authenticator', function () {
 
         it('expect error for missing leonardo iot credentials configuration', async function () {
             delete authenticator._credentials;
-            authenticator._xsuaaService = {credentials: {}};
+            authenticator._xsuaaService = { credentials: {} };
 
             try {
                 await authenticator.exchangeToken();
@@ -140,9 +141,9 @@ describe('Authenticator', function () {
         it('exchange token request fails', async function () {
             xssecStub.createSecurityContext = (accessToken, credentials, callback) => {
                 callback(null, {
-                    getGrantType: () => { return 'client_credentials' },
-                    requestToken: (serviceCredentials, type, additionalAttributes, callback) => {
-                        callback(new Error('RequestToken error'), null);
+                    getGrantType: () => 'client_credentials',
+                    requestToken: (serviceCredentials, type, additionalAttributes, cb) => {
+                        cb(new Error('RequestToken error'), null);
                     }
                 });
             };
@@ -158,9 +159,9 @@ describe('Authenticator', function () {
         it('successful exchange', async function () {
             xssecStub.createSecurityContext = (accessToken, credentials, callback) => {
                 callback(null, {
-                    getGrantType: () => { return 'client_credentials' },
-                    requestToken: (serviceCredentials, type, additionalAttributes, callback) => {
-                        callback(null, exchangedToken);
+                    getGrantType: () => 'client_credentials',
+                    requestToken: (serviceCredentials, type, additionalAttributes, cb) => {
+                        cb(null, exchangedToken);
                     }
                 });
             };
