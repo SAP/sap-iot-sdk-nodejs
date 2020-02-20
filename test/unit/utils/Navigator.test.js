@@ -2,22 +2,22 @@ const assert = require('assert');
 const Navigator = require('../../../lib/utils/Navigator');
 const ConfigurationProvider = require('../../../lib/utils/ConfigurationProvider');
 
-describe('Navigator', () => {
-    describe('Destinations', () => {
+describe('Navigator', function () {
+    describe('Destinations', function () {
         let navigator;
 
-        beforeEach(() => {
+        beforeEach(function () {
             navigator = new Navigator(ConfigurationProvider.getDestinations());
         });
 
-        it('valid constructor call', async () => {
+        it('valid constructor call', function () {
             navigator = new Navigator({
-                "appiot-mds": "https://appiot-mds.cfapps.eu10.hana.ondemand.com"
+                'appiot-mds': 'https://appiot-mds.cfapps.eu10.hana.ondemand.com'
             });
             assert(navigator.appiotMds());
         });
 
-        it('invalid constructor call', async () => {
+        it('invalid constructor call', function () {
             try {
                 navigator = new Navigator();
                 assert.fail('Expected Error was not thrown');
@@ -26,7 +26,7 @@ describe('Navigator', () => {
             }
         });
 
-        it('all functioned destinations are existing in sample env', async () => {
+        it('all functioned destinations are existing in sample env', function () {
             assert(navigator.authorization());
             assert(navigator.businessPartner());
             assert(navigator.configPackage());
@@ -36,11 +36,11 @@ describe('Navigator', () => {
             assert(navigator.appiotColdstore());
         });
 
-        it('getDestination for known destination', async () => {
+        it('getDestination for known destination', function () {
             assert.equal(navigator.getDestination('appiot-mds'), 'https://appiot-mds.cfapps.eu10.hana.ondemand.com', 'Unexpected destination');
         });
 
-        it('getDestination for unknown destination', async () => {
+        it('getDestination for unknown destination', function () {
             assert.throws(() => navigator.getDestination('unknown'), Error, 'Expected Error was not thrown');
         });
     });
