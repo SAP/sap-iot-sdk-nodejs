@@ -1,7 +1,7 @@
 console.log('Setting mocha test environment variables');
 console.log('SET VCAP_SERVICES');
 process.env.VCAP_SERVICES = JSON.stringify({
-    "iotae": [{
+    iotae: [{
         name: 'iot_internal',
         plan: 'standard',
         tags: ['leonardoiot'],
@@ -33,55 +33,55 @@ process.env.VCAP_SERVICES = JSON.stringify({
             }
         }
     }],
-    "user-provided": [
+    'user-provided': [
         {
-            "name": "leonardo-iot-account-test",
-            "credentials": {
-                "endpoints": {
-                    "appiot-mds": "https://appiot-mds-backup.cfapps.de01.hana.ondemand.com"
+            name: 'leonardo-iot-account-test',
+            credentials: {
+                endpoints: {
+                    'appiot-mds': 'https://appiot-mds-backup.cfapps.de01.hana.ondemand.com'
                 },
-                "uaa": {
-                    "url": "https://testAccountUrl",
-                    "clientid": "testAccountId",
-                    "clientsecret": "testAccountSecret",
-                    "verificationkey": "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyp0tzyIJXpPYJxbkOzaXXahj90c6wJqeLkTFiPZu8yF0jQTPtIIEFwSRetJqImI+iJ9EaF0ZsemzZiptMlrVTBZec2JM4pJv/OAvJeT8I7EKu57IXDeGos+Pxjj04SBqCnCvIvtlwdsCTzotRUv2fEL7NJXzxtpxQ8AQRkEQ4+FAIe/yGX8cP/dIoXwbdM6NvkDU3QHcjHMPdZ6/s+sI+E2orFv4qYTj8NYqymXeJeWe31xSL/fJaX3Wo0NaoZuyh0MJOvA0D7bWqKw/ZBF7A05PiqozeAzhYeSvQSsNQ2dc9tmDadLTF8Q9BwURgejGOpvAxdJ3wEVWTohC3Sv6nQIDAQAB-----END PUBLIC KEY-----"
+                uaa: {
+                    url: 'https://testAccountUrl',
+                    clientid: 'testAccountId',
+                    clientsecret: 'testAccountSecret',
+                    verificationkey: '-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyp0tzyIJXpPYJxbkOzaXXahj90c6wJqeLkTFiPZu8yF0jQTPtIIEFwSRetJqImI+iJ9EaF0ZsemzZiptMlrVTBZec2JM4pJv/OAvJeT8I7EKu57IXDeGos+Pxjj04SBqCnCvIvtlwdsCTzotRUv2fEL7NJXzxtpxQ8AQRkEQ4+FAIe/yGX8cP/dIoXwbdM6NvkDU3QHcjHMPdZ6/s+sI+E2orFv4qYTj8NYqymXeJeWe31xSL/fJaX3Wo0NaoZuyh0MJOvA0D7bWqKw/ZBF7A05PiqozeAzhYeSvQSsNQ2dc9tmDadLTF8Q9BwURgejGOpvAxdJ3wEVWTohC3Sv6nQIDAQAB-----END PUBLIC KEY-----'
                 }
             }
         },
         {
-            "name": "leonardo-iot-account-dev",
-            "credentials": {
-                "endpoints": {
-                    "appiot-mds": "https://appiot-mds-backup.cfapps.de01.hana.ondemand.com"
+            name: 'leonardo-iot-account-dev',
+            credentials: {
+                endpoints: {
+                    'appiot-mds': 'https://appiot-mds-backup.cfapps.de01.hana.ondemand.com'
                 },
-                "uaa": {
-                    "url": "https://devAccountUrl",
-                    "clientid": "devAccountId",
-                    "clientsecret": "devAccountSecret",
-                    "verificationkey": "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyp0tzyIJXpPYJxbkOzaXXahj90c6wJqeLkTFiPZu8yF0jQTPtIIEFwSRetJqImI+iJ9EaF0ZsemzZiptMlrVTBZec2JM4pJv/OAvJeT8I7EKu57IXDeGos+Pxjj04SBqCnCvIvtlwdsCTzotRUv2fEL7NJXzxtpxQ8AQRkEQ4+FAIe/yGX8cP/dIoXwbdM6NvkDU3QHcjHMPdZ6/s+sI+E2orFv4qYTj8NYqymXeJeWe31xSL/fJaX3Wo0NaoZuyh0MJOvA0D7bWqKw/ZBF7A05PiqozeAzhYeSvQSsNQ2dc9tmDadLTF8Q9BwURgejGOpvAxdJ3wEVWTohC3Sv6nQIDAQAB-----END PUBLIC KEY-----"
+                uaa: {
+                    url: 'https://devAccountUrl',
+                    clientid: 'devAccountId',
+                    clientsecret: 'devAccountSecret',
+                    verificationkey: '-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyp0tzyIJXpPYJxbkOzaXXahj90c6wJqeLkTFiPZu8yF0jQTPtIIEFwSRetJqImI+iJ9EaF0ZsemzZiptMlrVTBZec2JM4pJv/OAvJeT8I7EKu57IXDeGos+Pxjj04SBqCnCvIvtlwdsCTzotRUv2fEL7NJXzxtpxQ8AQRkEQ4+FAIe/yGX8cP/dIoXwbdM6NvkDU3QHcjHMPdZ6/s+sI+E2orFv4qYTj8NYqymXeJeWe31xSL/fJaX3Wo0NaoZuyh0MJOvA0D7bWqKw/ZBF7A05PiqozeAzhYeSvQSsNQ2dc9tmDadLTF8Q9BwURgejGOpvAxdJ3wEVWTohC3Sv6nQIDAQAB-----END PUBLIC KEY-----'
                 }
             }
         }
     ],
-    "xsuaa": [
+    xsuaa: [
         {
-            "credentials": {
-                "apiurl": "https://api.authentication.eu10.hana.ondemand.com",
-                "clientid": "xsuaaClientId",
-                "clientsecret": "xsuaaClientSecret",
-                "identityzone": "sap-test",
-                "identityzoneid": "ade586c6-f5b1-4ddc-aecb-ead3c2e6e725",
-                "verificationkey": "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyp0tzyIJXpPYJxbkOzaXXahj90c6wJqeLkTFiPZu8yF0jQTPtIIEFwSRetJqImI+iJ9EaF0ZsemzZiptMlrVTBZec2JM4pJv/OAvJeT8I7EKu57IXDeGos+Pxjj04SBqCnCvIvtlwdsCTzotRUv2fEL7NJXzxtpxQ8AQRkEQ4+FAIe/yGX8cP/dIoXwbdM6NvkDU3QHcjHMPdZ6/s+sI+E2orFv4qYTj8NYqymXeJeWe31xSL/fJaX3Wo0NaoZuyh0MJOvA0D7bWqKw/ZBF7A05PiqozeAzhYeSvQSsNQ2dc9tmDadLTF8Q9BwURgejGOpvAxdJ3wEVWTohC3Sv6nQIDAQAB-----END PUBLIC KEY-----",
-                "sburl": "https://internal-xsuaa.authentication.eu10.hana.ondemand.com",
-                "tenantid": "ade586c6-f5b1-4ddc-aecb-ead3c2e6e725",
-                "tenantmode": "dedicated",
-                "uaadomain": "authentication.eu10.hana.ondemand.com",
-                "url": "https://sap-test.authentication.eu10.hana.ondemand.com",
-                "xsappname": "sap-test!t4969"
+            credentials: {
+                apiurl: 'https://api.authentication.eu10.hana.ondemand.com',
+                clientid: 'xsuaaClientId',
+                clientsecret: 'xsuaaClientSecret',
+                identityzone: 'sap-test',
+                identityzoneid: 'ade586c6-f5b1-4ddc-aecb-ead3c2e6e725',
+                verificationkey: '-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyp0tzyIJXpPYJxbkOzaXXahj90c6wJqeLkTFiPZu8yF0jQTPtIIEFwSRetJqImI+iJ9EaF0ZsemzZiptMlrVTBZec2JM4pJv/OAvJeT8I7EKu57IXDeGos+Pxjj04SBqCnCvIvtlwdsCTzotRUv2fEL7NJXzxtpxQ8AQRkEQ4+FAIe/yGX8cP/dIoXwbdM6NvkDU3QHcjHMPdZ6/s+sI+E2orFv4qYTj8NYqymXeJeWe31xSL/fJaX3Wo0NaoZuyh0MJOvA0D7bWqKw/ZBF7A05PiqozeAzhYeSvQSsNQ2dc9tmDadLTF8Q9BwURgejGOpvAxdJ3wEVWTohC3Sv6nQIDAQAB-----END PUBLIC KEY-----',
+                sburl: 'https://internal-xsuaa.authentication.eu10.hana.ondemand.com',
+                tenantid: 'ade586c6-f5b1-4ddc-aecb-ead3c2e6e725',
+                tenantmode: 'dedicated',
+                uaadomain: 'authentication.eu10.hana.ondemand.com',
+                url: 'https://sap-test.authentication.eu10.hana.ondemand.com',
+                xsappname: 'sap-test!t4969'
             },
-            "name": "test-uaa",
-            "tags": [
-                "xsuaa"
+            name: 'test-uaa',
+            tags: [
+                'xsuaa'
             ]
         }
     ]
