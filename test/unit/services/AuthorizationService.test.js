@@ -12,7 +12,7 @@ describe('Authorization Service', function () {
 
     describe('ObjectGroup', function () {
         it('create', function () {
-            const objectGroupPayload = {Name: 'MyObjectGroup'};
+            const objectGroupPayload = { Name: 'MyObjectGroup' };
             client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${authorizationUrl}/ObjectGroups`,
@@ -62,7 +62,7 @@ describe('Authorization Service', function () {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${authorizationUrl}/ObjectGroups('${objectGroupId}')`,
                     method: 'DELETE',
-                    headers: {'If-Match': etag}
+                    headers: { 'If-Match': etag }
                 });
             };
 
