@@ -1,3 +1,4 @@
+const assert = require('assert');
 const LeonardoIoT = require('../../lib/LeonardoIoT');
 const DataHelper = require('./helper/DataHelper');
 
