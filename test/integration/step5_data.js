@@ -7,14 +7,16 @@ describe('5) DATA', function () {
     let propertySetName;
     let thingId;
 
-    const currentTime = new Date().toISOString();
-    const oneYearAgoTime = new Date(new Date().setFullYear(new Date().getFullYear() - 1)).toISOString();
+    let currentTime;
+    let oneYearAgoTime;
 
     before(function () {
         client = new LeonardoIoT();
+        currentTime = new Date().toISOString();
+        oneYearAgoTime = new Date(new Date().setFullYear(new Date().getFullYear() - 1)).toISOString();
     });
 
-    describe('5.1) TIME SERIES STORE', function ()  {
+    describe('5.1) TIME SERIES STORE', function () {
         before(function () {
             thingTypeName = DataHelper.thingType().Name;
             propertySetName = DataHelper.thingType().PropertySets[0].Name;
