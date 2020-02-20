@@ -64,38 +64,38 @@ describe('ConfigurationProvider', function () {
         });
 
         it('get existing leonardo iot service by tag', function () {
-            const service = ConfigurationProvider._getService({tag: 'leonardoiot'});
+            const service = ConfigurationProvider._getService({ tag: 'leonardoiot' });
             assert.equal(service.tags[0], 'leonardoiot', 'Unexpected service');
         });
 
         it('get existing xsuaa service by tag', function () {
-            const service = ConfigurationProvider._getService({tag: 'xsuaa'});
+            const service = ConfigurationProvider._getService({ tag: 'xsuaa' });
             assert.equal(service.tags[0], 'xsuaa', 'Unexpected service');
         });
 
         it('get not existing service by tag', function () {
-            const service = ConfigurationProvider._getService({tag: 'notExisting'});
+            const service = ConfigurationProvider._getService({ tag: 'notExisting' });
             assert.equal(service, undefined, 'Unexpected service');
         });
 
         it('get existing service by name', function () {
-            const service = ConfigurationProvider._getService({name: 'iot_internal'});
+            const service = ConfigurationProvider._getService({ name: 'iot_internal' });
             assert.equal(service.name, 'iot_internal', 'Unexpected service');
         });
 
         it('get existing user provided service by name', function () {
-            const service = ConfigurationProvider._getService({name: 'leonardo-iot-account-test'});
+            const service = ConfigurationProvider._getService({ name: 'leonardo-iot-account-test' });
             assert.equal(service.name, 'leonardo-iot-account-test', 'Unexpected service');
         });
 
         it('get not existing service by name', function () {
-            const service = ConfigurationProvider._getService({name: 'notExisting'});
+            const service = ConfigurationProvider._getService({ name: 'notExisting' });
             assert.equal(service, undefined, 'Unexpected service');
         });
 
         it('expect error for missing environment configuration', function () {
-            let xsenvStub = { loadEnv : () => { }};
-            const ProxyquireConfigurationProvider = proxyquire('../../../lib/utils/ConfigurationProvider', {'@sap/xsenv': xsenvStub});
+            const xsenvStub = { loadEnv: () => { } };
+            const ProxyquireConfigurationProvider = proxyquire('../../../lib/utils/ConfigurationProvider', { '@sap/xsenv': xsenvStub });
 
             delete process.env.VCAP_SERVICES;
             assert.throws(() => ProxyquireConfigurationProvider._getService(), Error, 'Expected Error was not thrown');
