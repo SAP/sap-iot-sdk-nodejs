@@ -1,8 +1,8 @@
 const assert = require('assert');
 const proxyquire = require('proxyquire');
 
-let rpStub = () => { return Promise.reject() };
-const LeonardoIoT = proxyquire('../../lib/LeonardoIoT', { 'request-promise-native': (requestConfig) => { rpStub(requestConfig) } });
+let rpStub = () => Promise.reject();
+const LeonardoIoT = proxyquire('../../lib/LeonardoIoT', { 'request-promise-native': (requestConfig) => rpStub(requestConfig) });
 const AssertionUtil = require('./AssertionUtil');
 const packageJson = require('../../package.json');
 
@@ -29,33 +29,33 @@ describe('LeonardoIoT', function () {
         });
 
         it('call with configuration arguments', function () {
-            const client = new LeonardoIoT({
+            const testClient = new LeonardoIoT({
                 uaa: {
-                    clientid: "testId",
-                    clientsecret: "testSecret",
-                    url: "https://test.authentication.eu10.hana.ondemand.com"
+                    clientid: 'testId',
+                    clientsecret: 'testSecret',
+                    url: 'https://test.authentication.eu10.hana.ondemand.com'
                 },
                 endpoints: {
-                    "appiot-mds": "https://appiot-mds.cfapps.eu10.hana.ondemand.com",
-                    "config-thing-sap": "https://config-thing-sap.cfapps.eu10.hana.ondemand.com"
+                    'appiot-mds': 'https://appiot-mds.cfapps.eu10.hana.ondemand.com',
+                    'config-thing-sap': 'https://config-thing-sap.cfapps.eu10.hana.ondemand.com'
                 }
             });
-            assert.notEqual(client, undefined, 'Invalid constructor for LeonardoIoT client');
+            assert.notEqual(testClient, undefined, 'Invalid constructor for LeonardoIoT client');
         });
 
         it('call with configuration arguments including xsuaa config', function () {
-            const client = new LeonardoIoT({
+            const testClient = new LeonardoIoT({
                 uaa: {
-                    clientid: "testId",
-                    clientsecret: "testSecret",
-                    url: "https://test.authentication.eu10.hana.ondemand.com"
+                    clientid: 'testId',
+                    clientsecret: 'testSecret',
+                    url: 'https://test.authentication.eu10.hana.ondemand.com'
                 },
                 endpoints: {
-                    "appiot-mds": "https://appiot-mds.cfapps.eu10.hana.ondemand.com",
-                    "config-thing-sap": "https://config-thing-sap.cfapps.eu10.hana.ondemand.com"
+                    'appiot-mds': 'https://appiot-mds.cfapps.eu10.hana.ondemand.com',
+                    'config-thing-sap': 'https://config-thing-sap.cfapps.eu10.hana.ondemand.com'
                 }
             });
-            assert.notEqual(client, undefined, 'Invalid constructor for LeonardoIoT client');
+            assert.notEqual(testClient, undefined, 'Invalid constructor for LeonardoIoT client');
         });
 
         it('instances for multi tenant mode', function () {
@@ -70,13 +70,13 @@ describe('LeonardoIoT', function () {
 
     describe('Request', function () {
         it('has default parameters', function () {
-            let headers = LeonardoIoT._addUserAgent({});
-            headers.Authorization = `Bearer ${forwardedAccessToken}`;
+            const testHeaders = LeonardoIoT._addUserAgent({});
+            testHeaders.Authorization = `Bearer ${forwardedAccessToken}`;
             rpStub = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: 'https://appiot-mds.cfapps.eu10.hana.ondemand.com/Things',
                     method: 'GET',
-                    headers: headers,
+                    headers: testHeaders,
                     body: {},
                     agentOptions: {},
                     resolveWithFullResponse: false
@@ -93,13 +93,13 @@ describe('LeonardoIoT', function () {
         });
 
         it('has correct version in user agent header field', function () {
-            let headers = LeonardoIoT._addUserAgent({});
+            const headers = LeonardoIoT._addUserAgent({});
             assert.equal(headers['User-Agent'], `${packageJson.name}-nodejs / ${packageJson.version}`, 'Unexpected User-Agent header field value');
         });
 
-        it('throws error for missing URL parameter', async function() {
+        it('throws error for missing URL parameter', async function () {
             try {
-                await LeonardoIoT._request({url: null});
+                await LeonardoIoT._request({ url: null });
                 assert.fail('Expected Error was not thrown');
             } catch (err) {
                 assert.equal(err.message, 'URL argument is empty for "request" call in Leonardo IoT', 'Unexpected error message');
