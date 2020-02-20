@@ -17,10 +17,7 @@ describe('6) DELETE', function () {
             assert.fail(error);
         }
         assert(events.value.length > 0, 'No event found for deletion');
-        const deleteEventPromises = []
-        for (const event of events.value) {
-            deleteEventPromises.push(client.deleteEvent(event._id));
-        }
+        const deleteEventPromises = events.value.map((event) => client.deleteEvent(event._id));
         return Promise.all(deleteEventPromises);
     });
 
@@ -32,10 +29,7 @@ describe('6) DELETE', function () {
             assert.fail(error);
         }
         assert(things.value.length > 0, 'No thing found for deletion');
-        const deleteThingPromises = [];
-        for (const thing of things.value) {
-            deleteThingPromises.push(client.deleteThing(thing._id));
-        }
+        const deleteThingPromises = things.value.map((thing) => client.deleteThing(thing._id));
         return Promise.all(deleteThingPromises);
     });
 
@@ -48,17 +42,14 @@ describe('6) DELETE', function () {
         } catch (error) {
             assert.fail(error);
         }
-        const deleteObjectGroupPromises = [];
-        for (const objectGroup of objectGroups.value) {
-            deleteObjectGroupPromises.push(client.deleteObjectGroup(objectGroup.objectGroupID, objectGroup.etag));
-        }
+        const deleteObjectGroupPromises = objectGroups.value.map((objectGroup) => client.deleteObjectGroup(objectGroup.objectGroupID, objectGroup.etag));
         return Promise.all(deleteObjectGroupPromises);
     });
 
     it('thing type', async function () {
         let thingTypeResponse;
         try {
-            thingTypeResponse = await client.getThingType(DataHelper.thingType().Name, {}, {resolveWithFullResponse: true});
+            thingTypeResponse = await client.getThingType(DataHelper.thingType().Name, {}, { resolveWithFullResponse: true });
         } catch (error) {
             assert.fail(error);
         }
@@ -68,7 +59,7 @@ describe('6) DELETE', function () {
     it('property set type', async function () {
         let propertySetTypeResponse;
         try {
-            propertySetTypeResponse = await client.getPropertySetType(DataHelper.propertySetType().Name, {}, {resolveWithFullResponse: true});
+            propertySetTypeResponse = await client.getPropertySetType(DataHelper.propertySetType().Name, {}, { resolveWithFullResponse: true });
         } catch (error) {
             assert.fail(error);
         }
@@ -78,7 +69,7 @@ describe('6) DELETE', function () {
     it('package', async function () {
         let packageResponse;
         try {
-            packageResponse = await client.getPackage(DataHelper.package().Name, {resolveWithFullResponse: true});
+            packageResponse = await client.getPackage(DataHelper.package().Name, { resolveWithFullResponse: true });
         } catch (error) {
             assert.fail(error);
         }
