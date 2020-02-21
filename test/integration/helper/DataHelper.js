@@ -3,12 +3,8 @@ const requestHelper = require('./requestHelper');
 class DataHelper {
     static async init(client) {
         DataHelper.client = client;
-        try {
-            DataHelper.tenantPrefix = await requestHelper.determineTenantPrefix(client);
-            DataHelper.rootObjectGroup = await client.getRootObjectGroup();
-        } catch (error) {
-            throw (error);
-        }
+        DataHelper.tenantPrefix = await requestHelper.determineTenantPrefix(client);
+        DataHelper.rootObjectGroup = await client.getRootObjectGroup();
         DataHelper.data = {};
     }
 
