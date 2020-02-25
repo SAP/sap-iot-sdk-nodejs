@@ -2,7 +2,8 @@ const assert = require('assert');
 const querystring = require('querystring');
 
 class AssertionUtil {
-  static assertRequestConfig(requestConfig, expected) {
+  static assertRequestConfig(requestConfig, expectedConfig) {
+    const expected = expectedConfig;
     if (!expected.headers) expected.headers = {};
 
     assert.equal(querystring.unescape(requestConfig.url), expected.url, 'Unexpected Request URL');

@@ -3,17 +3,17 @@ const LeonardoIoT = require('../../../lib/LeonardoIoT');
 
 const appiotMdsUrl = 'https://appiot-mds.cfapps.eu10.hana.ondemand.com';
 
-describe('Thing Service', () => {
+describe('Thing Service', function () {
     let client;
 
-    beforeEach(() => {
+    beforeEach(function () {
         client = new LeonardoIoT();
     });
 
-    describe('Thing', () => {
-        it('create', async () => {
-            const thingPayload = {Name: 'MyThing'};
-            client.request = function (requestConfig) {
+    describe('Thing', function () {
+        it('create', function () {
+            const thingPayload = { Name: 'MyThing' };
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${appiotMdsUrl}/Things`,
                     method: 'POST',
@@ -21,85 +21,85 @@ describe('Thing Service', () => {
                 });
             };
 
-            await client.createThing(thingPayload);
+            return client.createThing(thingPayload);
         });
 
-        it('read single', async () => {
+        it('read single', function () {
             const thingId = 'MyThing';
-            client.request = function (requestConfig) {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${appiotMdsUrl}/Things('${thingId}')`,
                 });
             };
 
-            await client.getThing(thingId);
+            return client.getThing(thingId);
         });
 
-        it('read single by alternate identifier', async () => {
+        it('read single by alternate identifier', function () {
             const thingAlternateId = 'MyAlternateThing';
-            client.request = function (requestConfig) {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${appiotMdsUrl}/ThingsByAlternateId('${thingAlternateId}')`,
                 });
             };
 
-            await client.getThingByAlternateId(thingAlternateId);
+            return client.getThingByAlternateId(thingAlternateId);
         });
 
-        it('read multiple', async () => {
-            client.request = function (requestConfig) {
+        it('read multiple', function () {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${appiotMdsUrl}/Things`,
                 });
             };
 
-            await client.getThings();
+            return client.getThings();
         });
 
-        it('read multiple with different query parameters', async () => {
-            client.request = function (requestConfig) {
+        it('read multiple with different query parameters', function () {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${appiotMdsUrl}/Things?$select=_id,_name&$orderby=_id&$top=10&$skip=5`,
                 });
             };
 
-            await client.getThings({
+            return client.getThings({
                 $select: '_id,_name', $orderby: '_id', $top: 10, $skip: 5
             });
         });
 
-        it('read multiple by thing type', async () => {
+        it('read multiple by thing type', function () {
             const thingTypeName = 'MyThingType';
-            client.request = function (requestConfig) {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${appiotMdsUrl}/Things?$filter=_thingType eq '${thingTypeName}'`
                 });
             };
 
-            await client.getThingsByThingType(thingTypeName);
+            return client.getThingsByThingType(thingTypeName);
         });
 
-        it('read multiple by thing type with complex filter', async () => {
+        it('read multiple by thing type with complex filter', function () {
             const thingTypeName = 'MyThingType';
-            client.request = function (requestConfig) {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${appiotMdsUrl}/Things?$filter=_name eq 'test' and _thingType eq '${thingTypeName}'`
                 });
             };
 
-            await client.getThingsByThingType(thingTypeName, {$filter: "_name eq 'test'"});
+            return client.getThingsByThingType(thingTypeName, {$filter: "_name eq 'test'"});
         });
 
-        it('delete', async () => {
+        it('delete', function () {
             const thingId = 'MyThing';
-            client.request = function (requestConfig) {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${appiotMdsUrl}/Things('${thingId}')`,
                     method: 'DELETE'
                 });
             };
 
-            await client.deleteThing(thingId);
+            return client.deleteThing(thingId);
         });
     });
 });

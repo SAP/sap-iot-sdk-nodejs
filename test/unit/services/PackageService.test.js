@@ -3,17 +3,17 @@ const LeonardoIoT = require('../../../lib/LeonardoIoT');
 
 const configPackageUrl = 'https://config-package-sap.cfapps.eu10.hana.ondemand.com';
 
-describe('Package Service', () => {
+describe('Package Service', function () {
     let client;
 
-    beforeEach(() => {
+    beforeEach(function () {
         client = new LeonardoIoT();
     });
 
-    describe('Package', () => {
-        it('create', async () => {
-            const packagePayload = {Name: 'MyPackage'};
-            client.request = function (requestConfig) {
+    describe('Package', function () {
+        it('create', function () {
+            const packagePayload = { Name: 'MyPackage' };
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${configPackageUrl}/Package/v1/Packages`,
                     method: 'POST',
@@ -21,42 +21,42 @@ describe('Package Service', () => {
                 });
             };
 
-            await client.createPackage(packagePayload);
+            return client.createPackage(packagePayload);
         });
 
-        it('read single', async () => {
+        it('read single', function () {
             const packageName = 'MyPackage';
-            client.request = function (requestConfig) {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${configPackageUrl}/Package/v1/Packages('${packageName}')`,
                 });
             };
 
-            await client.getPackage(packageName);
+            return client.getPackage(packageName);
         });
 
-        it('read multiple', async () => {
-            client.request = function (requestConfig) {
+        it('read multiple', function () {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${configPackageUrl}/Package/v1/Packages`,
                 });
             };
 
-            await client.getPackages();
+            return client.getPackages();
         });
 
-        it('delete', async () => {
+        it('delete', function () {
             const packageName = 'MyPackage';
             const etag = '8f9da184-5af1-4237-8ede-a7fee8ddc57e';
-            client.request = function (requestConfig) {
+            client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: `${configPackageUrl}/Package/v1/Packages('${packageName}')`,
                     method: 'DELETE',
-                    headers: {'If-Match': etag}
+                    headers: { 'If-Match': etag }
                 });
             };
 
-            await client.deletePackage(packageName, etag);
+            return client.deletePackage(packageName, etag);
         });
     });
 });
