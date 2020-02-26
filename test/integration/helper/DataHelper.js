@@ -1,4 +1,5 @@
 const requestHelper = require('./requestHelper');
+const os = require('os');
 
 class DataHelper {
     static async init(client) {
@@ -8,9 +9,19 @@ class DataHelper {
         DataHelper.data = {};
     }
 
+    static _getVersioningSuffix(delimiter = '.') {
+        const nodeVersion = process.versions.node.replace(/[\W_]+/g, '').substring(0, 6);
+        const osVersion = os.release().replace(/[\W_]+/g, '').substring(0, 6);
+        return `${os.platform()}${delimiter}v${osVersion}${delimiter}v${nodeVersion}`;
+    }
+
+    static _getPackageName() {
+        return `${DataHelper.tenantPrefix}.sdk.${DataHelper._getVersioningSuffix('.')}`;
+    }
+
     static package() {
         return {
-            Name: `${DataHelper.tenantPrefix}.leonardo.iot.sdk.it`,
+            Name: DataHelper._getPackageName(),
             Scope: 'private'
         };
     }
@@ -33,8 +44,9 @@ class DataHelper {
     }
 
     static objectGroup() {
+        const objectGroupName = `TestObjectGroupSDK_${DataHelper._getVersioningSuffix('_')}`;
         return {
-            name: 'TestObjectGroupSDK',
+            name: objectGroupName,
             objectGroupParentID: DataHelper.rootObjectGroup.objectGroupID
         };
     }
@@ -42,7 +54,7 @@ class DataHelper {
     static thing() {
         return {
             _name: 'TestThingSDK',
-            _alternateId: 'TestThingSDK',
+            _alternateId: `ThingSDK_${DataHelper._getVersioningSuffix('_')}`,
             _description: { en: 'TestThingSDK' },
             _thingType: [DataHelper.thingType().Name],
             _objectGroup: DataHelper.rootObjectGroup.objectGroupID

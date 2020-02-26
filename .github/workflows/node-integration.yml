@@ -1,16 +1,17 @@
-name: Node.js CI
+name: Integration-Tests
 
 on: [push]
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [8.x, 10.x, 12.x]
+        os: [macos-latest, windows-latest, ubuntu-latest]
 
+    runs-on: ${{ matrix.os }}
+    
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -18,6 +19,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: npm test
+    - run: npm run test-integration
       env:
-        CI: true
+        VCAP_SERVICES: ${{ secrets.TENANT_CREDENTIALS_EU10_PLAYGROUND }}
