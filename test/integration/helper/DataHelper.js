@@ -9,10 +9,14 @@ class DataHelper {
         DataHelper.data = {};
     }
 
+    static _getVersioningSuffix(delimiter = '.') {
+        const nodeVersion = process.versions.node.replace(/[\W_]+/g, '');
+        const osVersion = os.release().replace(/[\W_]+/g, '');
+        return `${os.platform()}${delimiter}v${osVersion}${delimiter}v${nodeVersion}`;
+    }
+
     static _getPackageName() {
-        const nodeVersion = process.versions.node.replace(/[\W_]+/g, '').substring(0, 6);
-        const osVersion = os.release().replace(/[\W_]+/g, '').substring(0, 6);
-        return `${DataHelper.tenantPrefix}.sdk.${os.platform()}.v${osVersion}.v${nodeVersion}`;
+        return `${DataHelper.tenantPrefix}.sdk.${DataHelper._getVersioningSuffix('.')}`;
     }
 
     static package() {
@@ -40,8 +44,9 @@ class DataHelper {
     }
 
     static objectGroup() {
+        const objectGroupName = `TestObjectGroupSDK_${DataHelper._getVersioningSuffix('_')}`;
         return {
-            name: 'TestObjectGroupSDK',
+            name: objectGroupName,
             objectGroupParentID: DataHelper.rootObjectGroup.objectGroupID
         };
     }
