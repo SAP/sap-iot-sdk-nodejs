@@ -10,8 +10,8 @@ class DataHelper {
     }
 
     static _getVersioningSuffix(delimiter = '.') {
-        const nodeVersion = process.versions.node.replace(/[\W_]+/g, '');
-        const osVersion = os.release().replace(/[\W_]+/g, '');
+        const nodeVersion = process.versions.node.replace(/[\W_]+/g, '').substring(0, 6);
+        const osVersion = os.release().replace(/[\W_]+/g, '').substring(0, 6);
         return `${os.platform()}${delimiter}v${osVersion}${delimiter}v${nodeVersion}`;
     }
 
@@ -54,7 +54,7 @@ class DataHelper {
     static thing() {
         return {
             _name: 'TestThingSDK',
-            _alternateId: 'TestThingSDK',
+            _alternateId: `ThingSDK_${DataHelper._getVersioningSuffix('_')}`,
             _description: { en: 'TestThingSDK' },
             _thingType: [DataHelper.thingType().Name],
             _objectGroup: DataHelper.rootObjectGroup.objectGroupID
