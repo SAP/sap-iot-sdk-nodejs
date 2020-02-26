@@ -1,4 +1,5 @@
 const requestHelper = require('./requestHelper');
+const os = require('os');
 
 class DataHelper {
     static async init(client) {
@@ -8,9 +9,15 @@ class DataHelper {
         DataHelper.data = {};
     }
 
+    static _getPackageName() {
+        const nodeVersion = process.versions.node.replace(/\./g, '');
+        const osVersion = os.release().replace(/\./g, '');
+        return `${DataHelper.tenantPrefix}.sdk.${os.platform()}.osv${osVersion}.nodev${nodeVersion}`;
+    }
+
     static package() {
         return {
-            Name: `${DataHelper.tenantPrefix}.leonardo.iot.sdk.it`,
+            Name: DataHelper._getPackageName(),
             Scope: 'private'
         };
     }
