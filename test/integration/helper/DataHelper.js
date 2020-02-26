@@ -10,9 +10,9 @@ class DataHelper {
     }
 
     static _getPackageName() {
-        const nodeVersion = process.versions.node.replace(/[\W_]+/g, '');
-        const osVersion = os.release().replace(/[\W_]+/g, '');
-        return `${DataHelper.tenantPrefix}.sdk.${os.platform()}.osv${osVersion}.nodev${nodeVersion}`;
+        const nodeVersion = process.versions.node.replace(/[\W_]+/g, '').substring(0, 6);
+        const osVersion = os.release().replace(/[\W_]+/g, '').substring(0, 6);
+        return `${DataHelper.tenantPrefix}.sdk.${os.platform()}.v${osVersion}.v${nodeVersion}`;
     }
 
     static package() {
