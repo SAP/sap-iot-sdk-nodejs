@@ -10,8 +10,8 @@ class DataHelper {
     }
 
     static _getPackageName() {
-        const nodeVersion = process.versions.node.replace(/\./g, '');
-        const osVersion = os.release().replace(/\./g, '');
+        const nodeVersion = process.versions.node.replace(/[\W_]+/g, '');
+        const osVersion = os.release().replace(/[\W_]+/g, '');
         return `${DataHelper.tenantPrefix}.sdk.${os.platform()}.osv${osVersion}.nodev${nodeVersion}`;
     }
 
