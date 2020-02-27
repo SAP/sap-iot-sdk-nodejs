@@ -95,7 +95,7 @@ describe('Authenticator', function () {
                 await authenticator.getNewToken();
                 assert.fail('Should not have been resolved');
             } catch (error) {
-                assert.equal(error.message, 'Error: UAA Error');
+                assert.equal(error.message, 'UAA Error');
             }
         });
     });

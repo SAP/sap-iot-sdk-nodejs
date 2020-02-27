@@ -1,8 +1,8 @@
 const assert = require('assert');
 const proxyquire = require('proxyquire');
 
-let rpStub = () => Promise.reject();
-const LeonardoIoT = proxyquire('../../lib/LeonardoIoT', { 'request-promise-native': (requestConfig) => rpStub(requestConfig) });
+let axiosStub = () => Promise.reject();
+const LeonardoIoT = proxyquire('../../lib/LeonardoIoT', { 'axios': (requestConfig) => axiosStub(requestConfig) });
 const AssertionUtil = require('./AssertionUtil');
 const packageJson = require('../../package.json');
 
@@ -69,27 +69,31 @@ describe('LeonardoIoT', function () {
     });
 
     describe('Request', function () {
-        it('has default parameters', function () {
+        it('has default parameters', async function () {
             const testHeaders = LeonardoIoT._addUserAgent({});
             testHeaders.Authorization = `Bearer ${forwardedAccessToken}`;
-            rpStub = (requestConfig) => {
+            const dataString = 'pass';
+            axiosStub = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: 'https://appiot-mds.cfapps.eu10.hana.ondemand.com/Things',
                     method: 'GET',
-                    headers: testHeaders,
-                    body: {},
-                    agentOptions: {},
-                    resolveWithFullResponse: false
+                    headers: testHeaders
                 });
+                
+                return Promise.resolve({data: dataString});
             };
             client.authenticator.exchangeToken = async function () {
                 return forwardedAccessToken;
             };
-
-            return client.request({
-                url: 'https://appiot-mds.cfapps.eu10.hana.ondemand.com/Things',
-                jwt: forwardedAccessToken
-            });
+            try {
+                const response = await client.request({
+                    url: 'https://appiot-mds.cfapps.eu10.hana.ondemand.com/Things',
+                    jwt: forwardedAccessToken
+                });
+                assert.equal(response, dataString, 'Unexpected response');
+            } catch (error) {
+                assert.fail(error);
+            }
         });
 
         it('has correct version in user agent header field', function () {
@@ -108,48 +112,66 @@ describe('LeonardoIoT', function () {
     });
 
     describe('JWT token', function () {
-        it('gets forwarded correctly', function () {
-            rpStub = (requestConfig) => {
+        it('gets forwarded correctly', async function () {
+            const dataString = 'pass';
+            axiosStub = (requestConfig) => {
                 const expectedJwt = `Bearer ${forwardedAccessToken}`;
                 assert.equal(requestConfig.headers.Authorization, expectedJwt, 'Unexpected JWT token forwarding');
+                return Promise.resolve({data: dataString});
             };
             client.authenticator.exchangeToken = async function () {
                 return forwardedAccessToken;
             };
-
-            return client.request({
-                url: 'https://appiot-mds.cfapps.eu10.hana.ondemand.com/Things',
-                jwt: forwardedAccessToken
-            });
+            try {
+                const response = await client.request({
+                    url: 'https://appiot-mds.cfapps.eu10.hana.ondemand.com/Things',
+                    jwt: forwardedAccessToken
+                });
+                assert.equal(response, dataString, 'Unexpected response');
+            } catch (error) {
+                assert.fail(error);
+            }
         });
 
-        it('gets sliced and forwarded correctly', function () {
-            rpStub = (requestConfig) => {
+        it('gets sliced and forwarded correctly', async function () {
+            const dataString = 'pass';
+            axiosStub = (requestConfig) => {
                 const expectedJwt = `Bearer ${forwardedAccessToken}`;
                 assert.equal(requestConfig.headers.Authorization, expectedJwt, 'Unexpected JWT token forwarding');
+                return Promise.resolve({data: dataString});
             };
             client.authenticator.exchangeToken = async function () {
                 return forwardedAccessToken;
             };
-
-            return client.request({
-                url: 'https://appiot-mds.cfapps.eu10.hana.ondemand.com/Things',
-                jwt: `bearer ${forwardedAccessToken}`
-            });
+            try {
+                const response = await client.request({
+                    url: 'https://appiot-mds.cfapps.eu10.hana.ondemand.com/Things',
+                    jwt: `bearer ${forwardedAccessToken}`
+                });
+                assert.equal(response, dataString, 'Unexpected response');
+            } catch (error) {
+                assert.fail(error);
+            }
         });
 
-        it('gets fetched from authentication URL for request', function () {
-            rpStub = (requestConfig) => {
+        it('gets fetched from authentication URL for request', async function () {
+            const dataString = 'pass';
+            axiosStub = (requestConfig) => {
                 const expectedJwt = `Bearer ${generatedAccessToken}`;
                 assert.equal(requestConfig.headers.Authorization, expectedJwt, 'Unexpected JWT token forwarding');
+                return Promise.resolve({data: dataString});
             };
             client.authenticator.getAccessToken = async function () {
                 return generatedAccessToken;
             };
-
-            return client.request({
-                url: 'https://appiot-mds.cfapps.eu10.hana.ondemand.com/Things'
-            });
+            try{
+                const response = await client.request({
+                    url: 'https://appiot-mds.cfapps.eu10.hana.ondemand.com/Things'
+                });
+                assert.equal(response, dataString, 'Unexpected response');
+            } catch (error) {
+                assert.fail(error);
+            }
         });
     });
 });
