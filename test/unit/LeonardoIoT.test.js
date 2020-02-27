@@ -96,6 +96,30 @@ describe('LeonardoIoT', function () {
             }
         });
 
+        it('responds based on resolveWithFullResponse', async function () {
+            const dataString = 'pass';
+            const expectedResponse = {
+                data: dataString,
+                headers : dataString
+            };
+            axiosStub = (requestConfig) => {            
+                return Promise.resolve(expectedResponse);
+            };
+            client.authenticator.exchangeToken = async function () {
+                return forwardedAccessToken;
+            };
+            try {
+                const response = await client.request({
+                    url: 'https://appiot-mds.cfapps.eu10.hana.ondemand.com/Things',
+                    resolveWithFullResponse: true,
+                    jwt: forwardedAccessToken
+                });
+                assert.deepStrictEqual(response, expectedResponse, 'Unexpected response');
+            } catch (error) {
+                assert.fail(error);
+            }
+        });
+
         it('has correct version in user agent header field', function () {
             const headers = LeonardoIoT._addUserAgent({});
             assert.equal(headers['User-Agent'], `${packageJson.name}-nodejs / ${packageJson.version}`, 'Unexpected User-Agent header field value');
