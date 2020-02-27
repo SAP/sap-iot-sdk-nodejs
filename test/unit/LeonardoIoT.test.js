@@ -120,6 +120,28 @@ describe('LeonardoIoT', function () {
             }
         });
 
+        it('passes additonal params to axios', async function () {
+            const dataString = 'pass';
+            const testObject = {
+                test: dataString
+            };
+            axiosStub = (requestConfig) => {  
+                assert.equal(requestConfig.test, dataString, 'Additional String test param not passed to axios');
+                assert.deepEqual(requestConfig.anotherTest, testObject, 'Additional Object test param not passed to axios');       
+                return Promise.resolve();
+            };
+            client.authenticator.exchangeToken = async function () {
+                return forwardedAccessToken;
+            };
+            return client.request({
+                url: 'https://appiot-mds.cfapps.eu10.hana.ondemand.com/Things',
+                jwt: forwardedAccessToken,
+                resolveWithFullResponse: true,
+                test: dataString,
+                anotherTest: testObject
+            });
+        });
+
         it('has correct version in user agent header field', function () {
             const headers = LeonardoIoT._addUserAgent({});
             assert.equal(headers['User-Agent'], `${packageJson.name}-nodejs / ${packageJson.version}`, 'Unexpected User-Agent header field value');
