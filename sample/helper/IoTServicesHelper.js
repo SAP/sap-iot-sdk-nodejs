@@ -1,6 +1,6 @@
 const debug = require('debug')('LeonardoIoT:Sample:IoTServicesHelper');
 const assert = require('assert');
-const rp = require('request-promise-native');
+const axios = require('axios');
 const mqtt = require('async-mqtt');
 
 class IoTServicesHelper {
@@ -26,17 +26,17 @@ class IoTServicesHelper {
 
     const device = await this.getDeviceByAlternateId(deviceAlternateId);
     const certificate = await this._getCertificate(device.id);
+    const httpsAgent = new https.Agent({
+      cert: certificate.cert,
+      key: certificate.key,
+      passphrase: certificate.secret,
+    });
 
-    return await rp(
-      {
+    return axios({
         url: `https://${this.host}/iot/gateway/rest/measures/${deviceAlternateId}`,
         method: 'POST',
-        body: payload,
-        agentOptions: {
-          key: certificate.key,
-          cert: certificate.cert,
-          passphrase: certificate.secret,
-        }
+        data: payload,
+        httpsAgent
       }
     );
   }
@@ -115,7 +115,7 @@ class IoTServicesHelper {
     const url = `https://${this.host}/iot/core/api/v1/tenant/${this.tenant}${relativeUrl}`;
     headers.Authorization = `Basic ${Buffer.from(`${this.user}:${this.password}`).toString('base64')}`;
     return await rp({
-      url, method, headers, json: true
+      url, method, headers
     });
   }
 }
