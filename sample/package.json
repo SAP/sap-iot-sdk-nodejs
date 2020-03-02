@@ -10,7 +10,7 @@
     "node": "^8.6.0"
   },
   "dependencies": {
-    "sap-leonardo-iot-sdk": "SAP/leonardo-iot-sdk-nodejs",
+    "sap-leonardo-iot-sdk": "github:SAP/leonardo-iot-sdk-nodejs#v0.1.4",
     "async-mqtt": "2.3.0",
     "express": "^4.17.1"
   },
