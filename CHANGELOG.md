@@ -1,5 +1,8 @@
 # Changelog for SAP Leonardo IoT SDK for Node.js
 
+## 0.1.5 <sub><sup>(06/2020)</sup></sub>
+* Sonar fixes
+
 ## 0.1.4 <sub><sup>(12/2019)</sup></sub>
 * Add event instance APIs
 
