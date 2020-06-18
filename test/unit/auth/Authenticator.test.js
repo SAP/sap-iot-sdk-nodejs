@@ -152,7 +152,7 @@ describe('Authenticator', function () {
                 await authenticator.exchangeToken();
                 assert.fail('Should not have been resolved');
             } catch (err) {
-                assert.equal(err.message, 'RequestToken error', 'Should has rejeceted with error');
+                assert.equal(err.message, 'RequestToken error', 'Should has rejected with error');
             }
         });
 

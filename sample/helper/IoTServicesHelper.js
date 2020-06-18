@@ -111,7 +111,7 @@ class IoTServicesHelper {
     }));
   }
 
-  async _instanceRequest({ relativeUrl, method = 'GET', headers = {} } = {}) {
+  async _instanceRequest({ relativeUrl, method = 'GET', headers = {}} = {}) {
     const url = `https://${this.host}/iot/core/api/v1/tenant/${this.tenant}${relativeUrl}`;
     headers.Authorization = `Basic ${Buffer.from(`${this.user}:${this.password}`).toString('base64')}`;
     return await rp({

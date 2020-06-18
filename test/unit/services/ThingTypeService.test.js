@@ -5,9 +5,15 @@ const configThingUrl = 'https://config-thing-sap.cfapps.eu10.hana.ondemand.com';
 
 describe('Thing Type Service', function () {
     let client;
+    let queryParameters, queryKey, queryValue;
 
     beforeEach(function () {
         client = new LeonardoIoT();
+        queryParameters = {};
+        queryKey = "$expand";
+        queryValue = "Descriptions";
+
+        queryParameters[queryKey] = queryValue;
     });
 
     describe('ThingType', function () {
@@ -36,6 +42,17 @@ describe('Thing Type Service', function () {
             return client.getThingType(thingTypeName);
         });
 
+        it('read single with query parameters', function () {
+            const thingTypeName = 'MyThingType';
+            client.request = (requestConfig) => {
+                AssertionUtil.assertRequestConfig(requestConfig, {
+                    url: `${configThingUrl}/ThingConfiguration/v1/ThingTypes('${thingTypeName}')?${queryKey}=${queryValue}`,
+                });
+            };
+
+            return client.getThingType(thingTypeName, queryParameters);
+        });
+
         it('read multiple', function () {
             client.request = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
@@ -44,6 +61,16 @@ describe('Thing Type Service', function () {
             };
 
             return client.getThingTypes();
+        });
+
+        it('read multiple with query parameters', function () {
+            client.request = (requestConfig) => {
+                AssertionUtil.assertRequestConfig(requestConfig, {
+                    url: `${configThingUrl}/ThingConfiguration/v1/ThingTypes?${queryKey}=${queryValue}`,
+                });
+            };
+
+            return client.getThingTypes(queryParameters);
         });
 
         it('read multiple by package', function () {
@@ -56,6 +83,18 @@ describe('Thing Type Service', function () {
 
             return client.getThingTypesByPackage(packageName);
         });
+
+        it('read multiple by package with query parameters', function () {
+            const packageName = 'MyPackage';
+            client.request = (requestConfig) => {
+                AssertionUtil.assertRequestConfig(requestConfig, {
+                    url: `${configThingUrl}/ThingConfiguration/v1/Packages('${packageName}')/ThingTypes?${queryKey}=${queryValue}`,
+                });
+            };
+
+            return client.getThingTypesByPackage(packageName, queryParameters);
+        });
+
 
         it('delete', function () {
             const thingTypeName = 'MyThingType';

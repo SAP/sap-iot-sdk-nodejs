@@ -5,9 +5,15 @@ const appiotMdsUrl = 'https://appiot-mds.cfapps.eu10.hana.ondemand.com';
 
 describe('Time Series Store', function () {
     let client;
+    let queryParameters, queryKey, queryValue;
 
     beforeEach(function () {
         client = new LeonardoIoT();
+        queryParameters = {};
+        queryKey = "$expand";
+        queryValue = "Descriptions";
+
+        queryParameters[queryKey] = queryValue;
     });
 
     describe('Time Series Data', function () {
@@ -38,6 +44,19 @@ describe('Time Series Store', function () {
             };
 
             return client.getTimeSeriesData(thingId, thingTypeName, propertySetId);
+        });
+
+        it('read with query parameters', function () {
+            const thingId = 'MyThing';
+            const thingTypeName = 'MyThingType';
+            const propertySetId = 'MyPropertySet';
+            client.request = (requestConfig) => {
+                AssertionUtil.assertRequestConfig(requestConfig, {
+                    url: `${appiotMdsUrl}/Things('${thingId}')/${thingTypeName}/${propertySetId}?${queryKey}=${queryValue}`,
+                });
+            };
+
+            return client.getTimeSeriesData(thingId, thingTypeName, propertySetId, queryParameters);
         });
 
         it('read thing snapshot', function () {
