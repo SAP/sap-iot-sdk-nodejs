@@ -236,6 +236,15 @@ const client = new LeonardoIoT({
 });
 ```
 
+If you don't want your client to be able to call every API you can also limit its scope. You can find more information about scopes in SAP IoT in the [documentation](https://help.sap.com/viewer/fffd6ca18e374c2e80688dab5c31527f/latest/en-US/7b9a5dc99e7c4163950ecd944fa9577e.html). The following example explains how to create a client with the scope to create and read things.
+```js
+const SAPIoT = require('sap-leonardo-iot-sdk');
+const client = new SAPIoT({ 
+  //String with all required scopes 
+  scope: 'thing!t5.r thing!t5.c',
+});
+```
+
 #### Cloud Foundry environment
 
 **Option 1: Leonardo IoT service binding**
