@@ -1,7 +1,7 @@
 const LeonardoIoT = require('../../lib/LeonardoIoT');
 const DataHelper = require('./helper/DataHelper');
 
-describe('5) DATA', function () {
+describe('6) DATA', function () {
     let client;
     let thingTypeName;
     let propertySetName;
