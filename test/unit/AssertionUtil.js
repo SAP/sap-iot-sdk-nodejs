@@ -7,7 +7,7 @@ class AssertionUtil {
     if (!expected.headers) expected.headers = {};
 
     assert.equal(querystring.unescape(requestConfig.url), expected.url, 'Unexpected Request URL');
-    expected.method ? assert.equal(requestConfig.method, expected.method, 'Unexpected method') : assert(!requestConfig.method, 'Unexpected method');
+    expected.method ? assert.equal(requestConfig.method, expected.method, 'Unexpected HTTP method') : assert(!requestConfig.method, 'Unexpected HTTP method');
     expected.headers ? assert.deepEqual(requestConfig.headers, expected.headers, 'Unexpected headers') : assert(!requestConfig.headers, 'Unexpected headers');
     expected.body ? assert.deepEqual(requestConfig.body, expected.body, 'Unexpected body') : assert(!requestConfig.body, 'Unexpected body');
     expected.resolveWithFullResponse !== undefined ? assert.equal(requestConfig.resolveWithFullResponse, expected.resolveWithFullResponse, 'Unexpected response resolve option') : assert(!requestConfig.resolveWithFullResponse, 'Unexpected response resolve option');

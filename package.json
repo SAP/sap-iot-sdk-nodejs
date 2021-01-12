@@ -2,12 +2,11 @@
   "name": "sap-leonardo-iot-sdk",
   "private": true,
   "version": "0.1.4",
-  "description": "SDK which simplifies the interaction between an client / server application and SAP Leonardo IoT.",
+  "description": "SDK which simplifies the interaction between an client / server application and SAP IoT.",
   "main": "index.js",
   "scripts": {
     "lint": "eslint --ignore-path .gitignore .",
-    "test": "mocha test/unit --recursive",
-    "coverage": "nyc --reporter=lcov --reporter=text-summary npm test",
+    "test": "nyc --reporter=lcov --reporter=text-summary mocha test/unit --recursive",
     "test-integration": "cross-env DEBUG=LeonardoIoT nyc --reporter=lcov mocha test/integration --sort --bail --config ./test/integration/.integration-mocharc.json",
     "prepareRelease": "npm prune --production"
   },
