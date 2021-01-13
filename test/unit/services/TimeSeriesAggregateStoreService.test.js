@@ -26,6 +26,19 @@ describe('Time Series Store', function () {
             return client.getThingSnapshot(thingId, dataCategory);
         });
 
+
+        it('read thing snapshot with default data category', function () {
+            const thingId = 'MyThing';
+
+            client.request = (requestConfig) => {
+                AssertionUtil.assertRequestConfig(requestConfig, {
+                    url: `${appiotMdsUrl}/Snapshot(thingId='${thingId}',fromTime='',dataCategory='')`
+                });
+            };
+
+            return client.getThingSnapshot(thingId);
+        });
+
         it('read thing snapshot within time range', function () {
             const thingId = 'MyThing';
             const fromTime = currentTime;
@@ -39,6 +52,20 @@ describe('Time Series Store', function () {
             };
 
             return client.getThingSnapshotWithinTimeRange(thingId, fromTime, toTime, dataCategory);
+        });
+
+        it('read thing snapshot within time range with default data category', function () {
+            const thingId = 'MyThing';
+            const fromTime = currentTime;
+            const toTime = new Date().toISOString();
+            
+            client.request = (requestConfig) => {
+                AssertionUtil.assertRequestConfig(requestConfig, {
+                    url: `${appiotMdsUrl}/v2/Snapshot(thingId='${thingId}',fromTime='${fromTime}',toTime='${toTime}',dataCategory='')`
+                });
+            };
+
+            return client.getThingSnapshotWithinTimeRange(thingId, fromTime, toTime);
         });
 
         it('recalculate aggregates', function () {

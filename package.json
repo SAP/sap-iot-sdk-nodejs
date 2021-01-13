@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint --ignore-path .gitignore .",
-    "test": "nyc --reporter=lcov --reporter=text-summary mocha test/unit --recursive",
+    "test": "mocha test/unit --recursive",
+    "coverage": "nyc --reporter=lcov --reporter=text-summary npm test",
     "test-integration": "cross-env DEBUG=LeonardoIoT nyc --reporter=lcov mocha test/integration --sort --bail --config ./test/integration/.integration-mocharc.json",
     "prepareRelease": "npm prune --production"
   },
