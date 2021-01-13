@@ -5,6 +5,7 @@ describe('5) DATA', function () {
     let client;
     let thingTypeName;
     let propertySetName;
+    let propertyName;
     let thingId;
 
     let currentTime;
@@ -16,10 +17,11 @@ describe('5) DATA', function () {
         oneYearAgoTime = new Date(new Date().setFullYear(new Date().getFullYear() - 1)).toISOString();
     });
 
-    describe('5.1) TIME SERIES STORE', function () {
+    describe('5.1) TIME SERIES STORE & TIME SERIES AGGREGATE STORE', function () {
         before(function () {
             thingTypeName = DataHelper.thingType().Name;
             propertySetName = DataHelper.thingType().PropertySets[0].Name;
+            propertyName = DataHelper.propertySetType().Properties[0].Name;
             thingId = DataHelper.data.thing._id;
         });
 
@@ -38,6 +40,18 @@ describe('5) DATA', function () {
 
         it('read snapshot', function () {
             return client.getThingSnapshot(thingId);
+        });
+
+        it('read snapshot within time range', function () {
+            let fromTime = currentTime;
+            let toTime = new Date().toISOString();
+            return client.getThingSnapshotWithinTimeRange(thingId, fromTime, toTime);
+        });
+
+        it('recalculate aggregates', async function () {
+            let fromTime = currentTime;
+            let toTime = new Date().toISOString();
+            return client.recalculateAggregates(thingId, thingTypeName, propertySetName, fromTime, toTime);
         });
 
         it('delete', function () {

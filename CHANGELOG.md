@@ -1,5 +1,9 @@
 # Changelog for SAP Leonardo IoT SDK for Node.js
 
+## 0.1.5 <sub><sup>(01/2021)</sup></sub>
+* Add timeseries store recalculate aggregates API
+* Add timeseries store snapshot v2 API
+
 ## 0.1.4 <sub><sup>(12/2019)</sup></sub>
 * Add event instance APIs
 

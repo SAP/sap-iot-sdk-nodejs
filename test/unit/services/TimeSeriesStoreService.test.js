@@ -40,17 +40,6 @@ describe('Time Series Store', function () {
             return client.getTimeSeriesData(thingId, thingTypeName, propertySetId);
         });
 
-        it('read thing snapshot', function () {
-            const thingId = 'MyThing';
-            client.request = (requestConfig) => {
-                AssertionUtil.assertRequestConfig(requestConfig, {
-                    url: `${appiotMdsUrl}/Snapshot(thingId='${thingId}',fromTime='',dataCategory='')`,
-                });
-            };
-
-            return client.getThingSnapshot(thingId);
-        });
-
         it('delete', function () {
             const thingId = 'MyThing';
             const thingTypeName = 'MyThingType';
