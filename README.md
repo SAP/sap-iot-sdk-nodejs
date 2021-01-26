@@ -38,7 +38,7 @@ It is required to have access to an SAP IoT account to make use of this SDK.
 |-----------------------------|--------|------|--------|-------------|
 | Time Series Store           | X      | X    | X      |             |
 | Time Series Cold Store      | X      | X    | X      |             |
-| Time Series Aggregate Store | X      | X    | X      | recalculate |
+| Time Series Aggregate Store |        | X    |        | recalculate |
 
 ## Download and Installation
 This getting started guide will help you to make first usage of the SAP IoT SDK within your existing Node.js project.
