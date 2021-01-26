@@ -113,7 +113,7 @@ describe('Authenticator', function () {
             }
         });
 
-        it('expect error for missing leonardo iot credentials configuration', async function () {
+        it('expect error for missing SAP IoT credentials configuration', async function () {
             delete authenticator._credentials;
             authenticator._xsuaaService = { credentials: {} };
 
@@ -121,7 +121,7 @@ describe('Authenticator', function () {
                 await authenticator.exchangeToken();
                 assert.fail('Should not have been resolved');
             } catch (err) {
-                assert.equal(err.message, 'Leonardo IoT service binding missing', 'Should has rejeceted with error');
+                assert.equal(err.message, 'SAP IoT service binding missing', 'Should has rejeceted with error');
             }
         });
 
