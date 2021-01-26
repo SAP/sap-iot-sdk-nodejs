@@ -22,7 +22,7 @@ describe('Navigator', function () {
                 navigator = new Navigator();
                 assert.fail('Expected Error was not thrown');
             } catch (err) {
-                assert.equal(err.message, 'Incomplete navigator configuration. Ensure a SAP IoT service instance binding or configure authentication options including endpoints via default-env.json file as described in the readme section of used SAP Leonardo IoT SDK', 'Unexpected error message');
+                assert.equal(err.message, 'Incomplete navigator configuration. Ensure a SAP IoT service instance binding or configure authentication options including endpoints via default-env.json file as described in the readme section of used SAP IoT SDK', 'Unexpected error message');
             }
         });
 
