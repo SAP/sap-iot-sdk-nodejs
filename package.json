@@ -19,6 +19,7 @@
     "request-promise-native": "^1.0.8"
   },
   "devDependencies": {
+    "jwt-simple": "^0.5.6",
     "mocha": "^6.2.2",
     "nock": "^11.7.0",
     "nyc": "^14.1.1",

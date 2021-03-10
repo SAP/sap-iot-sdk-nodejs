@@ -1,25 +1,53 @@
 const assert = require('assert');
+const jwt = require('jwt-simple');
 const Token = require('../../../lib/auth/Token');
+
+const tokenSecret = 'test'
+const sampleToken = { name: 'SAP IoT Token', scope: ["thing.r", "thing.c"] }
 
 describe('Token', function () {
   describe('getAccessToken', function () {
     it('should return the stored token', function () {
-      const jwtToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+      const jwtToken = jwt.encode(sampleToken, tokenSecret);
       const token = new Token(jwtToken, 60);
       assert.equal(jwtToken, token.getAccessToken());
+    });
+  });
+
+  describe('getScopes', function () {
+    it('should return empty array', function () {
+      const nonScopeToken = JSON.parse(JSON.stringify(sampleToken));
+      delete nonScopeToken["scope"];
+
+      const jwtToken = jwt.encode(nonScopeToken, tokenSecret);
+      const token = new Token(jwtToken, 60);
+      const scopes = token.getScopes()
+      assert(Array.isArray(scopes));
+      assert.equal(scopes.length, 0)
+    });
+
+    it('should return token scopes', function () {
+      const scopes = ["action.r", "action.c", "action.d"];
+      const scopeToken = JSON.parse(JSON.stringify(sampleToken));
+      scopeToken["scope"] = scopes;
+
+      const jwtToken = jwt.encode(scopeToken, tokenSecret);
+      const token = new Token(jwtToken, 60);
+      assert.equal(scopes.join(" "), token.getScopes().join(" "));
     });
   });
 
   describe('isExpired', function () {
     it('should not be expired', function () {
       const expiresIn = 1000;
-      const token = new Token('1', expiresIn);
+      const jwtToken = jwt.encode(sampleToken, tokenSecret);
+      const token = new Token(jwtToken, expiresIn);
       assert.equal(false, token.isExpired());
     });
-
     it('should be expired', function () {
       const expiresIn = -1000;
-      const token = new Token('1', expiresIn);
+      const jwtToken = jwt.encode(sampleToken, tokenSecret);
+      const token = new Token(jwtToken, expiresIn);
       assert.equal(true, token.isExpired());
     });
   });

@@ -3,7 +3,7 @@ const LeonardoIoT = require('../../lib/LeonardoIoT');
 const DataHelper = require('./helper/DataHelper');
 const requestHelper = require('./helper/requestHelper');
 
-describe('0) Cleanup and prepare', function () {
+describe('02) Cleanup and prepare', function () {
     let client;
 
     before(async function () {
