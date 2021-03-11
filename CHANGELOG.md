@@ -1,5 +1,8 @@
 # Changelog for SAP IoT SDK for Node.js
 
+## 0.1.6 <sub><sup>(03/2021)</sup></sub>
+* Introduce scope handling on request level
+
 ## 0.1.5 <sub><sup>(01/2021)</sup></sub>
 * Add timeseries store recalculate aggregates API
 * Add timeseries store snapshot v2 API

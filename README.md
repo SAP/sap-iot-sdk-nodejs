@@ -403,6 +403,12 @@ const things = await client.getThings(null, {'jwt': myToken});
 
 Please be aware that forwarded tokens have to be exchanged with a SAP IoT valid token. This operation is managed by the SDK itself, but mandatory requires an binding to the XSUAA instance, which granted your user token. For more information please check the [authorization concept documentation](#authorization-concept).
 
+### How can I restrict scopes when calling APIs
+There is scope support given on request level to enable request specific scope handling. Therefore you have to handover an Array of scopes to your request call, the SDK will automatically fetch a new token which exactly contains defined scopes (not less, not more).
+```js
+const things = await client.getThings(null, {'scopes': ["thing!t5*.r"]});
+```
+
 ### How can I use this SDK for different tenants within a single application?
 You can create a SAP IoT client for a specific tenant by providing the name of the user provided service, which contains all tenant related configurations (tenant service key). In case you are testing locally, don't forget to add the user provided service in the `default-env.json` file:
 ```js

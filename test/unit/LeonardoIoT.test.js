@@ -1,13 +1,16 @@
 const assert = require('assert');
+const jwt = require('jwt-simple');
 const proxyquire = require('proxyquire');
+const Token = require('../../lib/auth/Token');
 
 let rpStub = () => Promise.reject();
 const LeonardoIoT = proxyquire('../../lib/LeonardoIoT', { 'request-promise-native': (requestConfig) => rpStub(requestConfig) });
 const AssertionUtil = require('./AssertionUtil');
 const packageJson = require('../../package.json');
 
-const forwardedAccessToken = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiY2lkIjoieHN1YWFDbGllbnRJZCIsInppZCI6ImFkZTU4NmM2LWY1YjEtNGRkYy1hZWNiLWVhZDNjMmU2ZTcyNSIsInNjb3BlIjpbInVhYS51c2VyIl0sIm5hbWUiOiJTQVAgTGVvbmFyZG8gVGVzdDIiLCJpYXQiOjE1MTYyMzkwMjJ9.h-ETrxkX_K2puXZustO8vTD000OvA_HUfcYWOtokMI_trznDhYgFh9uACd2tPPbKbsrKKH-bcQljSH5Nh-l1KsrsMdVKygJ5-Dmv_8Jdqjb7IHsTZSyQ2b0-EcPawcnECd17N9OJJAIVhBDKnW_32eGLv1yd71Z1e4BjIvuUJCClUWO6mFHD7qL4fcL9zb20N25AcEddDbkTgIe0iSWBaO6k1XUne3jcPcgAOGqpH7J04ACxk7366-4wmtDVk00AXOn8MbNeAkI_cOI3nV3V5dxsB6E6eRFJENKX186DNhwHaBzq6h2VKvXKOG_D2THzPRjDMhiEtrAmSQdB15Re_Q';
-const generatedAccessToken = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiY2lkIjoieHN1YWFDbGllbnRJZCIsInppZCI6ImFkZTU4NmM2LWY1YjEtNGRkYy1hZWNiLWVhZDNjMmU2ZTcyNSIsInNjb3BlIjpbInVhYS51c2VyIl0sIm5hbWUiOiJTQVAgTGVvbmFyZG8gVGVzdDEiLCJpYXQiOjE1MTYyMzkwMjJ9.vnel93jRc4Xg43Kl0t8ysmo4VA2SJ0LdSO7HzCDWAwpy91fS0YcaHkFNFKTNqzEXvveaOOPplY7ULaPy2gAQLIMg_sOKrJGaGjQ3oaxTiq5NyHVxBTP7n8DEvt3kmZv8v6GvIOF4vKl4aHU0pZUGlBFNiBRCAr38sSW2A6AMd2X4Ws7bphFCzlMODPayrdolGEvz866sLa8uK4386SYBrjBRQ9K290icPMNyO0fKNS0qNENjRgazAbgAm7PDNO6j7PUhJgN2apKxsQelrysIrRLIfBDTD7TJsOPzgKU3T8FyOOw1XJBonFMSQ9yCHMFKO3KrL1BuzDdtNZMdxvNFfg';
+const tokenSecret = 'test'
+const generatedAccessToken = { "zid": "ade586c6-f5b1-4ddc-aecb-ead3c2e6e725", "scope": ["uaa.user"], "name": "SAP IoT Test 1", "iat": 1516239022}
+const forwardedAccessToken = { "zid": "ade586c6-f5b1-4ddc-aecb-ead3c2e6e725", "scope": ["uaa.user"], "name": "SAP IoT Test 2", "iat": 1516239022}
 
 describe('LeonardoIoT', function () {
     let client;
@@ -70,8 +73,9 @@ describe('LeonardoIoT', function () {
 
     describe('Request', function () {
         it('has default parameters', function () {
+            const token = jwt.encode(forwardedAccessToken, tokenSecret);
             const testHeaders = LeonardoIoT._addUserAgent({});
-            testHeaders.Authorization = `Bearer ${forwardedAccessToken}`;
+            testHeaders.Authorization = `Bearer ${token}`;
             rpStub = (requestConfig) => {
                 AssertionUtil.assertRequestConfig(requestConfig, {
                     url: 'https://appiot-mds.cfapps.eu10.hana.ondemand.com/Things',
@@ -83,12 +87,12 @@ describe('LeonardoIoT', function () {
                 });
             };
             client.authenticator.exchangeToken = async function () {
-                return forwardedAccessToken;
+                return token;
             };
 
             return client.request({
                 url: 'https://appiot-mds.cfapps.eu10.hana.ondemand.com/Things',
-                jwt: forwardedAccessToken
+                jwt: token
             });
         });
 
@@ -102,49 +106,52 @@ describe('LeonardoIoT', function () {
                 await LeonardoIoT._request({ url: null });
                 assert.fail('Expected Error was not thrown');
             } catch (err) {
-                assert.equal(err.message, 'URL argument is empty for "request" call in Leonardo IoT', 'Unexpected error message');
+                assert.equal(err.message, 'URL argument is empty for "request" call in SAP IoT', 'Unexpected error message');
             }
         });
     });
 
     describe('JWT token', function () {
         it('gets forwarded correctly', function () {
+            const token = jwt.encode(forwardedAccessToken, tokenSecret);
             rpStub = (requestConfig) => {
-                const expectedJwt = `Bearer ${forwardedAccessToken}`;
+                const expectedJwt = `Bearer ${token}`;
                 assert.equal(requestConfig.headers.Authorization, expectedJwt, 'Unexpected JWT token forwarding');
             };
             client.authenticator.exchangeToken = async function () {
-                return forwardedAccessToken;
+                return token;
             };
 
             return client.request({
                 url: 'https://appiot-mds.cfapps.eu10.hana.ondemand.com/Things',
-                jwt: forwardedAccessToken
+                jwt: token
             });
         });
 
         it('gets sliced and forwarded correctly', function () {
+            const token = jwt.encode(forwardedAccessToken, tokenSecret);
             rpStub = (requestConfig) => {
-                const expectedJwt = `Bearer ${forwardedAccessToken}`;
+                const expectedJwt = `Bearer ${token}`;
                 assert.equal(requestConfig.headers.Authorization, expectedJwt, 'Unexpected JWT token forwarding');
             };
             client.authenticator.exchangeToken = async function () {
-                return forwardedAccessToken;
+                return token;
             };
 
             return client.request({
                 url: 'https://appiot-mds.cfapps.eu10.hana.ondemand.com/Things',
-                jwt: `bearer ${forwardedAccessToken}`
+                jwt: `bearer ${token}`
             });
         });
 
         it('gets fetched from authentication URL for request', function () {
+            const token = jwt.encode(generatedAccessToken, tokenSecret);
             rpStub = (requestConfig) => {
-                const expectedJwt = `Bearer ${generatedAccessToken}`;
+                const expectedJwt = `Bearer ${token}`;
                 assert.equal(requestConfig.headers.Authorization, expectedJwt, 'Unexpected JWT token forwarding');
             };
-            client.authenticator.getAccessToken = async function () {
-                return generatedAccessToken;
+            client.authenticator.getToken = async function () {
+                return new Token(token, 900);
             };
 
             return client.request({

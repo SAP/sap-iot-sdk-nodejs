@@ -1,13 +1,16 @@
 const assert = require('assert');
+const jwt = require('jwt-simple');
 const nock = require('nock');
 const proxyquire = require('proxyquire');
 const Authenticator = require('../../../lib/auth/Authenticator');
+const Token = require('../../../lib/auth/Token')
 
 let authenticator;
 let xssecStub;
 
-const sampleToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gU0FQIiwiaWF0IjoxNTE2MjM5MDIyfQ.vrRldgjFOYWVhsOQEoM-lHDpPc_g6rZ6ecsTRM6H8MA';
-const exchangedToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlNBUCBUZXN0IiwiaWF0IjoxNTE2MjM5MDIyfQ.eS_ilFJWy8PB_2Y4xq8AKqm1eLBUQqAoO4tgfQwD2k4';
+const tokenSecret = 'test'
+const sampleToken = { name: 'SAP IoT Token', scope: ["rule.r", "rule.c", "rule.d"] }
+const exchangedToken = { name: 'Exchange Token', scope: ["rule.r", "rule.c", "rule.d"] }
 
 describe('Authenticator', function () {
     beforeEach(function () {
@@ -29,37 +32,103 @@ describe('Authenticator', function () {
         });
     });
 
-    describe('getAccessToken', function () {
+    describe('getToken', function () {
         it('should return a token', async function () {
             nock('https://test.authentication.eu10.hana.ondemand.com')
                 .post('/oauth/token')
                 .reply(200, {
-                    access_token: sampleToken,
+                    access_token: jwt.encode(sampleToken, tokenSecret),
                     expires_in: 1000,
                 });
             let token;
             try {
-                token = await authenticator.getAccessToken();
+                token = await authenticator.getToken();
             } catch (error) {
                 assert.fail(error);
             }
-            assert.equal(token, sampleToken);
+            const expectedToken = jwt.encode(sampleToken, tokenSecret);
+            assert.equal(token.getAccessToken(), expectedToken);
+        });
+
+        it('should return a token with specific scopes', async function () {
+            const scopes = ["thing.r", "thing.c"];
+            let scopeToken = JSON.parse(JSON.stringify(sampleToken));
+            scopeToken["scope"] = scopes;
+
+            nock('https://test.authentication.eu10.hana.ondemand.com')
+                .post('/oauth/token')
+                .reply(200, {
+                    access_token: jwt.encode(scopeToken, tokenSecret),
+                    expires_in: 1000,
+                });
+            let token;
+            try {
+                token = await authenticator.getToken(scopes);
+            } catch (error) {
+                assert.fail(error);
+            }
+
+            const expectedToken = jwt.encode(scopeToken, tokenSecret)
+            assert.equal(token.getAccessToken(), expectedToken);
         });
 
         it('should only return a new token if the stored token is expired', async function () {
             nock('https://test.authentication.eu10.hana.ondemand.com')
                 .post('/oauth/token')
                 .reply(200, {
-                    access_token: sampleToken,
+                    access_token: jwt.encode(sampleToken, tokenSecret),
                     expires_in: -1000,
                 });
             let token;
             try {
-                token = await authenticator.getAccessToken();
+                token = await authenticator.getToken();
             } catch (error) {
                 assert.fail(error);
             }
-            assert.equal(token, sampleToken);
+            const expectedToken = jwt.encode(sampleToken, tokenSecret)
+            assert.equal(token.getAccessToken(), expectedToken);
+        });
+    });
+
+    describe('checkNewTokenRequired', function () {
+        beforeEach(function () {
+            authenticator = new Authenticator({
+                url: 'https://test.authentication.eu10.hana.ondemand.com',
+                clientid: 'clientId',
+                clientsecret: 'clientSecret'
+            }, {});
+        });
+
+        it('no existing token is given', async function () {
+            assert(authenticator._checkNewTokenRequired());
+        });
+
+        it('existing token expired', async function () {
+            authenticator.token = new Token(jwt.encode(sampleToken, tokenSecret), -1);
+            assert(authenticator._checkNewTokenRequired());
+        });
+
+        it('unmatching number of required scopes', async function () {
+            authenticator.token = new Token(jwt.encode(sampleToken, tokenSecret), 900);
+            const requiredScopes = sampleToken.scope;
+            requiredScopes.push("thing.r");
+            assert(authenticator._checkNewTokenRequired(requiredScopes));
+        });
+
+        it('unmatching required scopes', async function () {
+            authenticator.token = new Token(jwt.encode(sampleToken, tokenSecret), 900);
+            const requiredScopes = ["thing.r", "thing.c", "thing.d"];
+            assert(authenticator._checkNewTokenRequired(requiredScopes));
+        });
+
+        it('existing valid token without scope definition', async function () {
+            authenticator.token = new Token(jwt.encode(sampleToken, tokenSecret), 900);
+            assert(!authenticator._checkNewTokenRequired());
+        });
+
+        it('valid existing token matching scopes', async function () {
+            authenticator.token = new Token(jwt.encode(sampleToken, tokenSecret), 900);
+            assert(!authenticator._checkNewTokenRequired(sampleToken.scope));
         });
     });
 
@@ -73,7 +142,7 @@ describe('Authenticator', function () {
                     assert.equal(this.req.headers.authorization, 'Basic Y2xpZW50SWQ6Y2xpZW50U2VjcmV0');
                     assert.equal(requestBody, 'grant_type=client_credentials&response_type=token');
                     return [200, {
-                        access_token: sampleToken,
+                        access_token: jwt.encode(sampleToken, tokenSecret),
                         expires_in: -1000,
                     }];
                 });
@@ -83,7 +152,35 @@ describe('Authenticator', function () {
             } catch (error) {
                 assert.fail(error);
             }
-            assert.equal(token.getAccessToken(), sampleToken);
+            const expectedToken = jwt.encode(sampleToken, tokenSecret);
+            assert.equal(token.getAccessToken(), expectedToken);
+        });
+
+        it('should return a new token with specific scopes', async function () {
+            const scopes = ["thing.r", "thing.c"];
+            let scopeToken = JSON.parse(JSON.stringify(sampleToken));
+            scopeToken["scope"] = scopes;
+            
+            nock('https://test.authentication.eu10.hana.ondemand.com')
+                .post('/oauth/token')
+              // eslint-disable-next-line func-names
+                .reply(function (uri, requestBody) {
+                    assert.equal(this.req.headers['content-type'], 'application/x-www-form-urlencoded');
+                    assert.equal(this.req.headers.authorization, 'Basic Y2xpZW50SWQ6Y2xpZW50U2VjcmV0');
+                    assert.equal(requestBody, 'grant_type=client_credentials&response_type=token&scope=thing.r%20thing.c');
+                    return [200, {
+                        access_token: jwt.encode(scopeToken, tokenSecret),
+                        expires_in: -1000,
+                    }];
+                });
+            let token;
+            try {
+                token = await authenticator.getNewToken(scopes);
+            } catch (error) {
+                assert.fail(error);
+            }
+            const expectedToken = jwt.encode(scopeToken, tokenSecret);
+            assert.equal(token.getAccessToken(), expectedToken);
         });
 
         it('should return an error', async function () {
