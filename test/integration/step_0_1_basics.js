@@ -30,7 +30,8 @@ describe('01) Basics', function () {
             }
 
             const readThingsScopes = token.getScopes().filter(scope => scope.match("thing!t[1-9]*.r"));
-            await client.getThings({}, {scopes : readThingsScopes});
+            const response = await client.getThings(null, {resolveWithFullResponse: true, scopes : readThingsScopes});
+            assert.equal(response.statusCode, 200);
         } catch (error) {
             assert.fail(error);
         }

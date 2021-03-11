@@ -1,7 +1,7 @@
 {
   "name": "sap-leonardo-iot-sdk",
   "private": true,
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "SDK which simplifies the interaction between an client / server application and SAP IoT.",
   "main": "index.js",
   "scripts": {
@@ -15,11 +15,11 @@
     "@sap/xssec": "^2.2.3",
     "@sap/xsenv": "^2.2.0",
     "debug": "^4.1.1",
+    "jwt-simple": "^0.5.6",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.8"
   },
   "devDependencies": {
-    "jwt-simple": "^0.5.6",
     "mocha": "^6.2.2",
     "nock": "^11.7.0",
     "nyc": "^14.1.1",
