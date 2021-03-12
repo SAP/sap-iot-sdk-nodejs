@@ -1,10 +1,9 @@
 name: Integration-Tests
 
-on: [push]
+on: [push, workflow_dispatch]
 
 jobs:
   build:
-
     strategy:
       matrix:
         node-version: [10.x, 12.x, 14.x]
