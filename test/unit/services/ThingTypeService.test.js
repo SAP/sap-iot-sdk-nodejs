@@ -21,7 +21,6 @@ describe('Thing Type Service', function () {
           body: thingTypePayload,
         });
       };
-
       return client.createThingType(packageName, thingTypePayload);
     });
 
@@ -32,7 +31,6 @@ describe('Thing Type Service', function () {
           url: `${configThingUrl}/ThingConfiguration/v1/ThingTypes('${thingTypeName}')`,
         });
       };
-
       return client.getThingType(thingTypeName);
     });
 
@@ -42,7 +40,6 @@ describe('Thing Type Service', function () {
           url: `${configThingUrl}/ThingConfiguration/v1/ThingTypes`,
         });
       };
-
       return client.getThingTypes();
     });
 
@@ -53,7 +50,6 @@ describe('Thing Type Service', function () {
           url: `${configThingUrl}/ThingConfiguration/v1/Packages('${packageName}')/ThingTypes`,
         });
       };
-
       return client.getThingTypesByPackage(packageName);
     });
 
@@ -67,7 +63,6 @@ describe('Thing Type Service', function () {
           headers: { 'If-Match': etag },
         });
       };
-
       return client.deleteThingType(thingTypeName, etag);
     });
   });
