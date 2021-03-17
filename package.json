@@ -5,7 +5,6 @@
   "description": "SDK which simplifies the interaction between an client / server application and SAP IoT.",
   "keywords": [
     "SAP",
-    "Leonardo",
     "IoT",
     "SDK"
   ],
