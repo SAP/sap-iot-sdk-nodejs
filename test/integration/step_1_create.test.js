@@ -1,3 +1,4 @@
+const assert = require('assert');
 const LeonardoIoT = require('../../lib/LeonardoIoT');
 const DataHelper = require('./helper/DataHelper');
 
@@ -8,16 +9,19 @@ describe('1) CREATE', function () {
     client = new LeonardoIoT();
   });
 
-  it('package', function () {
-    return client.createPackage(DataHelper.package());
+  it('package', async function () {
+    const response = await client.createPackage(DataHelper.package());
+    assert.strictEqual(response.d.Status, 'Active');
   });
 
-  it('property set type', function () {
-    return client.createPropertySetType(DataHelper.package().Name, DataHelper.propertySetType());
+  it('property set type', async function () {
+    const response = await client.createPropertySetType(DataHelper.package().Name, DataHelper.propertySetType());
+    assert.strictEqual(response.d.Name, DataHelper.propertySetType().Name);
   });
 
-  it('thing type', function () {
-    return client.createThingType(DataHelper.package().Name, DataHelper.thingType());
+  it('thing type', async function () {
+    const response = await client.createThingType(DataHelper.package().Name, DataHelper.thingType());
+    assert.strictEqual(response.d.Name, DataHelper.thingType().Name);
   });
 
   it('object group', function () {
@@ -30,6 +34,7 @@ describe('1) CREATE', function () {
 
   it('event', async function () {
     const things = await client.getThingsByThingType(DataHelper.thingType().Name);
+    assert.strictEqual(things.value[0]._name, DataHelper.thing()._name);
     [DataHelper.data.thing] = things.value;
     return client.createEvent(DataHelper.event());
   });

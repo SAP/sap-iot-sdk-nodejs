@@ -1,3 +1,4 @@
+const assert = require('assert');
 const LeonardoIoT = require('../../lib/LeonardoIoT');
 const DataHelper = require('./helper/DataHelper');
 
@@ -32,21 +33,24 @@ describe('5) DATA', function () {
       });
     });
 
-    it('read', function () {
-      return client.getTimeSeriesData(thingId, thingTypeName, propertySetName);
+    it('read', async function () {
+      const response = await client.getTimeSeriesData(thingId, thingTypeName, propertySetName);
+      assert(response.value.length > 0);
     });
 
-    it('read snapshot', function () {
-      return client.getThingSnapshot(thingId);
+    it('read snapshot', async function () {
+      const response = await client.getThingSnapshot(thingId);
+      assert.strictEqual(response._id, thingId);
     });
 
-    it('read snapshot within time range', function () {
+    it('read snapshot within time range', async function () {
       const fromTime = currentTime;
       const toTime = new Date().toISOString();
-      return client.getThingSnapshotWithinTimeRange(thingId, fromTime, toTime);
+      const response = await client.getThingSnapshotWithinTimeRange(thingId, fromTime, toTime);
+      assert.strictEqual(response._id, thingId);
     });
 
-    it('recalculate aggregates', async function () {
+    it('recalculate aggregates', function () {
       const fromTime = currentTime;
       const toTime = new Date().toISOString();
       return client.recalculateAggregates(thingId, thingTypeName, propertySetName, fromTime, toTime);
