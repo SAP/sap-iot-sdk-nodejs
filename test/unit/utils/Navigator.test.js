@@ -42,7 +42,7 @@ describe('Navigator', function () {
     });
 
     it('getDestination for known destination', function () {
-      assert.equal(navigator.getDestination('appiot-mds'), 'https://appiot-mds.cfapps.eu10.hana.ondemand.com', 'Unexpected destination');
+      assert.strictEqual(navigator.getDestination('appiot-mds'), 'https://appiot-mds.cfapps.eu10.hana.ondemand.com', 'Unexpected destination');
     });
 
     it('getDestination for unknown destination', function () {

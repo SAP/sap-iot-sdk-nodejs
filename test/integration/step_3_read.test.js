@@ -1,4 +1,3 @@
-const assert = require('assert');
 const LeonardoIoT = require('../../lib/LeonardoIoT');
 const DataHelper = require('./helper/DataHelper');
 
@@ -27,11 +26,7 @@ describe('3) READ', function () {
   });
 
   it('thing', async function () {
-    try {
-      await client.getThing(DataHelper.data.thing._id);
-    } catch (error) {
-      assert.fail(error);
-    }
+    await client.getThing(DataHelper.data.thing._id);
     return client.getThingByAlternateId(DataHelper.data.thing._alternateId);
   });
 

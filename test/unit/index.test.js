@@ -14,6 +14,6 @@ describe('SDK Default Export', function () {
         'config-thing-sap': 'https://config-thing-sap.cfapps.eu10.hana.ondemand.com',
       },
     });
-    assert.notEqual(testClient, undefined, 'Invalid constructor for LeonardoIoT client');
+    assert.notStrictEqual(testClient, undefined, 'Invalid constructor for LeonardoIoT client');
   });
 });

@@ -10,7 +10,7 @@ describe('Token', function () {
     it('should return the stored token', function () {
       const jwtToken = jwt.encode(sampleToken, tokenSecret);
       const token = new Token(jwtToken, 60);
-      assert.equal(jwtToken, token.getAccessToken());
+      assert.strictEqual(jwtToken, token.getAccessToken());
     });
   });
 
@@ -23,7 +23,7 @@ describe('Token', function () {
       const token = new Token(jwtToken, 60);
       const scopes = token.getScopes();
       assert(Array.isArray(scopes));
-      assert.equal(scopes.length, 0);
+      assert.strictEqual(scopes.length, 0);
     });
 
     it('should return token scopes', function () {
@@ -33,7 +33,7 @@ describe('Token', function () {
 
       const jwtToken = jwt.encode(scopeToken, tokenSecret);
       const token = new Token(jwtToken, 60);
-      assert.equal(scopes.join(' '), token.getScopes().join(' '));
+      assert.strictEqual(scopes.join(' '), token.getScopes().join(' '));
     });
   });
 
@@ -42,13 +42,13 @@ describe('Token', function () {
       const expiresIn = 1000;
       const jwtToken = jwt.encode(sampleToken, tokenSecret);
       const token = new Token(jwtToken, expiresIn);
-      assert.equal(false, token.isExpired());
+      assert.strictEqual(false, token.isExpired());
     });
     it('should be expired', function () {
       const expiresIn = -1000;
       const jwtToken = jwt.encode(sampleToken, tokenSecret);
       const token = new Token(jwtToken, expiresIn);
-      assert.equal(true, token.isExpired());
+      assert.strictEqual(true, token.isExpired());
     });
   });
 });

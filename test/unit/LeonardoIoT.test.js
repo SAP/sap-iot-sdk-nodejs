@@ -32,7 +32,7 @@ describe('LeonardoIoT', function () {
   describe('constructor', function () {
     it('call without arguments', function () {
       const clientDefault = new LeonardoIoT();
-      assert.notEqual(clientDefault, undefined, 'Invalid constructor for LeonardoIoT client');
+      assert.notStrictEqual(clientDefault, undefined, 'Invalid constructor for LeonardoIoT client');
     });
 
     it('call with configuration arguments', function () {
@@ -47,7 +47,7 @@ describe('LeonardoIoT', function () {
           'config-thing-sap': 'https://config-thing-sap.cfapps.eu10.hana.ondemand.com',
         },
       });
-      assert.notEqual(testClient, undefined, 'Invalid constructor for LeonardoIoT client');
+      assert.notStrictEqual(testClient, undefined, 'Invalid constructor for LeonardoIoT client');
     });
 
     it('call with configuration arguments including xsuaa config', function () {
@@ -62,16 +62,16 @@ describe('LeonardoIoT', function () {
           'config-thing-sap': 'https://config-thing-sap.cfapps.eu10.hana.ondemand.com',
         },
       });
-      assert.notEqual(testClient, undefined, 'Invalid constructor for LeonardoIoT client');
+      assert.notStrictEqual(testClient, undefined, 'Invalid constructor for LeonardoIoT client');
     });
 
     it('instances for multi tenant mode', function () {
       const clientTest = new LeonardoIoT('leonardo-iot-account-test');
       const clientDev = new LeonardoIoT('leonardo-iot-account-dev');
 
-      assert.notEqual(clientTest.authenticator.authUrl, clientDev.authenticator.authUrl, 'Mismatching client ID of clients');
-      assert.notEqual(clientTest.authenticator.clientId, clientDev.authenticator.clientId, 'Mismatching client ID of clients');
-      assert.notEqual(clientTest.authenticator.clientSecret, clientDev.authenticator.clientSecret, 'Mismatching client ID of clients');
+      assert.notStrictEqual(clientTest.authenticator.authUrl, clientDev.authenticator.authUrl, 'Mismatching client ID of clients');
+      assert.notStrictEqual(clientTest.authenticator.clientId, clientDev.authenticator.clientId, 'Mismatching client ID of clients');
+      assert.notStrictEqual(clientTest.authenticator.clientSecret, clientDev.authenticator.clientSecret, 'Mismatching client ID of clients');
     });
   });
 
@@ -102,7 +102,7 @@ describe('LeonardoIoT', function () {
 
     it('has correct version in user agent header field', function () {
       const headers = LeonardoIoT._addUserAgent({});
-      assert.equal(headers['User-Agent'], `${packageJson.name}-nodejs / ${packageJson.version}`, 'Unexpected User-Agent header field value');
+      assert.strictEqual(headers['User-Agent'], `${packageJson.name}-nodejs / ${packageJson.version}`, 'Unexpected User-Agent header field value');
     });
 
     it('throws error for missing URL parameter', async function () {
@@ -110,7 +110,7 @@ describe('LeonardoIoT', function () {
         await LeonardoIoT._request({ url: null });
         assert.fail('Expected Error was not thrown');
       } catch (err) {
-        assert.equal(err.message, 'URL argument is empty for "request" call in SAP IoT', 'Unexpected error message');
+        assert.strictEqual(err.message, 'URL argument is empty for "request" call in SAP IoT', 'Unexpected error message');
       }
     });
   });
@@ -120,7 +120,7 @@ describe('LeonardoIoT', function () {
       const token = jwt.encode(forwardedAccessToken, tokenSecret);
       rpStub = (requestConfig) => {
         const expectedJwt = `Bearer ${token}`;
-        assert.equal(requestConfig.headers.Authorization, expectedJwt, 'Unexpected JWT token forwarding');
+        assert.strictEqual(requestConfig.headers.Authorization, expectedJwt, 'Unexpected JWT token forwarding');
       };
       client.authenticator.exchangeToken = async function () {
         return token;
@@ -136,7 +136,7 @@ describe('LeonardoIoT', function () {
       const token = jwt.encode(forwardedAccessToken, tokenSecret);
       rpStub = (requestConfig) => {
         const expectedJwt = `Bearer ${token}`;
-        assert.equal(requestConfig.headers.Authorization, expectedJwt, 'Unexpected JWT token forwarding');
+        assert.strictEqual(requestConfig.headers.Authorization, expectedJwt, 'Unexpected JWT token forwarding');
       };
       client.authenticator.exchangeToken = async function () {
         return token;
@@ -152,7 +152,7 @@ describe('LeonardoIoT', function () {
       const token = jwt.encode(generatedAccessToken, tokenSecret);
       rpStub = (requestConfig) => {
         const expectedJwt = `Bearer ${token}`;
-        assert.equal(requestConfig.headers.Authorization, expectedJwt, 'Unexpected JWT token forwarding');
+        assert.strictEqual(requestConfig.headers.Authorization, expectedJwt, 'Unexpected JWT token forwarding');
       };
       client.authenticator.getToken = async function () {
         return new Token(token, 900);

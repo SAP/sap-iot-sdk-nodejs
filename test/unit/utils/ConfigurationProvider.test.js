@@ -19,9 +19,9 @@ describe('ConfigurationProvider', function () {
       process.env.VCAP_SERVICES = '{"iotae":[{"name":"internal","credentials":{"uaa":{"url":"ServiceBrokerUaaUrl","clientid":"ServiceBrokerClientId","clientsecret":"ServiceBrokerClientSecret"}},"tags":["leonardoiot"]}]}';
 
       const authentication = ConfigurationProvider.getCredentials();
-      assert.equal(authentication.url, 'ServiceBrokerUaaUrl', 'Unexpected UAA url');
-      assert.equal(authentication.clientid, 'ServiceBrokerClientId', 'Unexpected Client ID');
-      assert.equal(authentication.clientsecret, 'ServiceBrokerClientSecret', 'Unexpected Client secret');
+      assert.strictEqual(authentication.url, 'ServiceBrokerUaaUrl', 'Unexpected UAA url');
+      assert.strictEqual(authentication.clientid, 'ServiceBrokerClientId', 'Unexpected Client ID');
+      assert.strictEqual(authentication.clientsecret, 'ServiceBrokerClientSecret', 'Unexpected Client secret');
     });
 
     it('getCredentials without any settings', function () {
@@ -46,7 +46,7 @@ describe('ConfigurationProvider', function () {
       process.env.VCAP_SERVICES = '{"iotae":[{"credentials":{"endpoints":{"appiot-mds":"https://appiot-mds-backup.cfapps.de01.hana.ondemand.com"}},"tags":["leonardoiot"]}]}';
 
       const destinations = ConfigurationProvider.getDestinations();
-      assert.equal(destinations['appiot-mds'], 'https://appiot-mds-backup.cfapps.de01.hana.ondemand.com', 'Unexpected destination');
+      assert.strictEqual(destinations['appiot-mds'], 'https://appiot-mds-backup.cfapps.de01.hana.ondemand.com', 'Unexpected destination');
     });
 
     it('getDestinations without any settings', function () {
@@ -67,32 +67,32 @@ describe('ConfigurationProvider', function () {
 
     it('get existing leonardo iot service by tag', function () {
       const service = ConfigurationProvider._getService({ tag: 'leonardoiot' });
-      assert.equal(service.tags[0], 'leonardoiot', 'Unexpected service');
+      assert.strictEqual(service.tags[0], 'leonardoiot', 'Unexpected service');
     });
 
     it('get existing xsuaa service by tag', function () {
       const service = ConfigurationProvider._getService({ tag: 'xsuaa' });
-      assert.equal(service.tags[0], 'xsuaa', 'Unexpected service');
+      assert.strictEqual(service.tags[0], 'xsuaa', 'Unexpected service');
     });
 
     it('get not existing service by tag', function () {
       const service = ConfigurationProvider._getService({ tag: 'notExisting' });
-      assert.equal(service, undefined, 'Unexpected service');
+      assert.strictEqual(service, undefined, 'Unexpected service');
     });
 
     it('get existing service by name', function () {
       const service = ConfigurationProvider._getService({ name: 'iot_internal' });
-      assert.equal(service.name, 'iot_internal', 'Unexpected service');
+      assert.strictEqual(service.name, 'iot_internal', 'Unexpected service');
     });
 
     it('get existing user provided service by name', function () {
       const service = ConfigurationProvider._getService({ name: 'leonardo-iot-account-test' });
-      assert.equal(service.name, 'leonardo-iot-account-test', 'Unexpected service');
+      assert.strictEqual(service.name, 'leonardo-iot-account-test', 'Unexpected service');
     });
 
     it('get not existing service by name', function () {
       const service = ConfigurationProvider._getService({ name: 'notExisting' });
-      assert.equal(service, undefined, 'Unexpected service');
+      assert.strictEqual(service, undefined, 'Unexpected service');
     });
 
     it('expect error for missing environment configuration', function () {

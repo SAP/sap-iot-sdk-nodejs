@@ -1,4 +1,3 @@
-const assert = require('assert');
 const LeonardoIoT = require('../../lib/LeonardoIoT');
 const DataHelper = require('./helper/DataHelper');
 
@@ -30,12 +29,8 @@ describe('1) CREATE', function () {
   });
 
   it('event', async function () {
-    try {
-      const things = await client.getThingsByThingType(DataHelper.thingType().Name);
-      [DataHelper.data.thing] = things.value;
-    } catch (error) {
-      assert.fail(error);
-    }
+    const things = await client.getThingsByThingType(DataHelper.thingType().Name);
+    [DataHelper.data.thing] = things.value;
     return client.createEvent(DataHelper.event());
   });
 });
