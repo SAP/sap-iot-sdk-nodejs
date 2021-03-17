@@ -21,7 +21,7 @@ jobs:
           - 12
           - 14
     runs-on: ${{ matrix.os }}
-    name: Unit test for Node ${{ matrix.node-version }} on ${{ matrix.os }}
+    name: Unit test Node ${{ matrix.node-version }} on ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node ${{ matrix.node-version }}
@@ -46,7 +46,7 @@ jobs:
           - 12
           - 14
     runs-on: ${{ matrix.os }}
-    name: Integration tests for Node ${{ matrix.node-version }} on ${{ matrix.os }}
+    name: Integration tests Node ${{ matrix.node-version }} on ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node ${{ matrix.node-version }}
