@@ -3,9 +3,12 @@
 ## 0.1.7 <sub><sup>(03/2021)</sup></sub>
 * Enhance eslint setup
 * Introduce automatic GH Action for linting
-* Fix sample setup
+* Introduce automatic dependency check
+* Fix setup of samples
 * Fix eslint findings
 * Fix deprecated assert APIs
+* Bump unit test coverage
+* Enhance integeation tests
 
 ## 0.1.6 <sub><sup>(03/2021)</sup></sub>
 * Introduce scope handling on request level
