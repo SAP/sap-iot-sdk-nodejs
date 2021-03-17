@@ -180,7 +180,7 @@ describe('Authenticator', function () {
         await authenticator.exchangeToken();
         assert.fail('Should not have been resolved');
       } catch (err) {
-        assert.strictEqual(err.message, 'XSUAA (Source of token) service binding missing', 'Should has rejeceted with error');
+        assert.strictEqual(err.message, 'XSUAA (Source of token) service binding missing', 'Should have rejected with error');
       }
     });
 
@@ -192,7 +192,7 @@ describe('Authenticator', function () {
         await authenticator.exchangeToken();
         assert.fail('Should not have been resolved');
       } catch (err) {
-        assert.strictEqual(err.message, 'SAP IoT service binding missing', 'Should has rejeceted with error');
+        assert.strictEqual(err.message, 'SAP IoT service binding missing', 'Should have rejected with error');
       }
     });
 
@@ -205,7 +205,7 @@ describe('Authenticator', function () {
         await authenticator.exchangeToken();
         assert.fail('Should not have been resolved');
       } catch (err) {
-        assert.strictEqual(err.message, 'SecurityContext error', 'Should has rejeceted with error');
+        assert.strictEqual(err.message, 'SecurityContext error', 'Should have rejected with error');
       }
     });
 
@@ -223,7 +223,7 @@ describe('Authenticator', function () {
         await authenticator.exchangeToken();
         assert.fail('Should not have been resolved');
       } catch (err) {
-        assert.strictEqual(err.message, 'RequestToken error', 'Should has rejeceted with error');
+        assert.strictEqual(err.message, 'RequestToken error', 'Should have rejected with error');
       }
     });
 
