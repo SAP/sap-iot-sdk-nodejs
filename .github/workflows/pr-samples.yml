@@ -5,12 +5,11 @@ on:
   pull_request:
     paths:
       - "samples/**"
-      - ".github/workflows/pr-lint-samples.yml"
+      - ".github/workflows/pr-samples.yml"
 
 jobs:
   lint:
     runs-on: ubuntu-latest
-
     name: Lint samples
     steps:
       - uses: actions/checkout@v2
@@ -21,4 +20,18 @@ jobs:
         working-directory: ./samples
       - name: Lint samples
         run: npm run lint
+        working-directory: ./samples
+
+  dependency-check:
+    runs-on: ubuntu-latest
+    name: Check samples dependencies
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./samples
+      - name: Run dependency check
+        run: npm run checkDependencies
         working-directory: ./samples
