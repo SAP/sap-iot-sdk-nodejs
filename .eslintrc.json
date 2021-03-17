@@ -20,6 +20,9 @@
     "plugin:node/recommended"
   ],
   "rules": {
+    "jsdoc/require-hyphen-before-param-description": "warn",
+    "jsdoc/require-throws": "warn",
+    "jsdoc/check-indentation": "warn",
     "jsdoc/require-jsdoc": "off",
     "no-underscore-dangle": "off",
     "comma-dangle": [
