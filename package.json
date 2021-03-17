@@ -1,6 +1,6 @@
 {
   "name": "sap-leonardo-iot-sdk",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": true,
   "description": "SDK which simplifies the interaction between an client / server application and SAP IoT.",
   "keywords": [
