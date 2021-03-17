@@ -21,7 +21,7 @@ describe('Thing Type Service', function () {
   });
 
   describe('ThingType', function () {
-    it('create', function () {
+    it('should create thingType', function () {
       const packageName = 'MyPackage';
       const thingTypePayload = { Name: 'MyThingType' };
       client.request = (requestConfig) => {
@@ -34,7 +34,7 @@ describe('Thing Type Service', function () {
       return client.createThingType(packageName, thingTypePayload);
     });
 
-    it('read single', function () {
+    it('should read single thingType', function () {
       const thingTypeName = 'MyThingType';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
@@ -44,7 +44,7 @@ describe('Thing Type Service', function () {
       return client.getThingType(thingTypeName);
     });
 
-    it('read single with query parameters', function () {
+    it('should read single thingType with query parameters', function () {
       const thingTypeName = 'MyThingType';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
@@ -54,7 +54,7 @@ describe('Thing Type Service', function () {
       return client.getThingType(thingTypeName, queryParameters);
     });
 
-    it('read multiple', function () {
+    it('should read multiple thingTypes', function () {
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
           url: `${configThingUrl}/ThingConfiguration/v1/ThingTypes`,
@@ -63,7 +63,7 @@ describe('Thing Type Service', function () {
       return client.getThingTypes();
     });
 
-    it('read multiple with query parameters', function () {
+    it('should read multiple thingTypes with query parameters', function () {
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
           url: `${configThingUrl}/ThingConfiguration/v1/ThingTypes?${queryKey}=${queryValue}`,
@@ -72,7 +72,7 @@ describe('Thing Type Service', function () {
       return client.getThingTypes(queryParameters);
     });
 
-    it('read multiple by package', function () {
+    it('should read multiple thingType by package', function () {
       const packageName = 'MyPackage';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
@@ -82,7 +82,7 @@ describe('Thing Type Service', function () {
       return client.getThingTypesByPackage(packageName);
     });
 
-    it('read multiple by package with query parameters', function () {
+    it('should read multiple thingType by package with query parameters', function () {
       const packageName = 'MyPackage';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
@@ -92,7 +92,7 @@ describe('Thing Type Service', function () {
       return client.getThingTypesByPackage(packageName, queryParameters);
     });
 
-    it('delete', function () {
+    it('should delete thingType', function () {
       const thingTypeName = 'MyThingType';
       const etag = '8f9da184-5af1-4237-8ede-a7fee8ddc57e';
       client.request = (requestConfig) => {

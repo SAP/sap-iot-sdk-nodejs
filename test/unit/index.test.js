@@ -2,7 +2,7 @@ const assert = require('assert');
 const LeonardoIoT = require('../..');
 
 describe('SDK Default Export', function () {
-  it('call with configuration arguments', function () {
+  it('should successfully create instance of sdk', function () {
     const testClient = new LeonardoIoT({
       uaa: {
         clientid: 'testId',

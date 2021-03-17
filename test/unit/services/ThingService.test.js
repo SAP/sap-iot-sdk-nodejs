@@ -11,7 +11,7 @@ describe('Thing Service', function () {
   });
 
   describe('Thing', function () {
-    it('create', function () {
+    it('should create thing', function () {
       const thingPayload = { Name: 'MyThing' };
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
@@ -24,7 +24,7 @@ describe('Thing Service', function () {
       return client.createThing(thingPayload);
     });
 
-    it('read single', function () {
+    it('should read single thing', function () {
       const thingId = 'MyThing';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
@@ -35,7 +35,7 @@ describe('Thing Service', function () {
       return client.getThing(thingId);
     });
 
-    it('read single by alternate identifier', function () {
+    it('should read single thing by alternate identifier', function () {
       const thingAlternateId = 'MyAlternateThing';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
@@ -46,7 +46,7 @@ describe('Thing Service', function () {
       return client.getThingByAlternateId(thingAlternateId);
     });
 
-    it('read multiple', function () {
+    it('should read multiple things', function () {
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
           url: `${appiotMdsUrl}/Things`,
@@ -56,7 +56,7 @@ describe('Thing Service', function () {
       return client.getThings();
     });
 
-    it('read multiple with different query parameters', function () {
+    it('should read multiple things with different query parameters', function () {
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
           url: `${appiotMdsUrl}/Things?$select=_id,_name&$orderby=_id&$top=10&$skip=5`,
@@ -68,7 +68,7 @@ describe('Thing Service', function () {
       });
     });
 
-    it('read multiple by thing type', function () {
+    it('should read multiple things by thing type', function () {
       const thingTypeName = 'MyThingType';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
@@ -79,7 +79,7 @@ describe('Thing Service', function () {
       return client.getThingsByThingType(thingTypeName);
     });
 
-    it('read multiple by thing type with complex filter', function () {
+    it('should read multiple things by thing type with complex filter', function () {
       const thingTypeName = 'MyThingType';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
@@ -90,7 +90,7 @@ describe('Thing Service', function () {
       return client.getThingsByThingType(thingTypeName, { $filter: '_name eq \'test\'' });
     });
 
-    it('delete', function () {
+    it('should delete thing by id', function () {
       const thingId = 'MyThing';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {

@@ -11,7 +11,7 @@ describe('Event Service', function () {
   });
 
   describe('Event', function () {
-    it('create', function () {
+    it('should create new event', function () {
       const thingId = 'MyThing';
       const eventPayload = { _status: 'Open', _code: 'T1', _thingId: thingId };
       client.request = (requestConfig) => {
@@ -25,7 +25,7 @@ describe('Event Service', function () {
       return client.createEvent(eventPayload);
     });
 
-    it('read single', function () {
+    it('should read single event', function () {
       const eventId = 'MyEvent';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
@@ -36,7 +36,7 @@ describe('Event Service', function () {
       return client.getEvent(eventId);
     });
 
-    it('read multiple', function () {
+    it('should read multiple events', function () {
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
           url: `${appiotMdsUrl}/Events`,
@@ -46,7 +46,7 @@ describe('Event Service', function () {
       return client.getEvents();
     });
 
-    it('read multiple with different query parameters', function () {
+    it('should read multiple events with different query parameters', function () {
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
           url: `${appiotMdsUrl}/Events?$select=_thingId,_status&$orderby=_thingId&$top=10&$skip=5`,
@@ -58,7 +58,7 @@ describe('Event Service', function () {
       });
     });
 
-    it('read multiple by thing identifier', function () {
+    it('should read multiple events by thing identifier', function () {
       const thingId = 'MyThing';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
@@ -69,7 +69,7 @@ describe('Event Service', function () {
       return client.getEventsByThingId(thingId);
     });
 
-    it('read multiple by thing type with complex filter', function () {
+    it('should read multiple events by thing type with complex filter', function () {
       const thingId = 'MyThing';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
@@ -80,7 +80,7 @@ describe('Event Service', function () {
       return client.getEventsByThingId(thingId, { $filter: '_status eq \'Completed\'' });
     });
 
-    it('delete', function () {
+    it('should delete event', function () {
       const eventId = 'MyEvent';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {

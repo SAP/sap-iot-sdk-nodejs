@@ -11,7 +11,7 @@ describe('Time Series Cold Store Service', function () {
   });
 
   describe('Time Series Data', function () {
-    it('create', function () {
+    it('should create coldstore timeseries data entry', function () {
       const thingId = 'MyThing';
       const thingTypeName = 'MyThingType';
       const propertySetId = 'MyPropertySet';
@@ -24,10 +24,11 @@ describe('Time Series Cold Store Service', function () {
           body: timeSeriesPayload,
         });
       };
+
       return client.createColdStoreTimeSeriesData(thingId, thingTypeName, propertySetId, timeSeriesPayload);
     });
 
-    it('read', function () {
+    it('should read coldstore timeseries data', function () {
       const thingId = 'MyThing';
       const thingTypeName = 'MyThingType';
       const propertySetId = 'MyPropertySet';
@@ -42,7 +43,7 @@ describe('Time Series Cold Store Service', function () {
       return client.getColdStoreTimeSeriesData(thingId, thingTypeName, propertySetId, fromTime, toTime);
     });
 
-    it('delete', function () {
+    it('should delete coldstore timeseries data', function () {
       const thingId = 'MyThing';
       const thingTypeName = 'MyThingType';
       const propertySetId = 'MyPropertySet';

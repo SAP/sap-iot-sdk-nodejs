@@ -13,7 +13,7 @@ describe('Time Series Store', function () {
   });
 
   describe('Time Series Data', function () {
-    it('read thing snapshot', function () {
+    it('should read thing snapshot', function () {
       const thingId = 'MyThing';
       const dataCategory = 'TimeSeries';
 
@@ -26,7 +26,7 @@ describe('Time Series Store', function () {
       return client.getThingSnapshot(thingId, dataCategory);
     });
 
-    it('read thing snapshot with default data category', function () {
+    it('should read thing snapshot with default data category', function () {
       const thingId = 'MyThing';
 
       client.request = (requestConfig) => {
@@ -38,7 +38,7 @@ describe('Time Series Store', function () {
       return client.getThingSnapshot(thingId);
     });
 
-    it('read thing snapshot within time range', function () {
+    it('should read thing snapshot within time range', function () {
       const thingId = 'MyThing';
       const fromTime = currentTime;
       const toTime = new Date().toISOString();
@@ -53,7 +53,7 @@ describe('Time Series Store', function () {
       return client.getThingSnapshotWithinTimeRange(thingId, fromTime, toTime, dataCategory);
     });
 
-    it('read thing snapshot within time range with default data category', function () {
+    it('should read thing snapshot within time range with default data category', function () {
       const thingId = 'MyThing';
       const fromTime = currentTime;
       const toTime = new Date().toISOString();
@@ -67,7 +67,7 @@ describe('Time Series Store', function () {
       return client.getThingSnapshotWithinTimeRange(thingId, fromTime, toTime);
     });
 
-    it('recalculate aggregates', function () {
+    it('should recalculate aggregates', function () {
       const thingId = 'MyThing';
       const thingTypeName = 'MyThingType';
       const propertySetName = 'MyPropertySet';

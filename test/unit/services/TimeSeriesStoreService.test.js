@@ -21,7 +21,7 @@ describe('Time Series Store', function () {
   });
 
   describe('Time Series Data', function () {
-    it('create', function () {
+    it('should create timeseries data', function () {
       const thingId = 'MyThing';
       const thingTypeName = 'MyThingType';
       const propertySetId = 'MyPropertySet';
@@ -34,10 +34,11 @@ describe('Time Series Store', function () {
           body: timeSeriesPayload,
         });
       };
+
       return client.createTimeSeriesData(thingId, thingTypeName, propertySetId, timeSeriesPayload);
     });
 
-    it('read', function () {
+    it('should read timeseries data', function () {
       const thingId = 'MyThing';
       const thingTypeName = 'MyThingType';
       const propertySetId = 'MyPropertySet';
@@ -46,10 +47,11 @@ describe('Time Series Store', function () {
           url: `${appiotMdsUrl}/Things('${thingId}')/${thingTypeName}/${propertySetId}`,
         });
       };
+
       return client.getTimeSeriesData(thingId, thingTypeName, propertySetId);
     });
 
-    it('read with query parameters', function () {
+    it('should read timeseries data with query parameters', function () {
       const thingId = 'MyThing';
       const thingTypeName = 'MyThingType';
       const propertySetId = 'MyPropertySet';
@@ -58,10 +60,11 @@ describe('Time Series Store', function () {
           url: `${appiotMdsUrl}/Things('${thingId}')/${thingTypeName}/${propertySetId}?${queryKey}=${queryValue}`,
         });
       };
+
       return client.getTimeSeriesData(thingId, thingTypeName, propertySetId, queryParameters);
     });
 
-    it('delete', function () {
+    it('should delete timeseries data', function () {
       const thingId = 'MyThing';
       const thingTypeName = 'MyThingType';
       const propertySetId = 'MyPropertySet';
@@ -73,6 +76,7 @@ describe('Time Series Store', function () {
           method: 'DELETE',
         });
       };
+
       return client.deleteTimeSeriesData(thingId, thingTypeName, propertySetId, fromTime, toTime);
     });
   });

@@ -38,13 +38,13 @@ describe('Token', function () {
   });
 
   describe('isExpired', function () {
-    it('should not be expired', function () {
+    it('should return false if token is not expired', function () {
       const expiresIn = 1000;
       const jwtToken = jwt.encode(sampleToken, tokenSecret);
       const token = new Token(jwtToken, expiresIn);
       assert.strictEqual(false, token.isExpired());
     });
-    it('should be expired', function () {
+    it('should return true if token is expired', function () {
       const expiresIn = -1000;
       const jwtToken = jwt.encode(sampleToken, tokenSecret);
       const token = new Token(jwtToken, expiresIn);

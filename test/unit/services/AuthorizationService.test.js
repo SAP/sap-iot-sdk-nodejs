@@ -11,7 +11,7 @@ describe('Authorization Service', function () {
   });
 
   describe('ObjectGroup', function () {
-    it('create', function () {
+    it('should create a new object group', function () {
       const objectGroupPayload = { Name: 'MyObjectGroup' };
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
@@ -24,7 +24,7 @@ describe('Authorization Service', function () {
       return client.createObjectGroup(objectGroupPayload);
     });
 
-    it('read single', function () {
+    it('should read a single object group', function () {
       const objectGroupId = 'MyObjectGroup';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
@@ -35,7 +35,7 @@ describe('Authorization Service', function () {
       return client.getObjectGroup(objectGroupId);
     });
 
-    it('read multiple', function () {
+    it('should read multiple object groups', function () {
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
           url: `${authorizationUrl}/ObjectGroups`,
@@ -45,7 +45,7 @@ describe('Authorization Service', function () {
       return client.getObjectGroups();
     });
 
-    it('read root', function () {
+    it('should read root object group', function () {
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
           url: `${authorizationUrl}/ObjectGroups/TenantRoot`,
@@ -55,7 +55,7 @@ describe('Authorization Service', function () {
       return client.getRootObjectGroup();
     });
 
-    it('delete', function () {
+    it('should delete object group', function () {
       const objectGroupId = 'MyObjectGroup';
       const etag = '8f9da184-5af1-4237-8ede-a7fee8ddc57e';
       client.request = (requestConfig) => {

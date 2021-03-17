@@ -10,14 +10,14 @@ describe('Navigator', function () {
       navigator = new Navigator(ConfigurationProvider.getDestinations());
     });
 
-    it('valid constructor call', function () {
+    it('should call constructor successfully', function () {
       navigator = new Navigator({
         'appiot-mds': 'https://appiot-mds.cfapps.eu10.hana.ondemand.com',
       });
       assert(navigator.appiotMds());
     });
 
-    it('invalid constructor call', function () {
+    it('should throw error for invalid constructor call', function () {
       try {
         navigator = new Navigator();
         assert.fail('Expected Error was not thrown');
@@ -31,7 +31,7 @@ describe('Navigator', function () {
       }
     });
 
-    it('all functioned destinations are existing in sample env', function () {
+    it('all functional destinations should exist in sample env', function () {
       assert(navigator.authorization());
       assert(navigator.businessPartner());
       assert(navigator.configPackage());
@@ -41,11 +41,11 @@ describe('Navigator', function () {
       assert(navigator.appiotColdstore());
     });
 
-    it('getDestination for known destination', function () {
+    it('should get destination for known destination', function () {
       assert.strictEqual(navigator.getDestination('appiot-mds'), 'https://appiot-mds.cfapps.eu10.hana.ondemand.com', 'Unexpected destination');
     });
 
-    it('getDestination for unknown destination', function () {
+    it('should throw error for unknwon destination', function () {
       assert.throws(() => navigator.getDestination('unknown'), Error, 'Expected Error was not thrown');
     });
   });

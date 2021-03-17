@@ -11,7 +11,7 @@ describe('Package Service', function () {
   });
 
   describe('Package', function () {
-    it('create', function () {
+    it('should create new package', function () {
       const packagePayload = { Name: 'MyPackage' };
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
@@ -24,7 +24,7 @@ describe('Package Service', function () {
       return client.createPackage(packagePayload);
     });
 
-    it('read single', function () {
+    it('should read single package', function () {
       const packageName = 'MyPackage';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
@@ -35,7 +35,7 @@ describe('Package Service', function () {
       return client.getPackage(packageName);
     });
 
-    it('read multiple', function () {
+    it('should read multiple packages', function () {
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
           url: `${configPackageUrl}/Package/v1/Packages`,
@@ -45,7 +45,7 @@ describe('Package Service', function () {
       return client.getPackages();
     });
 
-    it('delete', function () {
+    it('should delete package', function () {
       const packageName = 'MyPackage';
       const etag = '8f9da184-5af1-4237-8ede-a7fee8ddc57e';
       client.request = (requestConfig) => {

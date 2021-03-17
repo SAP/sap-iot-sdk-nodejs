@@ -11,7 +11,7 @@ describe('Property Set Type Service', function () {
   });
 
   describe('PropertySetType', function () {
-    it('create', function () {
+    it('should create PropertySetType', function () {
       const packageName = 'MyPackage';
       const propertySetTypePayload = { Name: 'MyPropertySetType' };
       client.request = (requestConfig) => {
@@ -25,7 +25,7 @@ describe('Property Set Type Service', function () {
       return client.createPropertySetType(packageName, propertySetTypePayload);
     });
 
-    it('read single', function () {
+    it('should read single propertySetType', function () {
       const propertySetTypeName = 'MyPropertySetType';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
@@ -36,7 +36,7 @@ describe('Property Set Type Service', function () {
       return client.getPropertySetType(propertySetTypeName);
     });
 
-    it('read multiple', function () {
+    it('should read multiple propertySetTypes', function () {
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
           url: `${configThingUrl}/ThingConfiguration/v1/PropertySetTypes`,
@@ -46,7 +46,7 @@ describe('Property Set Type Service', function () {
       return client.getPropertySetTypes();
     });
 
-    it('read multiple by package', function () {
+    it('should read multiple propertySetTypes by package name', function () {
       const packageName = 'MyPackage';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
@@ -57,7 +57,7 @@ describe('Property Set Type Service', function () {
       return client.getPropertySetTypesByPackage(packageName);
     });
 
-    it('delete', function () {
+    it('should delete propertySetType by name', function () {
       const propertySetTypeName = 'MyPropertySetType';
       const etag = '8f9da184-5af1-4237-8ede-a7fee8ddc57e';
       client.request = (requestConfig) => {

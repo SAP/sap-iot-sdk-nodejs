@@ -17,14 +17,14 @@ describe('5) DATA', function () {
     oneYearAgoTime = new Date(new Date().setFullYear(new Date().getFullYear() - 1)).toISOString();
   });
 
-  describe('5.1) TIME SERIES STORE & TIME SERIES AGGREGATE STORE', function () {
+  describe('Timeseries Store & Timeseries Aggregate Store', function () {
     before(function () {
       thingTypeName = DataHelper.thingType().Name;
       propertySetName = DataHelper.thingType().PropertySets[0].Name;
       thingId = DataHelper.data.thing._id;
     });
 
-    it('create', function () {
+    it('should create a timeseries data entity', function () {
       return client.createTimeSeriesData(thingId, thingTypeName, propertySetName, {
         value: [{
           _time: currentTime,
@@ -33,42 +33,42 @@ describe('5) DATA', function () {
       });
     });
 
-    it('read', async function () {
+    it('should read timeseries data', async function () {
       const response = await client.getTimeSeriesData(thingId, thingTypeName, propertySetName);
       assert(response.value.length > 0);
     });
 
-    it('read snapshot', async function () {
+    it('should read snapshot', async function () {
       const response = await client.getThingSnapshot(thingId);
       assert.strictEqual(response._id, thingId);
     });
 
-    it('read snapshot within time range', async function () {
+    it('should read snapshot within time range', async function () {
       const fromTime = currentTime;
       const toTime = new Date().toISOString();
       const response = await client.getThingSnapshotWithinTimeRange(thingId, fromTime, toTime);
       assert.strictEqual(response._id, thingId);
     });
 
-    it('recalculate aggregates', function () {
+    it('should recalculate aggregates', function () {
       const fromTime = currentTime;
       const toTime = new Date().toISOString();
       return client.recalculateAggregates(thingId, thingTypeName, propertySetName, fromTime, toTime);
     });
 
-    it('delete', function () {
+    it('should delete timeseries data', function () {
       return client.deleteTimeSeriesData(thingId, thingTypeName, propertySetName, currentTime, currentTime);
     });
   });
 
-  describe('5.2) TIME SERIES COLD STORE', function () {
+  describe('Timeseries Cold Store', function () {
     before(function () {
       thingTypeName = DataHelper.thingType().Name;
       propertySetName = DataHelper.thingType().PropertySets[0].Name;
       thingId = DataHelper.data.thing._id;
     });
 
-    it('create', function () {
+    it('should create a timeseries coldstore data entity', function () {
       return client.createColdStoreTimeSeriesData(thingId, thingTypeName, propertySetName, {
         value: [{
           _time: oneYearAgoTime,
@@ -77,11 +77,11 @@ describe('5) DATA', function () {
       });
     });
 
-    it('read', function () {
+    it('should read timeseries coldstore data', function () {
       return client.getColdStoreTimeSeriesData(thingId, thingTypeName, propertySetName, oneYearAgoTime, oneYearAgoTime);
     });
 
-    it('delete', function () {
+    it('should delete timeseries coldstore data', function () {
       return client.deleteColdStoreTimeSeriesData(thingId, thingTypeName, propertySetName, oneYearAgoTime, oneYearAgoTime);
     });
   });

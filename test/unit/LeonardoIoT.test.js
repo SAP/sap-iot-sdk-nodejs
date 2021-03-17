@@ -30,12 +30,12 @@ describe('LeonardoIoT', function () {
   });
 
   describe('constructor', function () {
-    it('call without arguments', function () {
+    it('should create a new sdk instance without arguments', function () {
       const clientDefault = new LeonardoIoT();
       assert.notStrictEqual(clientDefault, undefined, 'Invalid constructor for LeonardoIoT client');
     });
 
-    it('call with configuration arguments', function () {
+    it('should create a new sdk instance with configuration arguments', function () {
       const testClient = new LeonardoIoT({
         uaa: {
           clientid: 'testId',
@@ -50,7 +50,7 @@ describe('LeonardoIoT', function () {
       assert.notStrictEqual(testClient, undefined, 'Invalid constructor for LeonardoIoT client');
     });
 
-    it('call with configuration arguments including xsuaa config', function () {
+    it('should create a new sdk instance with configuration arguments including xsuaa config', function () {
       const testClient = new LeonardoIoT({
         uaa: {
           clientid: 'testId',
@@ -65,7 +65,7 @@ describe('LeonardoIoT', function () {
       assert.notStrictEqual(testClient, undefined, 'Invalid constructor for LeonardoIoT client');
     });
 
-    it('instances for multi tenant mode', function () {
+    it('should create multiple sdk instances for multi tenant mode', function () {
       const clientTest = new LeonardoIoT('leonardo-iot-account-test');
       const clientDev = new LeonardoIoT('leonardo-iot-account-dev');
 
@@ -76,7 +76,7 @@ describe('LeonardoIoT', function () {
   });
 
   describe('Request', function () {
-    it('has default parameters', function () {
+    it('should have default parameters', function () {
       const token = jwt.encode(forwardedAccessToken, tokenSecret);
       const testHeaders = LeonardoIoT._addUserAgent({});
       testHeaders.Authorization = `Bearer ${token}`;
@@ -100,12 +100,12 @@ describe('LeonardoIoT', function () {
       });
     });
 
-    it('has correct version in user agent header field', function () {
+    it('should have correct version in user agent header field', function () {
       const headers = LeonardoIoT._addUserAgent({});
       assert.strictEqual(headers['User-Agent'], `${packageJson.name}-nodejs / ${packageJson.version}`, 'Unexpected User-Agent header field value');
     });
 
-    it('throws error for missing URL parameter', async function () {
+    it('should throw error for missing URL parameter', async function () {
       try {
         await LeonardoIoT._request({ url: null });
         assert.fail('Expected Error was not thrown');
@@ -116,7 +116,7 @@ describe('LeonardoIoT', function () {
   });
 
   describe('JWT token', function () {
-    it('gets forwarded correctly', function () {
+    it('should get forwarded correctly', function () {
       const token = jwt.encode(forwardedAccessToken, tokenSecret);
       rpStub = (requestConfig) => {
         const expectedJwt = `Bearer ${token}`;
@@ -132,7 +132,7 @@ describe('LeonardoIoT', function () {
       });
     });
 
-    it('gets sliced and forwarded correctly', function () {
+    it('should get sliced and forwarded correctly', function () {
       const token = jwt.encode(forwardedAccessToken, tokenSecret);
       rpStub = (requestConfig) => {
         const expectedJwt = `Bearer ${token}`;
@@ -148,7 +148,7 @@ describe('LeonardoIoT', function () {
       });
     });
 
-    it('gets fetched from authentication URL for request', function () {
+    it('should get fetched from authentication URL for request', function () {
       const token = jwt.encode(generatedAccessToken, tokenSecret);
       rpStub = (requestConfig) => {
         const expectedJwt = `Bearer ${token}`;

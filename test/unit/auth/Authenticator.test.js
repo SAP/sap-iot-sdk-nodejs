@@ -27,7 +27,7 @@ describe('Authenticator', function () {
   });
 
   describe('constructor', function () {
-    it('throws error if no credentials are provided', function () {
+    it('should throw error if no credentials are provided', function () {
       assert.throws(() => new Authenticator(), Error, 'Expected Error was not thrown');
     });
   });
@@ -83,34 +83,34 @@ describe('Authenticator', function () {
       }, {});
     });
 
-    it('no existing token is given', async function () {
+    it('should return true if no existing token can be found', async function () {
       assert(authenticator._checkNewTokenRequired());
     });
 
-    it('existing token expired', async function () {
+    it('should return true if existing token has expired', async function () {
       authenticator.token = new Token(jwt.encode(sampleToken, tokenSecret), -1);
       assert(authenticator._checkNewTokenRequired());
     });
 
-    it('unmatching number of required scopes', async function () {
+    it('should return true if number of required scopes does not match', async function () {
       authenticator.token = new Token(jwt.encode(sampleToken, tokenSecret), 900);
       const requiredScopes = sampleToken.scope;
       requiredScopes.push('thing.r');
       assert(authenticator._checkNewTokenRequired(requiredScopes));
     });
 
-    it('unmatching required scopes', async function () {
+    it('should return true if required scopes are not matching', async function () {
       authenticator.token = new Token(jwt.encode(sampleToken, tokenSecret), 900);
       const requiredScopes = ['thing.r', 'thing.c', 'thing.d'];
       assert(authenticator._checkNewTokenRequired(requiredScopes));
     });
 
-    it('existing valid token without scope definition', async function () {
+    it('should return true if there is an existing valid token without scope definition', async function () {
       authenticator.token = new Token(jwt.encode(sampleToken, tokenSecret), 900);
       assert(!authenticator._checkNewTokenRequired());
     });
 
-    it('valid existing token matching scopes', async function () {
+    it('should return false if valid token with matching scopes exists', async function () {
       authenticator.token = new Token(jwt.encode(sampleToken, tokenSecret), 900);
       assert(!authenticator._checkNewTokenRequired(sampleToken.scope));
     });
@@ -172,7 +172,7 @@ describe('Authenticator', function () {
   });
 
   describe('exchangeToken', function () {
-    it('expect error for missing xsuaa configuration', async function () {
+    it('should throw error for missing xsuaa configuration', async function () {
       authenticator._credentials = {};
       delete authenticator._xsuaaService;
 
@@ -184,7 +184,7 @@ describe('Authenticator', function () {
       }
     });
 
-    it('expect error for missing SAP IoT credentials configuration', async function () {
+    it('should throw error for missing SAP IoT credentials configuration', async function () {
       delete authenticator._credentials;
       authenticator._xsuaaService = { credentials: {} };
 
@@ -196,7 +196,7 @@ describe('Authenticator', function () {
       }
     });
 
-    it('security context creation fails', async function () {
+    it('should throw error if security context creation fails', async function () {
       xssecStub.createSecurityContext = (accessToken, credentials, callback) => {
         callback(new Error('SecurityContext error'), null);
       };
@@ -209,7 +209,7 @@ describe('Authenticator', function () {
       }
     });
 
-    it('exchange token request fails', async function () {
+    it('should throw error when exchange token request fails', async function () {
       xssecStub.createSecurityContext = (accessToken, credentials, callback) => {
         callback(null, {
           getGrantType: () => 'client_credentials',
@@ -227,7 +227,7 @@ describe('Authenticator', function () {
       }
     });
 
-    it('successful exchange', async function () {
+    it('should exchange token successfully', async function () {
       xssecStub.createSecurityContext = (accessToken, credentials, callback) => {
         callback(null, {
           getGrantType: () => 'client_credentials',

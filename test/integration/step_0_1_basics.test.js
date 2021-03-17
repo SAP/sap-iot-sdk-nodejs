@@ -1,19 +1,19 @@
 const assert = require('assert');
 const LeonardoIoT = require('../../lib/LeonardoIoT');
 
-describe('01) Basics', function () {
+describe('Basics', function () {
   let client;
 
   before(function () {
     client = new LeonardoIoT();
   });
 
-  it('get token', async function () {
+  it('should get a token', async function () {
     const token = await client.authenticator.getToken();
     assert(token.getScopes().length > 0);
   });
 
-  it('get token with specific scopes', async function () {
+  it('should get a token with specific scopes', async function () {
     const token = await client.authenticator.getToken();
     assert(token.getScopes().length > 2);
 

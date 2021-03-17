@@ -3,7 +3,7 @@ const LeonardoIoT = require('../../lib/LeonardoIoT');
 const DataHelper = require('./helper/DataHelper');
 const requestHelper = require('./helper/requestHelper');
 
-describe('02) Cleanup and prepare', function () {
+describe('Cleanup and Prepare', function () {
   let client;
 
   // eslint-disable-next-line mocha/no-hooks-for-single-case
@@ -13,7 +13,7 @@ describe('02) Cleanup and prepare', function () {
   });
 
   // eslint-disable-next-line consistent-return
-  it('cleanup', async function () {
+  it('should do cleanup', async function () {
     const packageExists = await client.getPackage(DataHelper.package().Name).catch(() => {
       assert.ok(true, 'Package not found');
     });
