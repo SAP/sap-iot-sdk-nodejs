@@ -1,0 +1,59 @@
+{
+  "root": true,
+  "env": {
+    "node": true,
+    "mocha": true,
+    "es6": true
+  },
+  "plugins": [
+    "mocha",
+    "no-loops",
+    "json-format",
+    "jsdoc"
+  ],
+  "extends": [
+    "airbnb-base",
+    "eslint:recommended",
+    "plugin:mocha/recommended",
+    "plugin:jsdoc/recommended"
+  ],
+  "rules": {
+    "jsdoc/require-jsdoc": "off",
+    "no-underscore-dangle": "off",
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "max-len": [
+      "error",
+      {
+        "code": 120,
+        "ignorePattern": ".*\\*\\s.*"
+      }
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "no-loops/no-loops": "error"
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.test.js",
+        "*.spec.js"
+      ],
+      "rules": {
+        "max-len": [
+          "error",
+          {
+            "code": 160
+          }
+        ],
+        "prefer-arrow-callback": "off",
+        "mocha/prefer-arrow-callback": "error",
+        "func-names": "off"
+      }
+    }
+  ]
+}
