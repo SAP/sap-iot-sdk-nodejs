@@ -1,5 +1,12 @@
 # Changelog for SAP IoT SDK for Node.js
 
+## 0.1.7 <sub><sup>(03/2021)</sup></sub>
+* Enhancing eslint setup
+* Introduce automatic GH Action for linting
+* Fix sample setup
+* Fix eslint findings
+* Fix deprecated assert APIs
+
 ## 0.1.6 <sub><sup>(03/2021)</sup></sub>
 * Introduce scope handling on request level
 
