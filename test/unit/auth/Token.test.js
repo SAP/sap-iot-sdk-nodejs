@@ -2,8 +2,8 @@ const assert = require('assert');
 const jwt = require('jwt-simple');
 const Token = require('../../../lib/auth/Token');
 
-const tokenSecret = 'test'
-const sampleToken = { name: 'SAP IoT Token', scope: ["thing.r", "thing.c"] }
+const tokenSecret = 'test';
+const sampleToken = { name: 'SAP IoT Token', scope: ['thing.r', 'thing.c'] };
 
 describe('Token', function () {
   describe('getAccessToken', function () {
@@ -17,23 +17,23 @@ describe('Token', function () {
   describe('getScopes', function () {
     it('should return empty array', function () {
       const nonScopeToken = JSON.parse(JSON.stringify(sampleToken));
-      delete nonScopeToken["scope"];
+      delete nonScopeToken.scope;
 
       const jwtToken = jwt.encode(nonScopeToken, tokenSecret);
       const token = new Token(jwtToken, 60);
-      const scopes = token.getScopes()
+      const scopes = token.getScopes();
       assert(Array.isArray(scopes));
-      assert.equal(scopes.length, 0)
+      assert.equal(scopes.length, 0);
     });
 
     it('should return token scopes', function () {
-      const scopes = ["action.r", "action.c", "action.d"];
+      const scopes = ['action.r', 'action.c', 'action.d'];
       const scopeToken = JSON.parse(JSON.stringify(sampleToken));
-      scopeToken["scope"] = scopes;
+      scopeToken.scope = scopes;
 
       const jwtToken = jwt.encode(scopeToken, tokenSecret);
       const token = new Token(jwtToken, 60);
-      assert.equal(scopes.join(" "), token.getScopes().join(" "));
+      assert.equal(scopes.join(' '), token.getScopes().join(' '));
     });
   });
 
