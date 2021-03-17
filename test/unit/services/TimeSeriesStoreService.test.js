@@ -5,6 +5,16 @@ const appiotMdsUrl = 'https://appiot-mds.cfapps.eu10.hana.ondemand.com';
 
 describe('Time Series Store', function () {
   let client;
+  let queryParameters;
+  let queryKey;
+  let queryValue;
+
+  before(function () {
+    queryParameters = {};
+    queryKey = '$expand';
+    queryValue = 'Descriptions';
+    queryParameters[queryKey] = queryValue;
+  });
 
   beforeEach(function () {
     client = new LeonardoIoT();
@@ -36,8 +46,19 @@ describe('Time Series Store', function () {
           url: `${appiotMdsUrl}/Things('${thingId}')/${thingTypeName}/${propertySetId}`,
         });
       };
-
       return client.getTimeSeriesData(thingId, thingTypeName, propertySetId);
+    });
+
+    it('read with query parameters', function () {
+      const thingId = 'MyThing';
+      const thingTypeName = 'MyThingType';
+      const propertySetId = 'MyPropertySet';
+      client.request = (requestConfig) => {
+        AssertionUtil.assertRequestConfig(requestConfig, {
+          url: `${appiotMdsUrl}/Things('${thingId}')/${thingTypeName}/${propertySetId}?${queryKey}=${queryValue}`,
+        });
+      };
+      return client.getTimeSeriesData(thingId, thingTypeName, propertySetId, queryParameters);
     });
 
     it('delete', function () {
@@ -52,7 +73,6 @@ describe('Time Series Store', function () {
           method: 'DELETE',
         });
       };
-
       return client.deleteTimeSeriesData(thingId, thingTypeName, propertySetId, fromTime, toTime);
     });
   });
