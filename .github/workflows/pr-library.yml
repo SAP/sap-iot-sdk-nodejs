@@ -1,4 +1,4 @@
-name: Unit Tests
+name: Library
 
 on:
   workflow_dispatch:
@@ -21,7 +21,7 @@ jobs:
           - 12
           - 14
     runs-on: ${{ matrix.os }}
-    name: Node ${{ matrix.node-version }} on ${{ matrix.os }}
+    name: Unit test for Node ${{ matrix.node-version }} on ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node ${{ matrix.node-version }}
@@ -29,8 +29,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           check-latest: true
-      - run: npm install
-      - run: npm test
+      - name: Install dependencies
+        run: npm install
+      - name: Run unit tests
+        run: npm test
 
   integration-tests:
     strategy:
@@ -44,7 +46,7 @@ jobs:
           - 12
           - 14
     runs-on: ${{ matrix.os }}
-    name: Node ${{ matrix.node-version }} on ${{ matrix.os }}
+    name: Integration tests for Node ${{ matrix.node-version }} on ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node ${{ matrix.node-version }}
@@ -52,8 +54,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           check-latest: true
-      - run: npm install
-      - run: npm run test:integration
+      - name: Install dependencies
+        run: npm install
+      - name: Run integration tests
+        run: npm run test:integration
         env:
           VCAP_SERVICES: ${{ secrets.TENANT_CREDENTIALS_EU10_PLAYGROUND }}
 

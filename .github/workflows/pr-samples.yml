@@ -1,4 +1,4 @@
-name: Lint Samples
+name: Samples
 
 on:
   workflow_dispatch:
