@@ -8,7 +8,8 @@
     "lint:fix": "eslint --fix --ext .js,.json .",
     "lint": "eslint --ext .js,.json .",
     "start": "node --inspect server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "checkDependencies": "depcheck ."
   },
   "dependencies": {
     "async-mqtt": "2.3.0",
@@ -24,7 +25,8 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-json-format": "^2.0.1",
     "eslint-plugin-no-loops": "^0.3.0",
-    "eslint-plugin-node": "^11.1.0"
+    "eslint-plugin-node": "^11.1.0",
+    "depcheck": "^1.4.0"
   },
   "engines": {
     "node": "^8.6.0"
