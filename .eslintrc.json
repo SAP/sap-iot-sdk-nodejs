@@ -7,6 +7,7 @@
   },
   "plugins": [
     "mocha",
+    "node",
     "no-loops",
     "json-format",
     "jsdoc"
@@ -15,7 +16,8 @@
     "airbnb-base",
     "eslint:recommended",
     "plugin:mocha/recommended",
-    "plugin:jsdoc/recommended"
+    "plugin:jsdoc/recommended",
+    "plugin:node/recommended"
   ],
   "rules": {
     "jsdoc/require-jsdoc": "off",

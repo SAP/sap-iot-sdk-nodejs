@@ -6,11 +6,13 @@
   },
   "plugins": [
     "no-loops",
+    "node",
     "json-format"
   ],
   "extends": [
     "airbnb-base",
-    "eslint:recommended"
+    "eslint:recommended",
+    "plugin:node/recommended"
   ],
   "rules": {
     "no-underscore-dangle": "off",
