@@ -8,15 +8,15 @@
  *
  * TASKS BEFORE START:
  * - Provide user provided services in 'default-env.json' file containing service keys for two different tenants.
- * In this sample they are called 'leonardo-iot-account-dev'
- * and 'leonardo-iot-account-qa', but feel free to adapt these names to your scenario.
+ * In this sample they are called 'sap-iot-account-dev'
+ * and 'sap-iot-account-qa', but feel free to adapt these names to your scenario.
  */
 
-const LeonardoIoT = require('sap-leonardo-iot-sdk');
-// Client for DEV tenant fetching configuration from user provided service with name 'leonardo-iot-account-dev'
-const clientDev = new LeonardoIoT('leonardo-iot-account-dev');
-// Client for QA tenant fetching configuration from user provided service with name 'leonardo-iot-account-qa'
-const clientQa = new LeonardoIoT('leonardo-iot-account-qa');
+const LeonardoIoT = require('sap-iot-sdk');
+// Client for DEV tenant fetching configuration from user provided service with name 'sap-iot-account-dev'
+const clientDev = new LeonardoIoT('sap-iot-account-dev');
+// Client for QA tenant fetching configuration from user provided service with name 'sap-iot-account-qa'
+const clientQa = new LeonardoIoT('sap-iot-account-qa');
 
 let sourceTenantPrefix;
 let targetTenantPrefix;
