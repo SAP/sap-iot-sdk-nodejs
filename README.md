@@ -1,4 +1,6 @@
 # SAP IoT SDK for Node.js
+[![Library](https://github.com/SAP/leonardo-iot-sdk-nodejs/actions/workflows/pr-library.yml/badge.svg)](https://github.com/SAP/leonardo-iot-sdk-nodejs/actions/workflows/pr-library.yml)
+[![Samples](https://github.com/SAP/leonardo-iot-sdk-nodejs/actions/workflows/pr-samples.yml/badge.svg)](https://github.com/SAP/leonardo-iot-sdk-nodejs/actions/workflows/pr-samples.yml)
 
 **Table of Contents**
 - [Description](#description)

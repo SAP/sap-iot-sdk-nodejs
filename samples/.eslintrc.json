@@ -1,0 +1,36 @@
+{
+  "root": true,
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "plugins": [
+    "no-loops",
+    "node",
+    "json-format"
+  ],
+  "extends": [
+    "airbnb-base",
+    "eslint:recommended",
+    "plugin:node/recommended"
+  ],
+  "rules": {
+    "no-underscore-dangle": "off",
+    "no-console": "off",
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "max-len": [
+      "error",
+      {
+        "code": 120
+      }
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "no-loops/no-loops": "error"
+  }
+}

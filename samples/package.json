@@ -1,0 +1,34 @@
+{
+  "name": "sap-leonardo-iot-sdk-sample",
+  "version": "1.0.0",
+  "description": "Samples for usage of SAP Leonardo IoT SDK",
+  "license": "Apache-2.0",
+  "author": "SAP SE",
+  "scripts": {
+    "lint:fix": "eslint --fix --ext .js,.json .",
+    "lint": "eslint --ext .js,.json .",
+    "start": "node --inspect server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "checkDependencies": "depcheck ."
+  },
+  "dependencies": {
+    "async-mqtt": "2.3.0",
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.8",
+    "sap-leonardo-iot-sdk": "github:SAP/leonardo-iot-sdk-nodejs#v0.1.4"
+  },
+  "devDependencies": {
+    "depcheck": "^1.4.0",
+    "eslint": "^7.22.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-json-format": "^2.0.1",
+    "eslint-plugin-no-loops": "^0.3.0",
+    "eslint-plugin-node": "^11.1.0"
+  },
+  "engines": {
+    "node": "^8.6.0"
+  }
+}

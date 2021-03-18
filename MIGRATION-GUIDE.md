@@ -1,6 +1,6 @@
 ## Migration Guide
 This migration guide supports you in adapting your source code from the deprecated [IoT Application Services SDK](https://github.com/SAP/iot-application-services-sdk-nodejs) to the newly released [SAP Leonardo IoT SDK](https://github.com/SAP/leonardo-iot-sdk-nodejs) step by step.
-Before starting the migration we highly recommend to read the [documentation](https://github.com/SAP/leonardo-iot-sdk-nodejs/blob/master/README.md) and have a look at the samples of the new SDK to ensure all concepts and features are known.
+Before starting the migration we highly recommend to read the [documentation](https://github.com/SAP/leonardo-iot-sdk-nodejs/blob/main/README.md) and have a look at the samples of the new SDK to ensure all concepts and features are known.
 
 #### 1) Update Dependency
 Remove existing dependency from package.json via command:
@@ -19,7 +19,7 @@ For Cloud Foundry deployments, all credentials are fetched from application serv
 
 2.1) Remove existing .env files from project root directory
 
-2.2) Copy [template file](https://github.com/SAP/leonardo-iot-sdk-nodejs/blob/master/default-env-template.json) and store it in the projects root directory 
+2.2) Copy [template file](https://github.com/SAP/leonardo-iot-sdk-nodejs/blob/main/default-env-template.json) and store it in the projects root directory 
 
 2.3) Copy Leonardo IoT service key of your tenant into template and rename the file to `default-env.json`.
 
@@ -37,7 +37,7 @@ const client = new LeonardoIoT();
 ```
 
 #### 4) Adapt service calls
-All functionality from the [feature overview table](https://github.com/SAP/leonardo-iot-sdk-nodejs/blob/master/README.md#feature-overview) can be called by a designated function of the instantiated Leonardo IoT client:  
+All functionality from the [feature overview table](https://github.com/SAP/leonardo-iot-sdk-nodejs/blob/main/README.md#feature-overview) can be called by a designated function of the instantiated Leonardo IoT client:  
 
 ```js
 const LeonardoIoT = require('sap-leonardo-iot-sdk');

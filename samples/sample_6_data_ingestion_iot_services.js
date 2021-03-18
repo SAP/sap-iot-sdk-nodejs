@@ -12,30 +12,31 @@
 const assert = require('assert');
 const LeonardoIoT = require('sap-leonardo-iot-sdk');
 const IoTServiceHelper = require('./helper/IoTServicesHelper');
+
 const client = new LeonardoIoT();
 
 const iotServicesCredentials = {
   host: '', // TODO enter IoT Services Host (without https:// protocol)
   tenant: '', // TODO enter IoT Services Tenant
   user: '', // TODO enter IoT Services User
-  password: '' // TODO enter IoT Services Password
+  password: '', // TODO enter IoT Services Password
 };
 const helper = new IoTServiceHelper(iotServicesCredentials);
 
 const deviceAlternateId = ''; // TODO enter alternateId of device
 const sensorAlternateId = ''; // TODO enter alternateId of sensor
 const capabilityAlternateId = ''; // TODO enter alternateId of capability
-assert(deviceAlternateId && sensorAlternateId && capabilityAlternateId, 'Enter values for variables "deviceAlternateId", "sensorAlternateId" and "capabilityAlternateId" before running this sample');
+assert(
+  deviceAlternateId
+  && sensorAlternateId
+  && capabilityAlternateId,
+  // eslint-disable-next-line max-len
+  'Enter values for variables "deviceAlternateId", "sensorAlternateId" and "capabilityAlternateId" before running this sample',
+);
 
-// Entry point of script
-(async () => {
-    try {
-        await sendData();
-    } catch (err) {
-        console.log(err);
-    }
-})();
-
+async function _sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 function generateMeasurementPayload() {
   const payload = {};
@@ -61,11 +62,12 @@ async function sendData() {
     throw new Error(`Unsupported protocol for this sample: ${gateway.protocolId}`);
   }
 
+  // eslint-disable-next-line max-len
   console.log(`Successfully sent data with timestamp ${now.toISOString()} for device ${deviceAlternateId}: ${JSON.stringify(measurementPayload)}`);
 
   const sensor = await helper.getSensorByAlternateId(sensorAlternateId);
   const assignments = await client.request({
-    url: `${client.navigator.tmDataMapping()}/v1/assignments?sensorId=${sensor.id}`
+    url: `${client.navigator.tmDataMapping()}/v1/assignments?sensorId=${sensor.id}`,
   });
 
   if (assignments && assignments.length === 1) {
@@ -77,6 +79,11 @@ async function sendData() {
   }
 }
 
-async function _sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+// Entry point of script
+(async () => {
+  try {
+    await sendData();
+  } catch (err) {
+    console.log(err);
+  }
+})();

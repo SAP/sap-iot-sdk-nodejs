@@ -1,0 +1,4 @@
+.env
+.npm
+default-env*.json
+package-lock.json

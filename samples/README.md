@@ -1,4 +1,4 @@
-# SAP Leonardo IoT SDK sample
+# SAP Leonardo IoT SDK Samples
 
 ## Remark
 This coding is a sample showcase how to use SAP Leonardo IoT JavaScript SDK functionality, it is no official product of SAP SE. This code is free of public documentation and support and will not be maintained. Only SAP SE is allowed to share and publish this source code, receivers are allowed to align their coding to this sample. 

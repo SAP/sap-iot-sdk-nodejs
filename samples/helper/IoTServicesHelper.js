@@ -5,7 +5,13 @@ const mqtt = require('async-mqtt');
 
 class IoTServicesHelper {
   constructor(iotServicesCredentials) {
-    assert(iotServicesCredentials.host && iotServicesCredentials.tenant && iotServicesCredentials.user && iotServicesCredentials.password, 'Enter iot services credentials before running this sample');
+    assert(
+      iotServicesCredentials.host
+      && iotServicesCredentials.tenant
+      && iotServicesCredentials.user
+      && iotServicesCredentials.password,
+      'Enter iot services credentials before running this sample',
+    );
 
     this.host = iotServicesCredentials.host;
     this.tenant = iotServicesCredentials.tenant;
@@ -17,7 +23,7 @@ class IoTServicesHelper {
     const payload = {
       sensorAlternateId,
       capabilityAlternateId,
-      measures: [measuresPayload]
+      measures: [measuresPayload],
     };
 
     if (messageTimestamp) {
@@ -27,25 +33,23 @@ class IoTServicesHelper {
     const device = await this.getDeviceByAlternateId(deviceAlternateId);
     const certificate = await this._getCertificate(device.id);
 
-    return await rp(
-      {
-        url: `https://${this.host}/iot/gateway/rest/measures/${deviceAlternateId}`,
-        method: 'POST',
-        body: payload,
-        agentOptions: {
-          key: certificate.key,
-          cert: certificate.cert,
-          passphrase: certificate.secret,
-        }
-      }
-    );
+    return rp({
+      url: `https://${this.host}/iot/gateway/rest/measures/${deviceAlternateId}`,
+      method: 'POST',
+      body: payload,
+      agentOptions: {
+        key: certificate.key,
+        cert: certificate.cert,
+        passphrase: certificate.secret,
+      },
+    });
   }
 
   async ingestDataMqtt(deviceAlternateId, sensorAlternateId, capabilityAlternateId, measuresPayload, messageTimestamp) {
     const payload = {
       sensorAlternateId,
       capabilityAlternateId,
-      measures: [measuresPayload]
+      measures: [measuresPayload],
     };
 
     if (messageTimestamp) {
@@ -62,7 +66,7 @@ class IoTServicesHelper {
   }
 
   async getGateway(gatewayId) {
-    return await this._instanceRequest({ relativeUrl: `/gateways/${gatewayId}` });
+    return this._instanceRequest({ relativeUrl: `/gateways/${gatewayId}` });
   }
 
   async getDeviceByAlternateId(alternateId) {
@@ -76,10 +80,12 @@ class IoTServicesHelper {
   }
 
   async _getCertificate(deviceId) {
-    const result = await this._instanceRequest({ relativeUrl: `/devices/${deviceId}/authentications/clientCertificate/pem` });
+    const result = await this._instanceRequest({
+      relativeUrl: `/devices/${deviceId}/authentications/clientCertificate/pem`,
+    });
     const key = result.pem.substring(0, result.pem.indexOf('-----BEGIN CERTIFICATE-----'));
     const cert = result.pem.substring(key.length, result.pem.length);
-    const secret = result.secret;
+    const { secret } = result;
     return { key, cert, secret };
   }
 
@@ -94,7 +100,7 @@ class IoTServicesHelper {
         cert: certificate.cert,
         rejectUnauthorized: true,
         passphrase: certificate.secret,
-        clientId: deviceAlternateId
+        clientId: deviceAlternateId,
       });
 
       mqttClient.on('connect', async () => {
@@ -113,9 +119,12 @@ class IoTServicesHelper {
 
   async _instanceRequest({ relativeUrl, method = 'GET', headers = {} } = {}) {
     const url = `https://${this.host}/iot/core/api/v1/tenant/${this.tenant}${relativeUrl}`;
-    headers.Authorization = `Basic ${Buffer.from(`${this.user}:${this.password}`).toString('base64')}`;
-    return await rp({
-      url, method, headers, json: true
+    const requestHeaders = {
+      ...headers,
+      Authorization: `Basic ${Buffer.from(`${this.user}:${this.password}`).toString('base64')}`,
+    };
+    return rp({
+      url, method, requestHeaders, json: true,
     });
   }
 }
