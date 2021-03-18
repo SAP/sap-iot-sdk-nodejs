@@ -2,7 +2,7 @@
  * This example shows different property set type service calls
  */
 
-const LeonardoIoT = require('sap-leonardo-iot-sdk');
+const LeonardoIoT = require('sap-iot-sdk');
 
 const client = new LeonardoIoT();
 let packageName;

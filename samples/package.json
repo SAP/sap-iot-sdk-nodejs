@@ -1,5 +1,5 @@
 {
-  "name": "sap-leonardo-iot-sdk-sample",
+  "name": "sap-iot-sdk-samples",
   "version": "1.0.0",
   "description": "Samples for usage of SAP Leonardo IoT SDK",
   "license": "Apache-2.0",
@@ -17,7 +17,7 @@
     "express": "^4.17.1",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.8",
-    "sap-leonardo-iot-sdk": "github:SAP/leonardo-iot-sdk-nodejs#v0.1.4"
+    "sap-iot-sdk": "github:SAP/sap-iot-sdk-nodejs#v0.1.4"
   },
   "devDependencies": {
     "depcheck": "^1.4.0",

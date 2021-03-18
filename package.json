@@ -10,7 +10,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/SAP/leonardo-iot-sdk-nodejs"
+    "url": "https://github.com/SAP/sap-iot-sdk-nodejs"
   },
   "license": "Apache-2.0",
   "author": "SAP SE",

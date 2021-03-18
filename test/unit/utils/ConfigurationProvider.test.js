@@ -86,8 +86,8 @@ describe('ConfigurationProvider', function () {
     });
 
     it('should get existing user-provided service by name', function () {
-      const service = ConfigurationProvider._getService({ name: 'leonardo-iot-account-test' });
-      assert.strictEqual(service.name, 'leonardo-iot-account-test', 'Unexpected service');
+      const service = ConfigurationProvider._getService({ name: 'sap-iot-account-test' });
+      assert.strictEqual(service.name, 'sap-iot-account-test', 'Unexpected service');
     });
 
     it('should not get existing service by name', function () {
