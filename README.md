@@ -1,6 +1,6 @@
 # SAP IoT SDK for Node.js
-[![Library](https://github.com/SAP/leonardo-iot-sdk-nodejs/actions/workflows/pr-library.yml/badge.svg)](https://github.com/SAP/leonardo-iot-sdk-nodejs/actions/workflows/pr-library.yml)
-[![Samples](https://github.com/SAP/leonardo-iot-sdk-nodejs/actions/workflows/pr-samples.yml/badge.svg)](https://github.com/SAP/leonardo-iot-sdk-nodejs/actions/workflows/pr-samples.yml)
+[![Library](https://github.com/SAP/sap-iot-sdk-nodejs/actions/workflows/pr-library.yml/badge.svg)](https://github.com/SAP/sap-iot-sdk-nodejs/actions/workflows/pr-library.yml)
+[![Samples](https://github.com/SAP/sap-iot-sdk-nodejs/actions/workflows/pr-samples.yml/badge.svg)](https://github.com/SAP/sap-iot-sdk-nodejs/actions/workflows/pr-samples.yml)
 
 **Table of Contents**
 - [Description](#description)
@@ -66,7 +66,7 @@ $ npm config set @sap:registry https://npm.sap.com
 
 Afterwards the SAP IoT SDK can be installed and added to your new application's dependencies
 ```
-$ npm install SAP/leonardo-iot-sdk-nodejs#v0.1.4 --save
+$ npm install SAP/sap-iot-sdk-nodejs#v0.1.4 --save
 ```
 
 ### 2) Setup authorization for local usage
@@ -78,9 +78,10 @@ First please create a blank file called `default-env.json`. Next you have to cop
   "VCAP_SERVICES": {
     "iotae": [
       {
-        "name": "leonardo-iot-service",
+        "name": "sap-iot-service",
         "tags": [
-          "leonardoiot"
+          "leonardoiot",
+          "sapiot"
         ],
         "credentials": <PASTE SAP IOT SERVICE KEY HERE>
       }
@@ -97,7 +98,7 @@ Last you have to copy the full content of your SAP IoT service key information f
 ### 3) Create SAP IoT Client
 Next please define a .js file which acts as application entry point (referenced by package.json). This file is named `index.js` in case you are using the default NPM project settings. Now let's create a SAP IoT client which will support you in accessing SAP IoT services within your code:
 ```js
-const LeonardoIoT = require('sap-leonardo-iot-sdk');
+const LeonardoIoT = require('sap-iot-sdk');
 const client = new LeonardoIoT();
 ```
 
@@ -105,7 +106,7 @@ const client = new LeonardoIoT();
 The client is now able to communicate with SAP IoT services as it is fetching access credentials from the authorization setup file `default-env.json`. There is no more configuration required. Now you are able to perform your first service interaction using the SAP IoT client. Here is a simple runnable web server sample which can be copy & pasted into your index.js file:
 ```js
 const { createServer } = require("http");
-const LeonardoIoT = require('sap-leonardo-iot-sdk');
+const LeonardoIoT = require('sap-iot-sdk');
 const client = new LeonardoIoT();
 
 createServer(async (request, response) => {
@@ -135,7 +136,7 @@ First create a new file called `manifest.yml`, in which all deployment parameter
 ```
 ---
 applications:
-- name: sap-leonardo-iot-demo #choose unique app name to avoid conflicts with existing apps
+- name: sap-iot-demo #choose unique app name to avoid conflicts with existing apps
   command: node index.js
   instances: 1
   memory: 128MB
@@ -215,7 +216,7 @@ As this SDK is taking care of authorization handling, it is required to provide 
 
 Independent of your runtime environment you always have the option to handover all configurations manually within the SAP IoT client instantiation. Please be aware that a full configuration requires tenant credentials as well as API endpoint definitions. The following example demonstrates this pattern:
 ```js
-const LeonardoIoT = require('sap-leonardo-iot-sdk');
+const LeonardoIoT = require('sap-iot-sdk');
 const client = new LeonardoIoT({
     // Mandatory configuration of SAP IoT subaccount credentials
     uaa: {
@@ -252,7 +253,7 @@ To make use of this option add the service broker service binding into the `mani
 
 Next you can directly create a SAP IoT client within your coding without providing any other information:
 ```js
-const LeonardoIoT = require('sap-leonardo-iot-sdk');
+const LeonardoIoT = require('sap-iot-sdk');
 const client = new LeonardoIoT();
 ```
 
@@ -263,15 +264,15 @@ Especially in the case that you want to run an application which is handling dat
 So first you have to bind the user provided services to your application within the related `manifest.yml` file:
 ```
    services:
-    - leonardo-iot-prod-account
-    - leonardo-iot-dev-account
+    - sap-iot-prod-account
+    - sap-iot-dev-account
 ```
 
 Next you can create instances of the SAP IoT client within your coding by providing the service name in the instantiation:
 ```js
-const LeonardoIoT = require('sap-leonardo-iot-sdk');
-const productionClient = new LeonardoIoT('leonardo-iot-prod-account');
-const developmentClient = new LeonardoIoT('leonardo-iot-dev-account');
+const LeonardoIoT = require('sap-iot-sdk');
+const productionClient = new LeonardoIoT('sap-iot-prod-account');
+const developmentClient = new LeonardoIoT('sap-iot-dev-account');
 ```
 
 Be aware that the instantiation will fail in case the named service is not provided in your environment. The user provided service itself has to contain all tenant and landscape related information, best practice is to copy & paste the service key of your subaccount, and can be freely named to whatever fits your needs.
@@ -350,7 +351,7 @@ In a local setup you have to add the following information to your existing `def
 In a Cloud Foundry setup, just add the XSUAA service name to your application's service dependencies in the `manifest.yml` file:
 ```
    services:
-    - leonardo-iot-service
+    - sap-iot-service
     - custom-uaa-service
 ```
 
@@ -362,7 +363,7 @@ Hint: The implementation of @sap/xssec expects, that an [uaa configuration](http
 The SAP IoT client offers a general `request` function which is also used by the SDK internally. This function gives you full options to access SAP IoT services without caring about authorization (same authorization concept as for all other calls used):
 
 ```js
-const LeonardoIoT = require('sap-leonardo-iot-sdk');
+const LeonardoIoT = require('sap-iot-sdk');
 const client = new LeonardoIoT();
 
 const url = 'https://tm-data-mapping.cfapps.eu10.hana.ondemand.com/v1/assignments';
@@ -414,7 +415,7 @@ const things = await client.getThings(null, {'scopes': ["thing!t5*.r"]});
 ### How can I use this SDK for different tenants within a single application?
 You can create a SAP IoT client for a specific tenant by providing the name of the user provided service, which contains all tenant related configurations (tenant service key). In case you are testing locally, don't forget to add the user provided service in the `default-env.json` file:
 ```js
-const LeonardoIoT = require('sap-leonardo-iot-sdk');
+const LeonardoIoT = require('sap-iot-sdk');
 
 // Client using user provided service configuration with name 'dev-tenant'
 const clientDevTenant = new LeonardoIoT('dev-tenant');

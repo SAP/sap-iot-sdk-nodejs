@@ -66,8 +66,8 @@ describe('LeonardoIoT', function () {
     });
 
     it('should create multiple sdk instances for multi tenant mode', function () {
-      const clientTest = new LeonardoIoT('leonardo-iot-account-test');
-      const clientDev = new LeonardoIoT('leonardo-iot-account-dev');
+      const clientTest = new LeonardoIoT('sap-iot-account-test');
+      const clientDev = new LeonardoIoT('sap-iot-account-dev');
 
       assert.notStrictEqual(clientTest.authenticator.authUrl, clientDev.authenticator.authUrl, 'Mismatching client ID of clients');
       assert.notStrictEqual(clientTest.authenticator.clientId, clientDev.authenticator.clientId, 'Mismatching client ID of clients');

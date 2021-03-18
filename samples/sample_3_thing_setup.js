@@ -8,7 +8,7 @@
  * Feel free to skip the cleanup function to keep created test data.
  */
 
-const LeonardoIoT = require('sap-leonardo-iot-sdk');
+const LeonardoIoT = require('sap-iot-sdk');
 
 const client = new LeonardoIoT();
 

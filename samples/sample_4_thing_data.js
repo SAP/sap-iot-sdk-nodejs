@@ -7,7 +7,7 @@
  */
 
 const assert = require('assert');
-const LeonardoIoT = require('sap-leonardo-iot-sdk');
+const LeonardoIoT = require('sap-iot-sdk');
 
 const client = new LeonardoIoT();
 

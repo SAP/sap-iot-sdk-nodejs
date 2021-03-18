@@ -36,7 +36,7 @@ process.env.VCAP_SERVICES = JSON.stringify({
   }],
   'user-provided': [
     {
-      name: 'leonardo-iot-account-test',
+      name: 'sap-iot-account-test',
       credentials: {
         endpoints: {
           'appiot-mds': 'https://appiot-mds-backup.cfapps.de01.hana.ondemand.com',
@@ -50,7 +50,7 @@ process.env.VCAP_SERVICES = JSON.stringify({
       },
     },
     {
-      name: 'leonardo-iot-account-dev',
+      name: 'sap-iot-account-dev',
       credentials: {
         endpoints: {
           'appiot-mds': 'https://appiot-mds-backup.cfapps.de01.hana.ondemand.com',
