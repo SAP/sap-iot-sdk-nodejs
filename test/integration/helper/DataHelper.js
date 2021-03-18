@@ -1,10 +1,8 @@
 const os = require('os');
-const crypto = require('crypto');
 const requestHelper = require('./requestHelper');
 
 class DataHelper {
   static async init(client) {
-    DataHelper.runId = crypto.randomBytes(3).toString('hex');
     DataHelper.client = client;
     DataHelper.tenantPrefix = await requestHelper.determineTenantPrefix(client);
     DataHelper.rootObjectGroup = await client.getRootObjectGroup();
@@ -13,7 +11,8 @@ class DataHelper {
 
   static _getVersioningSuffix(delimiter = '.') {
     const nodeVersion = process.versions.node.replace(/[\W_]+/g, '').substring(0, 6);
-    return `${os.platform()}${delimiter}v${nodeVersion}${delimiter}${DataHelper.runId}`;
+    const osVersion = os.release().replace(/[\W_]+/g, '').substring(0, 6);
+    return `${os.platform()}${delimiter}v${osVersion}${delimiter}v${nodeVersion}`;
   }
 
   static _getPackageName() {

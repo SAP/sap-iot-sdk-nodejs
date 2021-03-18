@@ -5,39 +5,33 @@ function determineTenantPrefix(client) {
 }
 
 async function deletePackageCascading(client, packageName) {
-  const thingTypesResponse = await client.getThingTypesByPackage(packageName);
-  const thingTypes = thingTypesResponse.d.results;
-  thingTypes.forEach(async (thingType) => {
-    const thingTypeResponse = await client.getThingType(thingType.Name, {}, { resolveWithFullResponse: true });
-    const thingsResponse = await client.getThingsByThingType(thingType.Name);
-    // eslint-disable-next-line no-async-promise-executor
-    const thingDeletePromises = thingsResponse.value.map((thing) => new Promise(async (resolve, reject) => {
-      try {
-        const events = await client.getEventsByThingId(thing._id);
-        const eventDeletePromises = events.value.map((event) => client.deleteEvent(event._id));
-        await Promise.all(eventDeletePromises);
-        await client.deleteThing(thing._id);
-        resolve();
-      } catch (error) {
-        reject(error);
-      }
-    }));
+  const thingTypes = await client.getThingTypesByPackage(packageName).then((result) => result.d.results);
+  const thingTypeDeletePromises = thingTypes.map(async (thingType) => {
+    const thingsResponse = await client.getThingsByThingType(thingType.Name).then((result) => result.value);
+    const thingDeletePromises = thingsResponse.map(async (thing) => {
+      const events = await client.getEventsByThingId(thing._id).then((result) => result.value);
+      const eventDeletePromises = events.map((event) => client.deleteEvent(event._id));
+      await Promise.all(eventDeletePromises);
+      return client.deleteThing(thing._id);
+    });
     await Promise.all(thingDeletePromises);
-    await client.deleteThingType(thingType.Name, thingTypeResponse.headers.etag);
+    const thingTypeResponse = await client.getThingType(thingType.Name, {}, { resolveWithFullResponse: true });
+    return client.deleteThingType(thingType.Name, thingTypeResponse.headers.etag);
   });
+  await Promise.all(thingTypeDeletePromises);
 
-  const pstsResponse = await client.getPropertySetTypesByPackage(packageName);
-  const psts = pstsResponse.d.results;
+  const psts = await client.getPropertySetTypesByPackage(packageName).then((result) => result.d.results);
   psts.sort((a, b) => {
     if (a.DataCategory === 'ReferencePropertyData') {
       return -1;
     }
     return b.DataCategory === 'ReferencePropertyData' ? 1 : 0;
   });
-  psts.forEach(async (pst) => {
+  const pstDeletePromises = psts.map(async (pst) => {
     const pstResponse = await client.getPropertySetType(pst.Name, {}, { resolveWithFullResponse: true });
-    await client.deletePropertySetType(pst.Name, pstResponse.headers.etag);
+    return client.deletePropertySetType(pst.Name, pstResponse.headers.etag);
   });
+  await Promise.all(pstDeletePromises);
   const packageResponse = await client.getPackage(packageName, { resolveWithFullResponse: true });
   return client.deletePackage(packageName, packageResponse.headers.etag);
 }
