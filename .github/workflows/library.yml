@@ -1,0 +1,77 @@
+name: Library
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "samples/**"
+      - ".github/workflows/pr-samples.yml"
+      - ".github/workflows/pr-library.yml"
+
+jobs:
+  unit-tests:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+        node-version:
+          - 10
+          - 12
+          - 14
+    runs-on: ${{ matrix.os }}
+    name: Unit tests Node ${{ matrix.node-version }} on ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          check-latest: true
+      - name: Install dependencies
+        run: npm install
+      - name: Run unit tests
+        run: npm test
+
+  integration-tests:
+    needs: unit-tests
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+        node-version:
+          - 10
+          - 12
+          - 14
+    runs-on: ${{ matrix.os }}
+    name: Integration tests Node ${{ matrix.node-version }} on ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          check-latest: true
+      - name: Install dependencies
+        run: npm install
+      - name: Run integration tests
+        run: npm run test:integration
+        env:
+          VCAP_SERVICES: ${{ secrets.TENANT_CREDENTIALS_EU10_PLAYGROUND }}
+
+  sonarcloud:
+    runs-on: ubuntu-latest
+    name: Sonar Cloud Scan
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@v1.5
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
