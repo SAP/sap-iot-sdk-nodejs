@@ -1,12 +1,13 @@
-name: PR Library
+name: Library
 
 on:
   workflow_dispatch:
-  pull_request:
+  push:
+    branches: [main]
     paths-ignore:
-      - "**.md"
       - "samples/**"
       - ".github/workflows/pr-samples.yml"
+      - ".github/workflows/pr-library.yml"
 
 jobs:
   unit-tests:
@@ -61,30 +62,6 @@ jobs:
         run: npm run test:integration
         env:
           VCAP_SERVICES: ${{ secrets.TENANT_CREDENTIALS_EU10_PLAYGROUND }}
-
-  lint:
-    runs-on: ubuntu-latest
-    name: Lint SDK
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-      - name: Install dependencies
-        run: npm install
-      - name: Lint SDK
-        run: npm run lint
-
-  dependency-check:
-    runs-on: ubuntu-latest
-    name: Check SDK dependencies
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-      - name: Install dependencies
-        run: npm install
-      - name: Run dependency check
-        run: npm run checkDependencies
 
   sonarcloud:
     runs-on: ubuntu-latest
