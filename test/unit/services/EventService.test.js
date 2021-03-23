@@ -49,7 +49,10 @@ describe('Event Service', function () {
     it('should read multiple events with different query parameters', function () {
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
-          url: `${appiotMdsUrl}/Events?$select=_thingId,_status&$orderby=_thingId&$top=10&$skip=5`,
+          url: `${appiotMdsUrl}/Events`,
+          qs: {
+            $select: '_thingId,_status', $orderby: '_thingId', $top: 10, $skip: 5,
+          },
         });
       };
 
@@ -62,7 +65,8 @@ describe('Event Service', function () {
       const thingId = 'MyThing';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
-          url: `${appiotMdsUrl}/Events?$filter=_thingId eq '${thingId}'`,
+          url: `${appiotMdsUrl}/Events`,
+          qs: { $filter: `_thingId eq '${thingId}'` },
         });
       };
 
@@ -73,7 +77,8 @@ describe('Event Service', function () {
       const thingId = 'MyThing';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
-          url: `${appiotMdsUrl}/Events?$filter=_status eq 'Completed' and _thingId eq '${thingId}'`,
+          url: `${appiotMdsUrl}/Events`,
+          qs: { $filter: `_status eq 'Completed' and _thingId eq '${thingId}'` },
         });
       };
 

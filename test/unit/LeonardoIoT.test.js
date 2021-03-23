@@ -86,6 +86,7 @@ describe('LeonardoIoT', function () {
           method: 'GET',
           headers: testHeaders,
           body: {},
+          qs: {},
           agentOptions: {},
           resolveWithFullResponse: false,
         });

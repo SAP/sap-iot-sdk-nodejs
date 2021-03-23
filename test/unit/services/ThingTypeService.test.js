@@ -46,9 +46,12 @@ describe('Thing Type Service', function () {
 
     it('should read single thingType with query parameters', function () {
       const thingTypeName = 'MyThingType';
+      const queryParatemeters = {};
+      queryParatemeters[queryKey] = queryValue;
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
-          url: `${configThingUrl}/ThingConfiguration/v1/ThingTypes('${thingTypeName}')?${queryKey}=${queryValue}`,
+          url: `${configThingUrl}/ThingConfiguration/v1/ThingTypes('${thingTypeName}')`,
+          qs: queryParameters,
         });
       };
       return client.getThingType(thingTypeName, queryParameters);
@@ -64,9 +67,12 @@ describe('Thing Type Service', function () {
     });
 
     it('should read multiple thingTypes with query parameters', function () {
+      const queryParatemeters = {};
+      queryParatemeters[queryKey] = queryValue;
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
-          url: `${configThingUrl}/ThingConfiguration/v1/ThingTypes?${queryKey}=${queryValue}`,
+          url: `${configThingUrl}/ThingConfiguration/v1/ThingTypes`,
+          qs: queryParameters,
         });
       };
       return client.getThingTypes(queryParameters);
@@ -84,9 +90,12 @@ describe('Thing Type Service', function () {
 
     it('should read multiple thingType by package with query parameters', function () {
       const packageName = 'MyPackage';
+      const queryParatemeters = {};
+      queryParatemeters[queryKey] = queryValue;
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
-          url: `${configThingUrl}/ThingConfiguration/v1/Packages('${packageName}')/ThingTypes?${queryKey}=${queryValue}`,
+          url: `${configThingUrl}/ThingConfiguration/v1/Packages('${packageName}')/ThingTypes`,
+          qs: queryParatemeters,
         });
       };
       return client.getThingTypesByPackage(packageName, queryParameters);

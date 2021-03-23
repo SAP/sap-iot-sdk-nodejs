@@ -77,7 +77,8 @@ describe('Time Series Store', function () {
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
           method: 'POST',
-          url: `${appiotMdsUrl}/Things('${thingId}')/${thingTypeName}/${propertySetName}/RecalculateAggregate?timerange=${fromTime}-${toTime}`,
+          url: `${appiotMdsUrl}/Things('${thingId}')/${thingTypeName}/${propertySetName}/RecalculateAggregate`,
+          qs: { timerange: `${fromTime}-${toTime}` },
         });
       };
 
