@@ -33,11 +33,6 @@ jobs:
         run: npm install
       - name: Run unit tests
         run: npm test
-      - name: Archive code coverage results
-        uses: actions/upload-artifact@v2
-        with:
-          name: code-coverage-report
-          path: coverage
 
   lint:
     runs-on: ubuntu-latest
@@ -49,12 +44,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Lint SDK
-        run: npm run lint:ci
-      - name: Archive EsLint results
-        uses: actions/upload-artifact@v2
-        with:
-          name: lint-report
-          path: lint
+        run: npm run lint
 
   sonarcloud:
     needs: [unit-tests, lint]
@@ -64,16 +54,29 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: Download code coverage results
-      uses: actions/download-artifact@v2
-      with:
-        name: code-coverage-report
-        path: coverage
-    - name: Download lint results
-      uses: actions/download-artifact@v1
+    - name: Setup Node
+      uses: actions/setup-node@v2
+    - name: Install dependencies
+      run: npm install
+    - name: Lint SDK
+      run: npm run lint:ci
+    - name: Upload ESLint results
+      uses: actions/upload-artifact@v2
       with:
         name: lint-report
         path: lint
+    - name: Run unit tests
+      run: npm test
+    - name: Upload code coverage results
+      uses: actions/upload-artifact@v2
+      with:
+        name: code-coverage-report
+        path: coverage
+    - name: Resolve file paths for Sonar
+      shell: bash
+      run: |
+        sed -i 's+/home/runner/work/sap-iot-sdk-nodejs/sap-iot-sdk-nodejs+/github/workspace+g' coverage/lcov.info
+        sed -i 's+/home/runner/work/sap-iot-sdk-nodejs/sap-iot-sdk-nodejs+/github/workspace+g' lint/results.json
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@v1.5
       env:
