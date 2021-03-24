@@ -16,6 +16,10 @@ class AssertionUtil {
       ? assert.deepStrictEqual(requestConfig.headers, expected.headers, 'Unexpected headers')
       : assert(!requestConfig.headers, 'Unexpected headers');
     // eslint-disable-next-line no-unused-expressions
+    expected.qs
+      ? assert.deepStrictEqual(requestConfig.qs, expected.qs, 'Unexpected queryParameters')
+      : assert(!requestConfig.qs, 'Unexpected queryParameters');
+    // eslint-disable-next-line no-unused-expressions
     expected.body
       ? assert.deepStrictEqual(requestConfig.body, expected.body, 'Unexpected body')
       : assert(!requestConfig.body, 'Unexpected body');

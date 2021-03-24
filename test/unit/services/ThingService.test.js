@@ -59,7 +59,10 @@ describe('Thing Service', function () {
     it('should read multiple things with different query parameters', function () {
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
-          url: `${appiotMdsUrl}/Things?$select=_id,_name&$orderby=_id&$top=10&$skip=5`,
+          url: `${appiotMdsUrl}/Things`,
+          qs: {
+            $select: '_id,_name', $orderby: '_id', $top: 10, $skip: 5,
+          },
         });
       };
 
@@ -72,7 +75,8 @@ describe('Thing Service', function () {
       const thingTypeName = 'MyThingType';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
-          url: `${appiotMdsUrl}/Things?$filter=_thingType eq '${thingTypeName}'`,
+          url: `${appiotMdsUrl}/Things`,
+          qs: { $filter: `_thingType eq '${thingTypeName}'` },
         });
       };
 
@@ -83,7 +87,8 @@ describe('Thing Service', function () {
       const thingTypeName = 'MyThingType';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
-          url: `${appiotMdsUrl}/Things?$filter=_name eq 'test' and _thingType eq '${thingTypeName}'`,
+          url: `${appiotMdsUrl}/Things`,
+          qs: { $filter: `_name eq 'test' and _thingType eq '${thingTypeName}'` },
         });
       };
 

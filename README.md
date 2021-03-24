@@ -1,10 +1,8 @@
 # SAP IoT SDK for Node.js
 [![Library](https://github.com/SAP/sap-iot-sdk-nodejs/actions/workflows/library.yml/badge.svg)](https://github.com/SAP/sap-iot-sdk-nodejs/actions/workflows/library.yml)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=sap-iot-sdk-nodejs&metric=security_rating)](https://sonarcloud.io/dashboard?id=sap-iot-sdk-nodejs)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=sap-iot-sdk-nodejs&metric=alert_status)](https://sonarcloud.io/dashboard?id=sap-iot-sdk-nodejs)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=sap-iot-sdk-nodejs&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=sap-iot-sdk-nodejs)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=sap-iot-sdk-nodejs&metric=bugs)](https://sonarcloud.io/dashboard?id=sap-iot-sdk-nodejs)
-
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=sap-iot-sdk-nodejs&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=sap-iot-sdk-nodejs)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=sap-iot-sdk-nodejs&metric=security_rating)](https://sonarcloud.io/dashboard?id=sap-iot-sdk-nodejs)
 
 **Table of Contents**
 - [Description](#description)

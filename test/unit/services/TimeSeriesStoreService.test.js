@@ -55,9 +55,12 @@ describe('Time Series Store', function () {
       const thingId = 'MyThing';
       const thingTypeName = 'MyThingType';
       const propertySetId = 'MyPropertySet';
+      const queryParatemeters = {};
+      queryParatemeters[queryKey] = queryValue;
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
-          url: `${appiotMdsUrl}/Things('${thingId}')/${thingTypeName}/${propertySetId}?${queryKey}=${queryValue}`,
+          url: `${appiotMdsUrl}/Things('${thingId}')/${thingTypeName}/${propertySetId}`,
+          qs: queryParatemeters,
         });
       };
 
@@ -72,7 +75,8 @@ describe('Time Series Store', function () {
       const toTime = '2019-06-15T20:00:00Z';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
-          url: `${appiotMdsUrl}/Things('${thingId}')/${thingTypeName}/${propertySetId}?timerange=${fromTime}-${toTime}`,
+          url: `${appiotMdsUrl}/Things('${thingId}')/${thingTypeName}/${propertySetId}`,
+          qs: { timerange: `${fromTime}-${toTime}` },
           method: 'DELETE',
         });
       };

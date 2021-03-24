@@ -29,3 +29,6 @@ coverage
 
 # Sonar Scan
 .scannerwork
+
+# Lint Result output from ESLint
+lint

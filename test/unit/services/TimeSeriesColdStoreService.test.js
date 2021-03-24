@@ -36,7 +36,8 @@ describe('Time Series Cold Store Service', function () {
       const toTime = '2019-01-15T20:00:00Z';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
-          url: `${appiotColdstoreUrl}/Things('${thingId}')/${thingTypeName}/${propertySetId}?timerange=${fromTime}-${toTime}`,
+          url: `${appiotColdstoreUrl}/Things('${thingId}')/${thingTypeName}/${propertySetId}`,
+          qs: { timerange: `${fromTime}-${toTime}` },
         });
       };
 
@@ -51,8 +52,9 @@ describe('Time Series Cold Store Service', function () {
       const toTime = '2019-01-15T20:00:00Z';
       client.request = (requestConfig) => {
         AssertionUtil.assertRequestConfig(requestConfig, {
-          url: `${appiotColdstoreUrl}/Things('${thingId}')/${thingTypeName}/${propertySetId}?timerange=${fromTime}-${toTime}`,
+          url: `${appiotColdstoreUrl}/Things('${thingId}')/${thingTypeName}/${propertySetId}`,
           method: 'DELETE',
+          qs: { timerange: `${fromTime}-${toTime}` },
         });
       };
 
