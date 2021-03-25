@@ -19,7 +19,7 @@ For Cloud Foundry deployments, all credentials are fetched from application serv
 
 2.1) Remove existing .env files from project root directory
 
-2.2) Copy [template file](https://github.com/SAP/sap-iot-sdk-nodejs/blob/main/default-env-template.json) and store it in the projects root directory 
+2.2) Follow [this step](https://github.com/SAP/sap-iot-sdk-nodejs#2-setup-authorization-for-local-usage) and store the file in the projects root directory 
 
 2.3) Copy Leonardo IoT service key of your tenant into template and rename the file to `default-env.json`.
 
