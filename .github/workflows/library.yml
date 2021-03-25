@@ -83,7 +83,7 @@ jobs:
       shell: bash
       run: |
         printf "Reading package.json from ./package.json"
-        PACKAGE_VERSION=$(cat ${PACKAGE_JSON_PATH}/package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
+        PACKAGE_VERSION=$(cat ./package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
         printf "Version is $PACKAGE_VERSION"
         echo ::set-output name=version::$PACKAGE_VERSION
     - name: SonarCloud Scan
