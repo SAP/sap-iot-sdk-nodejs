@@ -133,3 +133,13 @@ jobs:
         run: npm install
       - name: Run dependency check
         run: npm run checkDependencies
+
+  check-markdown-links:
+    runs-on: ubuntu-latest
+    name: Check for dead links in markdown documents
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run markdown link check
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          file-path: './README.md, ./MIGRATION-GUIDE.md'
