@@ -10,7 +10,7 @@ This coding is a sample showcase how to use SAP Leonardo IoT JavaScript SDK func
 - [3) Thing onboarding including configuration setup](./sample_3_thing_setup.js)
 - [4) Read and write thing data into time series store](./sample_4_thing_data.js)
 - [5) Express server application reading things and packages](./sample_5_express_application.js)
-- [6) Data ingestion for IoT Services device with MQTT or REST gateway](./sample_6_data_ingestion_iot_services)
+- [6) Data ingestion for IoT Services device with MQTT or REST gateway](./sample_6_data_ingestion_iot_services.js)
 - [7) Migrate models from one tenant to another](./sample_7_multi_tenant_model_migration.js)
 
 ## How to run a sample

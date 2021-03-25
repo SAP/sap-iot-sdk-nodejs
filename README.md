@@ -202,7 +202,7 @@ const things = await client.getThings(
 ```
 
 ## Samples
-We created a a few quick start samples demonstrating the SAP IoT JavaScript SDK functionality in a easy and simple adoptable way. Please have a look into the [***sample***](./sample) subdirectory for further information and coding samples.
+We created a a few quick start samples demonstrating the SAP IoT JavaScript SDK functionality in a easy and simple adoptable way. Please have a look into the [***samples***](./samples) subdirectory for further information and coding samples.
 
 ## Authorization Concept
 Each request to SAP IoT services requires an authorization token provided by an UAA instance to ensure authorization and authentication.
