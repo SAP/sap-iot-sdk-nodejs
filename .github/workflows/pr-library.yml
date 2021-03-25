@@ -81,9 +81,9 @@ jobs:
       id: app-version
       shell: bash
       run: |
-        printf "Reading package.json from ./package.json"
+        printf %"s\n" "Reading package.json from ./package.json"
         PACKAGE_VERSION=$(cat ./package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
-        printf "Version is $PACKAGE_VERSION"
+        printf %"s\n" "Version is ${PACKAGE_VERSION}"
         echo ::set-output name=version::$PACKAGE_VERSION
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@v1.5
