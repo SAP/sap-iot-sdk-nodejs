@@ -78,11 +78,22 @@ jobs:
       run: |
         sed -i 's+/home/runner/work/sap-iot-sdk-nodejs/sap-iot-sdk-nodejs+/github/workspace+g' coverage/lcov.info
         sed -i 's+/home/runner/work/sap-iot-sdk-nodejs/sap-iot-sdk-nodejs+/github/workspace+g' lint/results.json
+    - name: Extract application version
+      id: app-version
+      shell: bash
+      run: |
+        printf "Reading package.json from ./package.json"
+        PACKAGE_VERSION=$(cat ${PACKAGE_JSON_PATH}/package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
+        printf "Version is $PACKAGE_VERSION"
+        echo ::set-output name=version::$PACKAGE_VERSION
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@v1.5
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        args: |
+          -Dsonar.projectVersion=${{ steps.app-version.outputs.version}}
 
   integration-tests:
     needs: sonarcloud
