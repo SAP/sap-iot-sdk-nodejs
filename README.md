@@ -14,7 +14,8 @@
 - [Samples](#samples)
 - [Authorization Concept](#authorization-concept)
 - [FAQ](#faq)
-- [Known Issues](#known-issues)
+- [Contributions](#contribute-to-this-project)
+- [Support](#how-to-obtain-support)
 - [License](#license)
 
 ## Description
@@ -428,10 +429,13 @@ const clientDevTenant = new LeonardoIoT('dev-tenant');
 const clientTestTenant = new LeonardoIoT('test-tenant');
 ```
 
-## Known Issues
-Please make use of the well known Github Issues functionality to check existing and report new issues related to the SAP IoT SDK.
+## Contribute to this project
+Please check our [Contribution Guidelines](https://github.com/SAP/sap-iot-sdk-nodejs/blob/main/CONTRIBUTING.md). Your input and support is welcome!
+
+## How to obtain support
+Please follow our [Contribution Guidelines](https://github.com/SAP/sap-iot-sdk-nodejs/blob/main/CONTRIBUTING.md) on how to report an issue.
 
 ## License
 Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
 
-This file is licensed under the Apache Software License, v. 2 except as noted otherwise in the [LICENSE file](LICENSE).
+This file is licensed under the Apache Software License, v. 2 except as noted otherwise in the [LICENSE file](LICENSES/LICENSE).
