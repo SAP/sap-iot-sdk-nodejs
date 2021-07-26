@@ -1,5 +1,6 @@
 # SAP IoT SDK for Node.js
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP/sap-iot-sdk-nodejs)](https://api.reuse.software/info/github.com/SAP/sap-iot-sdk-nodejs)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Library](https://github.com/SAP/sap-iot-sdk-nodejs/actions/workflows/library.yml/badge.svg)](https://github.com/SAP/sap-iot-sdk-nodejs/actions/workflows/library.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=sap-iot-sdk-nodejs&metric=alert_status)](https://sonarcloud.io/dashboard?id=sap-iot-sdk-nodejs)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=sap-iot-sdk-nodejs&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=sap-iot-sdk-nodejs)
