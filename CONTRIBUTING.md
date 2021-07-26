@@ -1,5 +1,32 @@
-## 💻 Contributing Code
+## 📝 Reporting Issues
 
+### Requirements for a Bug Report
+
+1. **Only SAP IoT SDK issues**
+    * Please do not report:
+        * Issues caused by dependencies or plugins.
+        * Issues caused by the use of non-public/internal methods. Only the public methods listed in the API documentation may be used.
+2. **No duplicate**: You have searched the [issue tracker](https://github.com/SAP/sap-iot-sdk-nodejs/issues) to make sure the bug has not yet been reported.
+3. **Good summary**: The summary should be specific to the issue.
+4. **Current bug**: The bug can be reproduced in the most current version.
+5. **Reproducible bug**: There are step-by-step instructions provided on how to reproduce the issue.
+6. **Well-documented**:
+    * Precisely state the expected and the actual behavior.
+    * Give information about the environment in which the issue occurs (OS/Platform, Node.js version, etc.).
+    * Generally, give as much additional information as possible.
+8. **Only one bug per report**: Open additional tickets for additional issues.
+9. **Please report bugs in English.**
+
+### Reporting Security Issues
+If you find a security issue, act responsibly and do not report it in the public issue tracker, but directly to us. This allows us to provide a fix before it can be exploited.
+
+- **Researchers/non-Customers:** Send the related information to secure@sap.com using [PGP for e-mail encryption](http://global.sap.com/pc/security/keyblock.txt).  
+- **SAP Customers:** If the security issue is not covered by a published security note, please report it by creating a customer message at https://service.sap.com/message.
+
+Also refer to the general [SAP security information page](https://www.sap.com/corporate/en/company/security.html).
+
+
+## 💻 Contributing Code
 ### General Remarks
 You are welcome to contribute code to the SAP IoT SDK in order to fix bugs or to implement new features.
 There are two important things to know:
