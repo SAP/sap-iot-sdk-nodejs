@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: sap-iot-sdk
-Upstream-Contact: SAP IoT Open Source SDK <openui5@sap.com>
+Upstream-Contact: SAP IoT Open Source SDK Team <DL_60FE8259F5B687027ED7DB62@global.corp.sap>
 Source: https://github.com/SAP/sap-iot-sdk-nodejs
 Disclaimer: The code in this project may include calls to APIs (“API Calls”) of
  SAP or third-party products or services developed outside of this project
