@@ -16,7 +16,6 @@
 - [FAQ](#faq)
 - [Contributions](#contribute-to-this-project)
 - [Support](#how-to-obtain-support)
-- [License](#license)
 
 ## Description
 The SAP IoT SDK for Node.js implements the consumer side usage of the most frequent used APIs of SAP IoT. 
@@ -434,8 +433,3 @@ Please check our [Contribution Guidelines](https://github.com/SAP/sap-iot-sdk-no
 
 ## How to obtain support
 Please follow our [Contribution Guidelines](https://github.com/SAP/sap-iot-sdk-nodejs/blob/main/CONTRIBUTING.md) on how to report an issue.
-
-## License
-Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
-
-This file is licensed under the Apache Software License v2 except as noted otherwise in the [LICENSE file](LICENSES/LICENSE).
