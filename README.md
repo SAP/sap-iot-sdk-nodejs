@@ -429,7 +429,7 @@ const clientTestTenant = new LeonardoIoT('test-tenant');
 ```
 
 ## Contribute to this project
-Please check our [Contribution Guidelines](https://github.com/SAP/sap-iot-sdk-nodejs/blob/main/CONTRIBUTING.md). Your input and support is welcome!
+Please check our [Contribution Guidelines](./CONTRIBUTING.md). Your input and support is welcome!
 
 ## How to obtain support
-Please follow our [Contribution Guidelines](https://github.com/SAP/sap-iot-sdk-nodejs/blob/main/CONTRIBUTING.md) on how to report an issue.
+Please follow our [Contribution Guidelines](./CONTRIBUTING.md) on how to report an issue.
