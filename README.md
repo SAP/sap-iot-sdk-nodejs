@@ -1,4 +1,6 @@
 # SAP IoT SDK for Node.js
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP/sap-iot-sdk-nodejs)](https://api.reuse.software/info/github.com/SAP/sap-iot-sdk-nodejs)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Library](https://github.com/SAP/sap-iot-sdk-nodejs/actions/workflows/library.yml/badge.svg)](https://github.com/SAP/sap-iot-sdk-nodejs/actions/workflows/library.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=sap-iot-sdk-nodejs&metric=alert_status)](https://sonarcloud.io/dashboard?id=sap-iot-sdk-nodejs)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=sap-iot-sdk-nodejs&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=sap-iot-sdk-nodejs)
@@ -12,8 +14,8 @@
 - [Samples](#samples)
 - [Authorization Concept](#authorization-concept)
 - [FAQ](#faq)
-- [Known Issues](#known-issues)
-- [License](#license)
+- [Contributions](#contribute-to-this-project)
+- [Support](#how-to-obtain-support)
 
 ## Description
 The SAP IoT SDK for Node.js implements the consumer side usage of the most frequent used APIs of SAP IoT. 
@@ -426,10 +428,8 @@ const clientDevTenant = new LeonardoIoT('dev-tenant');
 const clientTestTenant = new LeonardoIoT('test-tenant');
 ```
 
-## Known Issues
-Please make use of the well known Github Issues functionality to check existing and report new issues related to the SAP IoT SDK.
+## Contribute to this project
+Please check our [Contribution Guidelines](./CONTRIBUTING.md). Your input and support is welcome!
 
-## License
-Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
-
-This file is licensed under the Apache Software License, v. 2 except as noted otherwise in the [LICENSE file](LICENSE).
+## How to obtain support
+Please follow our [Contribution Guidelines](./CONTRIBUTING.md) on how to report an issue.
