@@ -18,7 +18,7 @@
 9. **Please report bugs in English.**
 
 ### Reporting Security Issues
-If you find a security issue, act responsibly and do not report it in the public issue tracker, but directly to us. Please refer [here for more information](https://github.com/SAP/sap-iot-sdk-nodejs/blob/main/SECURITY.md).
+If you find a security issue, act responsibly and do not report it in the public issue tracker, but directly to us. Please refer [here for more information](./SECURITY.md).
 
 
 ## 💻 Contributing Code
