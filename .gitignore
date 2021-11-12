@@ -32,3 +32,6 @@ coverage
 
 # Lint Result output from ESLint
 lint
+
+# Visual Studio Code
+.vscode
