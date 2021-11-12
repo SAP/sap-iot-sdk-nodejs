@@ -52,16 +52,16 @@ describe('Read All Entities', function () {
     assert(things.value.length > 0);
   });
 
-  it('should read all thingsfiltered by name', async function () {
+  it('should read all things filtered by name', async function () {
     const things = await client.getThingsByThingType(DataHelper.thingType().Name, { $filter: '_name ne \'xyz\'' });
     assert(things.value.length > 0);
-    assert.strictEqual(things.value[0]._name, DataHelper.data.thing._name);
+    assert.strictEqual(things.value[0]._name, DataHelper.thing()._name);
   });
 
   it('should read all things by thingtype', async function () {
     const things = await client.getThingsByThingType(DataHelper.thingType().Name);
     [DataHelper.data.thing] = things.value;
     assert(things.value.length > 0);
-    assert.strictEqual(things.value[0]._name, DataHelper.data.thing._name);
+    assert.strictEqual(things.value[0]._name, DataHelper.thing()._name);
   });
 });
