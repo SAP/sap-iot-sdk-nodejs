@@ -23,13 +23,13 @@
     "lib/"
   ],
   "scripts": {
-    "lint:fix": "eslint --max-warnings=0 --fix --ext .js,.json .",
+    "checkDependencies": "depcheck .",
     "lint": "eslint --max-warnings=0 --ext .js,.json .",
     "lint:ci": "eslint -f json -o lint/results.json --max-warnings=0 --ext .js,.json .",
-    "test": "nyc mocha test/unit",
-    "test:integration": "cross-env DEBUG=LeonardoIoT nyc --check-coverage=false mocha test/integration --sort --bail --config ./test/integration/.integration-mocharc.json",
+    "lint:fix": "eslint --max-warnings=0 --fix --ext .js,.json .",
     "prepareRelease": "npm prune --production",
-    "checkDependencies": "depcheck ."
+    "test": "nyc mocha test/unit",
+    "test:integration": "cross-env DEBUG=LeonardoIoT nyc --check-coverage=false mocha test/integration --sort --bail --config ./test/integration/.integration-mocharc.json"
   },
   "dependencies": {
     "@sap/xsenv": "^3.1.1",
