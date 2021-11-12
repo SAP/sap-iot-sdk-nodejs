@@ -1,9 +1,10 @@
 # Changelog for SAP IoT SDK for Node.js
 
-## 0.2.2 <sub><sup>(11/2021)</sup></sub>
+## 1.0.0 <sub><sup>(11/2021)</sup></sub>
 * Bump dependency versions
 * Fix eslint errors
 * Introduce dependabot
+* Remove events functionality (service deprecated and removed)
 
 ## 0.2.1 <sub><sup>(03/2021)</sup></sub>
 * Enhance internal usage of query parameters
