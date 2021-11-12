@@ -1,6 +1,6 @@
 ## Migration Guide
 This migration guide supports you in adapting your source code from the deprecated [IoT Application Services SDK](https://github.com/SAP/iot-application-services-sdk-nodejs) to the newly released [SAP Leonardo IoT SDK](https://github.com/SAP/sap-iot-sdk-nodejs) step by step.
-Before starting the migration we highly recommend to read the [documentation](https://github.com/SAP/sap-iot-sdk-nodejs/blob/main/README.md) and have a look at the samples of the new SDK to ensure all concepts and features are known.
+Before starting the migration we highly recommend to read the [documentation](./README.md) and have a look at the samples of the new SDK to ensure all concepts and features are known.
 
 #### 1) Update Dependency
 Remove existing dependency from package.json via command:
@@ -37,7 +37,7 @@ const client = new LeonardoIoT();
 ```
 
 #### 4) Adapt service calls
-All functionality from the [feature overview table](https://github.com/SAP/sap-iot-sdk-nodejs/blob/main/README.md#feature-overview) can be called by a designated function of the instantiated Leonardo IoT client:  
+All functionality from the [feature overview table](./README.md#feature-overview) can be called by a designated function of the instantiated Leonardo IoT client:  
 
 ```js
 const LeonardoIoT = require('sap-iot-sdk');
