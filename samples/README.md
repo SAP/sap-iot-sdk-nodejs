@@ -1,7 +1,7 @@
-# SAP Leonardo IoT SDK Samples
+# SAP IoT SDK Samples
 
 ## Remark
-This coding is a sample showcase how to use SAP Leonardo IoT JavaScript SDK functionality, it is no official product of SAP SE. This code is free of public documentation and support and will not be maintained. Only SAP SE is allowed to share and publish this source code, receivers are allowed to align their coding to this sample. 
+This coding is a sample showcase how to use SAP IoT JavaScript SDK functionality, it is no official product of SAP SE. This code is free of public documentation and support and will not be maintained. Only SAP SE is allowed to share and publish this source code, receivers are allowed to align their coding to this sample. 
 
 ## Samples
 
@@ -19,7 +19,7 @@ This coding is a sample showcase how to use SAP Leonardo IoT JavaScript SDK func
 First please make sure that the authorization credentials are maintained in your local environment by using a `default-env.json` file within the sample folder. For more details about setting up a local definition for authorization please check the linked [***SDK's readme section***](../README.md#authorization-concept) Option 2.
 
 #### Install dependencies
-Next all dependencies including the SAP Leonardo IoT SDK itself has to be installed via NPM.
+Next all dependencies including the SAP IoT SDK itself has to be installed via NPM.
 ```
 $ npm install
 ```

@@ -1,5 +1,5 @@
 /**
- * This sample shows how multiple Leonardo IoT clients for different
+ * This sample shows how multiple SAP IoT clients for different
  * tenants / subaccounts can be created and used for data migration.
  * In this scenario we have a source (quality assurance)
  * and a target (development) tenant for model migration.

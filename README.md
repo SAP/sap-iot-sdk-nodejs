@@ -252,7 +252,7 @@ A very flexible and secure way of providing credentials is by fetching the tenan
 To make use of this option add the service broker service binding into the `manifest.yml` file, which is used for application deployment:
 ```
    services:
-    - <LeonardoIoTServiceName>
+    - <SAPIoTServiceName>
 ```
 
 Next you can directly create a SAP IoT client within your coding without providing any other information:
@@ -295,7 +295,8 @@ This example shows how the `default-env.json` could look like for using the SAP 
       {
         "name": <ANY NAME>,
         "tags": [
-          "leonardoiot"
+          "leonardoiot",
+          "sapiot"
         ],
         "credentials": <PASTE SAP IOT SERVICE KEY HERE>
       }

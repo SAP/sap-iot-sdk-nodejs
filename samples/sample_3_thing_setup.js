@@ -61,7 +61,7 @@ async function createThing() {
   const thingPayload = {
     _name: 'SampleThing',
     _description: {
-      en: 'Sample thing created with SAP Leonardo IoT SDK',
+      en: 'Sample thing created with SAP IoT SDK',
     },
     _thingType: [thingTypePayload.Name],
     _objectGroup: rootObjectGroup.objectGroupID,

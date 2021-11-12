@@ -65,7 +65,7 @@ describe('ConfigurationProvider', function () {
       process.env.VCAP_SERVICES = JSON.parse(JSON.stringify(tmpVcapServices));
     });
 
-    it('should get existing leonardo iot service by tag', function () {
+    it('should get existing SAP IoT service by tag', function () {
       const service = ConfigurationProvider._getService({ tag: 'leonardoiot' });
       assert.strictEqual(service.tags[0], 'leonardoiot', 'Unexpected service');
     });

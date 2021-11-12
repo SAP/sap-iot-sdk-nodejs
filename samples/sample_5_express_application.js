@@ -1,5 +1,5 @@
 /**
- * This sample application shows how the SAP Leonardo IoT SDK can be used within an Node.js express application
+ * This sample application shows how the SAP IoT SDK can be used within an Node.js express application
  */
 
 const express = require('express');
@@ -9,7 +9,7 @@ const client = new LeonardoIoT();
 const app = express();
 
 app.get('/', async (req, res) => {
-  res.send('SAP Leonardo IoT express sample application');
+  res.send('SAP IoT express sample application');
 });
 
 /**
