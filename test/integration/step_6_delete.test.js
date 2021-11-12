@@ -9,13 +9,6 @@ describe('Delete Entities', function () {
     client = new LeonardoIoT();
   });
 
-  it('should delete all events', async function () {
-    const events = await client.getEventsByThingId(DataHelper.data.thing._id);
-    assert(events.value.length > 0, 'No event found for deletion');
-    const deleteEventPromises = events.value.map((event) => client.deleteEvent(event._id));
-    return Promise.all(deleteEventPromises);
-  });
-
   it('should delete all things', async function () {
     const things = await client.getThingsByThingType(DataHelper.thingType().Name);
     assert(things.value.length > 0, 'No thing found for deletion');

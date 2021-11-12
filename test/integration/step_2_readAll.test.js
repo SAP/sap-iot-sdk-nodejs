@@ -64,22 +64,4 @@ describe('Read All Entities', function () {
     assert(things.value.length > 0);
     assert.strictEqual(things.value[0]._name, DataHelper.data.thing._name);
   });
-
-  it('should read all events', async function () {
-    const events = await client.getEvents();
-    assert(events.value.length > 0);
-  });
-
-  it('should read all events filtered by status', async function () {
-    const events = await client.getEventsByThingId(DataHelper.data.thing._id, { $filter: '_status ne \'InProcess\'' });
-    assert(events.value.length > 0);
-    assert.strictEqual(events.value[0]._thingId, DataHelper.data.thing._id);
-  });
-
-  it('should read all events by thing id', async function () {
-    const events = await client.getEventsByThingId(DataHelper.data.thing._id);
-    [DataHelper.data.event] = events.value;
-    assert(events.value.length > 0);
-    assert.strictEqual(events.value[0]._thingId, DataHelper.data.thing._id);
-  });
 });

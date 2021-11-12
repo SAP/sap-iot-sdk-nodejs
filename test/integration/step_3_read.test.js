@@ -43,9 +43,4 @@ describe('Read Single Entities', function () {
     const response = await client.getThingByAlternateId(DataHelper.data.thing._alternateId);
     assert.strictEqual(response._alternateId, DataHelper.data.thing._alternateId);
   });
-
-  it('should read an event', async function () {
-    const response = await client.getEvent(DataHelper.data.event._id);
-    assert.strictEqual(response._id, DataHelper.data.event._id);
-  });
 });

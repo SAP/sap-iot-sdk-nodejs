@@ -31,11 +31,4 @@ describe('Create Entities', function () {
   it('should create a thing', function () {
     return client.createThing(DataHelper.thing());
   });
-
-  it('should create an event', async function () {
-    const things = await client.getThingsByThingType(DataHelper.thingType().Name);
-    assert.strictEqual(things.value[0]._name, DataHelper.thing()._name);
-    [DataHelper.data.thing] = things.value;
-    return client.createEvent(DataHelper.event());
-  });
 });
