@@ -14,10 +14,11 @@ describe('Cleanup and Prepare', function () {
 
   // eslint-disable-next-line consistent-return
   it('should do cleanup', async function () {
-    const packageExists = await client.getPackage(DataHelper.package().Name).catch(() => {
+    this.timeout(180000);
+    const package = await client.getPackage(DataHelper.package().Name).catch(() => {
       assert.ok(true, 'Package not found');
     });
-    if (packageExists) {
+    if (package) {
       await requestHelper.deletePackageCascading(client, DataHelper.package().Name);
     }
     const objectGroupResponse = await client.getObjectGroups({

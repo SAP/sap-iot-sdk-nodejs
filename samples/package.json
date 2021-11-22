@@ -5,15 +5,15 @@
   "license": "Apache-2.0",
   "author": "SAP SE",
   "scripts": {
-    "lint:fix": "eslint --fix --ext .js,.json .",
+    "checkDependencies": "depcheck .",
     "lint": "eslint --ext .js,.json .",
+    "lint:fix": "eslint --fix --ext .js,.json .",
     "start": "node --inspect server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "checkDependencies": "depcheck ."
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "async-mqtt": "2.3.0",
-    "debug": "^4.1.1",
+    "async-mqtt": "2.6.1",
+    "debug": "^4.3.1",
     "express": "^4.17.1",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.8",
