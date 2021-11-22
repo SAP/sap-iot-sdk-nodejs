@@ -17,3 +17,11 @@ coverage
 
 # Lint Result output from ESLint
 lint
+
+# eslint ignores hidden files by default
+!.*
+**/node_modules
+
+# Visual Studio Code
+.vscode
+

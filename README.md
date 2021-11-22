@@ -36,7 +36,6 @@ It is required to have access to an SAP IoT account to make use of this SDK.
 | Property Set Type | X      | X    |        | X      |
 | Thing Type        | X      | X    |        | X      |
 | Thing             | X      | X    |        | X      |
-| Event             | X      | X    |        | X      |
 | Object Group      | X      | X    |        | X      |
 
 ### Time Series Data

@@ -8,12 +8,7 @@ async function deletePackageCascading(client, packageName) {
   const thingTypes = await client.getThingTypesByPackage(packageName).then((result) => result.d.results);
   const thingTypeDeletePromises = thingTypes.map(async (thingType) => {
     const thingsResponse = await client.getThingsByThingType(thingType.Name).then((result) => result.value);
-    const thingDeletePromises = thingsResponse.map(async (thing) => {
-      const events = await client.getEventsByThingId(thing._id).then((result) => result.value);
-      const eventDeletePromises = events.map((event) => client.deleteEvent(event._id));
-      await Promise.all(eventDeletePromises);
-      return client.deleteThing(thing._id);
-    });
+    const thingDeletePromises = thingsResponse.map(async (thing) => client.deleteThing(thing._id));
     await Promise.all(thingDeletePromises);
     const thingTypeResponse = await client.getThingType(thingType.Name, {}, { resolveWithFullResponse: true });
     return client.deleteThingType(thingType.Name, thingTypeResponse.headers.etag);

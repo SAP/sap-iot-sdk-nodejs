@@ -60,17 +60,6 @@ class DataHelper {
       _objectGroup: DataHelper.rootObjectGroup.objectGroupID,
     };
   }
-
-  static event() {
-    return {
-      _businessTimeStamp: new Date().toISOString(),
-      _status: 'Open',
-      _code: 'T1',
-      _thingId: DataHelper.data.thing._id,
-      _severity: 2,
-      _description: 'SDK Event',
-    };
-  }
 }
 
 module.exports = DataHelper;
