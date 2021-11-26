@@ -145,3 +145,4 @@ jobs:
         uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:
           max-depth: 1
+          use-verbose-mode: 'yes'
