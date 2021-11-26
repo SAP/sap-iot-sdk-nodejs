@@ -144,4 +144,4 @@ jobs:
       - name: Run markdown link check
         uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:
-          max-depth: 0
+          max-depth: 1
