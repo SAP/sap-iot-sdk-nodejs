@@ -20,6 +20,7 @@ jobs:
           - 10
           - 12
           - 14
+          - 16
     runs-on: ${{ matrix.os }}
     name: Unit tests Node ${{ matrix.node-version }} on ${{ matrix.os }}
     steps:
@@ -106,6 +107,7 @@ jobs:
           - 10
           - 12
           - 14
+          - 16
     runs-on: ${{ matrix.os }}
     name: Integration tests Node ${{ matrix.node-version }} on ${{ matrix.os }}
     steps:
