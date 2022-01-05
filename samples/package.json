@@ -29,6 +29,6 @@
     "eslint-plugin-node": "^11.1.0"
   },
   "engines": {
-    "node": ">10"
+    "node": ">=10"
   }
 }
