@@ -1,4 +1,9 @@
+# DEPRECATED
+
+Based on latest [SAP IoT announcements](https://help.sap.com/docs/SAP_IoT/81d9f9ab5a3b430f83430c9f41aacb27/6cecee30539341a7964ac43d12da86a5.html), this software will not experience any development of new features anymore. We will continue fixing bugs and we will apply required security fixes, as required.
+
 # SAP IoT SDK for Node.js
+
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP/sap-iot-sdk-nodejs)](https://api.reuse.software/info/github.com/SAP/sap-iot-sdk-nodejs)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Library](https://github.com/SAP/sap-iot-sdk-nodejs/actions/workflows/library.yml/badge.svg)](https://github.com/SAP/sap-iot-sdk-nodejs/actions/workflows/library.yml)
