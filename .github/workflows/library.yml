@@ -73,14 +73,14 @@ jobs:
       - name: Lint SDK
         run: npm run lint:ci
       - name: Upload ESLint results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: lint-report
           path: lint
       - name: Run unit tests
         run: npm test
       - name: Upload code coverage results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: code-coverage-report
           path: coverage
