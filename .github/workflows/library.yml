@@ -26,7 +26,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     name: Unit tests Node ${{ matrix.node-version }} on ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Lint SDK
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Node
         uses: actions/setup-node@v2
       - name: Install dependencies
@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Sonar Cloud Scan
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Setup Node
@@ -114,7 +114,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     name: Integration tests Node ${{ matrix.node-version }} on ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
