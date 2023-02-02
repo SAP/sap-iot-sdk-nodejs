@@ -32,7 +32,7 @@ jobs:
           check-latest: true
           cache: 'npm'
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Run unit tests
         run: npm test
 
@@ -48,7 +48,7 @@ jobs:
           check-latest: true
           cache: 'npm'
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Lint SDK
         run: npm run lint
 
@@ -67,7 +67,7 @@ jobs:
           check-latest: true
           cache: 'npm'
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Lint SDK
         run: npm run lint:ci
       - name: Upload ESLint results
@@ -128,7 +128,7 @@ jobs:
           check-latest: true
           cache: 'npm'
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Run integration tests
         run: npm run test:integration
         env:
@@ -146,7 +146,7 @@ jobs:
           check-latest: true
           cache: 'npm'
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Run dependency check
         run: npm run checkDependencies
 
