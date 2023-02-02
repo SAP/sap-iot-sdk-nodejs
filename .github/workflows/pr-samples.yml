@@ -20,7 +20,7 @@ jobs:
           check-latest: true
           cache: 'npm'
       - name: Install dependencies
-        run: npm ci
+        run: npm install
         working-directory: ./samples
       - name: Lint samples
         run: npm run lint
@@ -38,7 +38,7 @@ jobs:
           check-latest: true
           cache: 'npm'
       - name: Install dependencies
-        run: npm ci
+        run: npm install
         working-directory: ./samples
       - name: Run dependency check
         run: npm run checkDependencies
