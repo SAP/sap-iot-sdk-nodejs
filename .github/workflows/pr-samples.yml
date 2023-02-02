@@ -12,9 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     name: Lint samples
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Node
         uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          check-latest: true
+          cache: 'npm'
       - name: Install dependencies
         run: npm install
         working-directory: ./samples
@@ -26,9 +30,13 @@ jobs:
     runs-on: ubuntu-latest
     name: Check samples dependencies
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Node
         uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          check-latest: true
+          cache: 'npm'
       - name: Install dependencies
         run: npm install
         working-directory: ./samples
@@ -40,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Check for dead links in markdown documents
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Run markdown link check
         uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:

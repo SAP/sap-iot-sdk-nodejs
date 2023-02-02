@@ -26,12 +26,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     name: Unit tests Node ${{ matrix.node-version }} on ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           check-latest: true
+          cache: 'npm'
       - name: Install dependencies
         run: npm install
       - name: Run unit tests
@@ -41,9 +42,13 @@ jobs:
     runs-on: ubuntu-latest
     name: Lint SDK
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Node
         uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          check-latest: true
+          cache: 'npm'
       - name: Install dependencies
         run: npm install
       - name: Lint SDK
@@ -54,11 +59,15 @@ jobs:
     runs-on: ubuntu-latest
     name: Sonar Cloud Scan
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Setup Node
         uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          check-latest: true
+          cache: 'npm'
       - name: Install dependencies
         run: npm install
       - name: Lint SDK
@@ -114,12 +123,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     name: Integration tests Node ${{ matrix.node-version }} on ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           check-latest: true
+          cache: 'npm'
       - name: Install dependencies
         run: npm install
       - name: Run integration tests
