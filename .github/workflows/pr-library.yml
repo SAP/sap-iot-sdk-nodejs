@@ -96,7 +96,7 @@ jobs:
           printf %"s\n" "Version is ${PACKAGE_VERSION}"
           echo ::set-output name=version::$PACKAGE_VERSION
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v1.6
+        uses: SonarSource/sonarcloud-github-action@v1.8
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
