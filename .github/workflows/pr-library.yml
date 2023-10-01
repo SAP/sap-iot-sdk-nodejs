@@ -24,7 +24,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     name: Unit tests Node ${{ matrix.node-version }} on ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Lint SDK
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Sonar Cloud Scan
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Setup Node
@@ -120,7 +120,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     name: Integration tests Node ${{ matrix.node-version }} on ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -138,7 +138,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Check SDK dependencies
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -154,7 +154,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Check for dead links in markdown documents
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run markdown link check
         uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:

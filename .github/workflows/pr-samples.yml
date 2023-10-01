@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Lint samples
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Check samples dependencies
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -48,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Check for dead links in markdown documents
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run markdown link check
         uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:
